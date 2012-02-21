@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListExcersiceTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListExcersiceEmpty}" rendered="#{excersiceController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{excersiceController.items.rowCount > 0}">
+                    <h:outputText value="#{excersiceController.pagination.pageFirstItem + 1}..#{excersiceController.pagination.pageLastItem + 1}/#{excersiceController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{excersiceController.previous}" value="#{bundle.Previous} #{excersiceController.pagination.pageSize}" rendered="#{excersiceController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{excersiceController.next}" value="#{bundle.Next} #{excersiceController.pagination.pageSize}" rendered="#{excersiceController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{excersiceController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListExcersiceTitle_idExcersice}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idExcersice}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListExcersiceTitle_name}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListExcersiceTitle_description}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.description}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListExcersiceTitle_type}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.type}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{excersiceController.prepareView}" value="#{bundle.ListExcersiceViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{excersiceController.prepareEdit}" value="#{bundle.ListExcersiceEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{excersiceController.destroy}" value="#{bundle.ListExcersiceDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{excersiceController.prepareCreate}" value="#{bundle.ListExcersiceCreateLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ListExcersiceIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

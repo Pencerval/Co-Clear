@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body">
+                <h1 class="title ui-widget-header ui-corner-all">Listado de estímulos</h1>
+                <h:form enctype="multipart/form-data">  
+                    <p:dataTable var="stimulus" value="#{stimulusControllerPlus.stimuluses}" rowKey="#{stimulus.idStimulus}" paginator="true" rows="10"  
+                                 selection="#{stimulusControllerPlus.selectedStimulus}" selectionMode="single" id="stimulusTable">  
+                        <f:facet name="header">  
+                            Lista de estimulos  
+                        </f:facet>  
+                        <p:column headerText="ID" sortBy="#{stimulus.idStimulus}" filterBy="#{stimulus.idStimulus}" id="ID">  
+                            #{stimulus.idStimulus}  
+                        </p:column>  
+                        <p:column headerText="Grupo" sortBy="#{stimulus.idStimulusGroup.name}" filterBy="#{stimulus.idStimulusGroup.name}" id="group">  
+                            #{stimulus.idStimulusGroup.name}  
+                        </p:column>  
+                        <p:column headerText="Nombre" sortBy="#{stimulus.name}" filterBy="#{stimulus.name}" id="name">  
+                            #{stimulus.name}  
+                        </p:column>  
+                        <p:column headerText="Acciones" id="actions">  
+                            <p:button outcome="View" icon="bookmark">  
+                                <f:param name="id" value="#{stimulus.idStimulus}" />  
+                            </p:button>
+                            <p:button outcome="Edit" icon="bookmark">  
+                                <f:param name="productId" value="#{stimulus.idStimulus}" />  
+                            </p:button>
+                            <p:commandButton value="Delete" update="stimulusTable" id="delete"  
+                                             actionListener="#{stimulusControllerPlus.delete}" >
+                                <f:param name="id" value="#{stimulus}" /> 
+                            </p:commandButton>
+                        </p:column>  
+                    </p:dataTable> 
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

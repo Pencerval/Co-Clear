@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body">
+                <h1 class="title ui-widget-header ui-corner-all">Estadisticas de usuario</h1>
+                <h:form id="form">  
+                    <p:panel header="Selecciona el usuario" style="margin-bottom:10px;"> 
+                        <p:dataTable id="usersTable" var="user" value="#{userBriefingsController.users}" rowKey="#{user.idUser}" paginator="true" rows="10"  
+                                     selection="#{userBriefingsController.selectedUser}" selectionMode="single" >  
+                            <p:ajax event="rowSelect" listener="#{userBriefingsController.onUserSelect}" update=":form:taskTable"/>
+                            <f:facet name="header">  
+                                Selecciona el usuario:
+                            </f:facet>  
+                            <p:column headerText="ID" sortBy="#{user.idUser}" filterBy="#{user.idUser}" id="ID">  
+                                #{user.idUser} 
+                            </p:column>  
+                            <p:column headerText="Login" sortBy="#{user.login}" filterBy="#{user.login}" id="login">  
+                                #{user.login}
+                            </p:column>  
+                            <p:column headerText="Nombre" sortBy="#{user.name}" filterBy="#{user.name}" id="name">  
+                                #{user.name}  
+                            </p:column>  
+                        </p:dataTable> 
+                        <p:dataTable id="taskTable" var="task" value="#{userBriefingsController.tasks}" rowKey="#{task.idTask}" paginator="true" rows="10"  
+                                     selection="#{userBriefingsController.selectedTask}" selectionMode="single" >  
+                            <p:ajax event="rowSelect" update="taskTable"/>
+                            <f:facet name="header">  
+                                Selecciona la tarea:
+                            </f:facet>  
+                            <p:column headerText="ID" sortBy="#{task.idTask}" filterBy="#{task.idTask}" id="ID">  
+                                #{task.idTask} 
+                            </p:column>  
+                            <p:column headerText="Nombre" sortBy="#{task.name}" filterBy="#{task.name}" id="name">  
+                                #{task.name}  
+                            </p:column>  
+                        </p:dataTable>
+                        <p:commandLink id="downloadLink" value="Download" ajax="false">  
+                            <p:fileDownload value="#{userBriefingsController.getCsv}" />  
+                        </p:commandLink>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

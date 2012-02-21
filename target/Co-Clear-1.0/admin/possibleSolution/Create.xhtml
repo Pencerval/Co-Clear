@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePossibleSolutionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePossibleSolutionLabel_correct}" for="correct" />
+                    <h:inputText id="correct" value="#{possibleSolutionController.selected.correct}" title="#{bundle.CreatePossibleSolutionTitle_correct}" required="true" requiredMessage="#{bundle.CreatePossibleSolutionRequiredMessage_correct}"/>
+                    <h:outputLabel value="#{bundle.CreatePossibleSolutionLabel_idExcersice}" for="idExcersice" />
+                    <h:selectOneMenu id="idExcersice" value="#{possibleSolutionController.selected.idExcersice}" title="#{bundle.CreatePossibleSolutionTitle_idExcersice}" required="true" requiredMessage="#{bundle.CreatePossibleSolutionRequiredMessage_idExcersice}">
+                        <f:selectItems value="#{excersiceController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreatePossibleSolutionLabel_idAnswer}" for="idAnswer" />
+                    <h:selectOneMenu id="idAnswer" value="#{possibleSolutionController.selected.idAnswer}" title="#{bundle.CreatePossibleSolutionTitle_idAnswer}" required="true" requiredMessage="#{bundle.CreatePossibleSolutionRequiredMessage_idAnswer}">
+                        <f:selectItems value="#{answerController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{possibleSolutionController.create}" value="#{bundle.CreatePossibleSolutionSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{possibleSolutionController.prepareList}" value="#{bundle.CreatePossibleSolutionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreatePossibleSolutionIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

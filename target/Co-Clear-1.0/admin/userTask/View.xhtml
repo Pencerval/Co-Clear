@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewUserTaskTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewUserTaskLabel_idUserTask}"/>
+                    <h:outputText value="#{userTaskController.selected.idUserTask}" title="#{bundle.ViewUserTaskTitle_idUserTask}"/>
+                    <h:outputText value="#{bundle.ViewUserTaskLabel_complete}"/>
+                    <h:outputText value="#{userTaskController.selected.complete}" title="#{bundle.ViewUserTaskTitle_complete}"/>
+                    <h:outputText value="#{bundle.ViewUserTaskLabel_idUser}"/>
+                    <h:outputText value="#{userTaskController.selected.idUser}" title="#{bundle.ViewUserTaskTitle_idUser}"/>
+                    <h:outputText value="#{bundle.ViewUserTaskLabel_idTask}"/>
+                    <h:outputText value="#{userTaskController.selected.idTask}" title="#{bundle.ViewUserTaskTitle_idTask}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{userTaskController.destroyAndView}" value="#{bundle.ViewUserTaskDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewUserTaskEditLink}"/>
+                <br />
+                <h:commandLink action="#{userTaskController.prepareCreate}" value="#{bundle.ViewUserTaskCreateLink}" />
+                <br />
+                <h:commandLink action="#{userTaskController.prepareList}" value="#{bundle.ViewUserTaskShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewUserTaskIndexLink}" action="/admin/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

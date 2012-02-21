@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateExerciseStimulusMapTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateExerciseStimulusMapLabel_idStimulus}" for="idStimulus" />
+                    <h:selectOneMenu id="idStimulus" value="#{exerciseStimulusMapController.selected.idStimulus}" title="#{bundle.CreateExerciseStimulusMapTitle_idStimulus}" required="true" requiredMessage="#{bundle.CreateExerciseStimulusMapRequiredMessage_idStimulus}">
+                        <f:selectItems value="#{stimulusController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateExerciseStimulusMapLabel_idExcersice}" for="idExcersice" />
+                    <h:selectOneMenu id="idExcersice" value="#{exerciseStimulusMapController.selected.idExcersice}" title="#{bundle.CreateExerciseStimulusMapTitle_idExcersice}" required="true" requiredMessage="#{bundle.CreateExerciseStimulusMapRequiredMessage_idExcersice}">
+                        <f:selectItems value="#{excersiceController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{exerciseStimulusMapController.create}" value="#{bundle.CreateExerciseStimulusMapSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{exerciseStimulusMapController.prepareList}" value="#{bundle.CreateExerciseStimulusMapShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreateExerciseStimulusMapIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

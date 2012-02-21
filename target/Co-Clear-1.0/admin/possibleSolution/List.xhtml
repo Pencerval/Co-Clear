@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListPossibleSolutionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListPossibleSolutionEmpty}" rendered="#{possibleSolutionController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{possibleSolutionController.items.rowCount > 0}">
+                    <h:outputText value="#{possibleSolutionController.pagination.pageFirstItem + 1}..#{possibleSolutionController.pagination.pageLastItem + 1}/#{possibleSolutionController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{possibleSolutionController.previous}" value="#{bundle.Previous} #{possibleSolutionController.pagination.pageSize}" rendered="#{possibleSolutionController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{possibleSolutionController.next}" value="#{bundle.Next} #{possibleSolutionController.pagination.pageSize}" rendered="#{possibleSolutionController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{possibleSolutionController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPossibleSolutionTitle_idPossibleSolution}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idPossibleSolution}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPossibleSolutionTitle_correct}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.correct}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPossibleSolutionTitle_idExcersice}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idExcersice}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPossibleSolutionTitle_idAnswer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idAnswer}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{possibleSolutionController.prepareView}" value="#{bundle.ListPossibleSolutionViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{possibleSolutionController.prepareEdit}" value="#{bundle.ListPossibleSolutionEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{possibleSolutionController.destroy}" value="#{bundle.ListPossibleSolutionDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{possibleSolutionController.prepareCreate}" value="#{bundle.ListPossibleSolutionCreateLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ListPossibleSolutionIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

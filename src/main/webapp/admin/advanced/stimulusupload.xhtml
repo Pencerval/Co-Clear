@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body">
+                <h1 class="title ui-widget-header ui-corner-all">Subida de estímulos</h1>
+                <h:form enctype="multipart/form-data">  
+                    <p:panel id="panel" header="Selecciona un grupo de estímulos" style="margin-bottom:10px;"> 
+                        <h:panelGrid columns="2" > 
+                            <h:outputLabel value="Nombre del grupo de estímulo: "/>
+                            <p:selectOneMenu value="#{stimulusUploadController.stimulusGroupSelected}" effect="fade" converter="#{StimulusGroupControllerConverter}">  
+                                <f:ajax listener="#{stimulusUploadController.stimulusGroupSelectedChanged}" />
+                                <f:selectItems value="#{stimulusUploadController.stimulusGroupList}" var="stimulusGroupSelected" itemLabel="#{stimulusGroupSelected.name}" itemValue="#{stimulusGroupSelected}"/>  
+                            </p:selectOneMenu>  
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:panel id="panel2" header="Puedes añadir un grupo si fuera necesario" style="margin-bottom:10px;"> 
+                        <p:messages />  
+                        <h:panelGrid columns="3">  
+                            <p:message for="nombre" /> 
+                            <h:outputLabel for="nombre" value="Nombre: " style="margin-top:10px;"/>  
+                            <p:inputText id="nombre" value="#{stimulusUploadController.stimulusGroupInput.name}" required="true" label="Nombre">  
+                                <f:validateLength minimum="2" />  
+                            </p:inputText> 
+
+                        </h:panelGrid>
+                        <p:commandButton value="Crear grupo" update="panel" ajax="true" actionListener="#{stimulusUploadController.saveStimulusGroup}" style="margin-top:10px;"/>
+                    </p:panel>
+                
+                <p:panel id="panel3" header="Añadir estímulos al grupo" style="margin-bottom:10px;"> 
+                        <p:fileUpload fileUploadListener="#{stimulusUploadController.uploadStimulus}"  
+                                      mode="advanced"  
+                                      multiple="true"  
+                                      sizeLimit="1000000"   
+                                      update="messages"
+                                      allowTypes="/(\.|\/)(wav)$/"
+                                      /> 
+                                      <!--allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Estímulos"-->
+                                      
+                                       
+                    <p:growl id="messages" showDetail="true"/>  
+                </p:panel>
+            </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

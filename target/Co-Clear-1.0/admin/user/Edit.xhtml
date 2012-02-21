@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditUserTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditUserLabel_login}" for="login" />
+                    <h:inputText id="login" value="#{userController.selected.login}" title="#{bundle.EditUserTitle_login}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_login}"/>
+                    <h:outputLabel value="#{bundle.EditUserLabel_password}" for="password" />
+                    <h:inputText id="password" value="#{userController.selected.password}" title="#{bundle.EditUserTitle_password}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_password}"/>
+                    <h:outputLabel value="#{bundle.EditUserLabel_email}" for="email" />
+                    <h:inputText id="email" value="#{userController.selected.email}" title="#{bundle.EditUserTitle_email}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{userController.selected.name}" title="#{bundle.EditUserTitle_name}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_birthdate}" for="birthdate" />
+                    <h:inputText id="birthdate" value="#{userController.selected.birthdate}" title="#{bundle.EditUserTitle_birthdate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditUserLabel_phone}" for="phone" />
+                    <h:inputText id="phone" value="#{userController.selected.phone}" title="#{bundle.EditUserTitle_phone}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_gender}" for="gender" />
+                    <h:inputText id="gender" value="#{userController.selected.gender}" title="#{bundle.EditUserTitle_gender}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_isAdmin}" for="isAdmin" />
+                    <h:inputText id="isAdmin" value="#{userController.selected.isAdmin}" title="#{bundle.EditUserTitle_isAdmin}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_isAdmin}"/>
+                    <h:outputLabel value="#{bundle.EditUserLabel_hearingLossDate}" for="hearingLossDate" />
+                    <h:inputText id="hearingLossDate" value="#{userController.selected.hearingLossDate}" title="#{bundle.EditUserTitle_hearingLossDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditUserLabel_causeDeafnes}" for="causeDeafnes" />
+                    <h:inputText id="causeDeafnes" value="#{userController.selected.causeDeafnes}" title="#{bundle.EditUserTitle_causeDeafnes}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_degreeDeafness}" for="degreeDeafness" />
+                    <h:inputText id="degreeDeafness" value="#{userController.selected.degreeDeafness}" title="#{bundle.EditUserTitle_degreeDeafness}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_durationHearingLoss}" for="durationHearingLoss" />
+                    <h:inputText id="durationHearingLoss" value="#{userController.selected.durationHearingLoss}" title="#{bundle.EditUserTitle_durationHearingLoss}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_implantationDate}" for="implantationDate" />
+                    <h:inputText id="implantationDate" value="#{userController.selected.implantationDate}" title="#{bundle.EditUserTitle_implantationDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditUserLabel_cochlearImplantType}" for="cochlearImplantType" />
+                    <h:inputText id="cochlearImplantType" value="#{userController.selected.cochlearImplantType}" title="#{bundle.EditUserTitle_cochlearImplantType}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_cochlearImplantModel}" for="cochlearImplantModel" />
+                    <h:inputText id="cochlearImplantModel" value="#{userController.selected.cochlearImplantModel}" title="#{bundle.EditUserTitle_cochlearImplantModel}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_signLanguage}" for="signLanguage" />
+                    <h:inputText id="signLanguage" value="#{userController.selected.signLanguage}" title="#{bundle.EditUserTitle_signLanguage}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_signLanguageYears}" for="signLanguageYears" />
+                    <h:inputText id="signLanguageYears" value="#{userController.selected.signLanguageYears}" title="#{bundle.EditUserTitle_signLanguageYears}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_speechReading}" for="speechReading" />
+                    <h:inputText id="speechReading" value="#{userController.selected.speechReading}" title="#{bundle.EditUserTitle_speechReading}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_speechReadingYears}" for="speechReadingYears" />
+                    <h:inputText id="speechReadingYears" value="#{userController.selected.speechReadingYears}" title="#{bundle.EditUserTitle_speechReadingYears}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_speechTherapy}" for="speechTherapy" />
+                    <h:inputText id="speechTherapy" value="#{userController.selected.speechTherapy}" title="#{bundle.EditUserTitle_speechTherapy}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_speechTherapyYears}" for="speechTherapyYears" />
+                    <h:inputText id="speechTherapyYears" value="#{userController.selected.speechTherapyYears}" title="#{bundle.EditUserTitle_speechTherapyYears}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_educationalOrientation}" for="educationalOrientation" />
+                    <h:inputText id="educationalOrientation" value="#{userController.selected.educationalOrientation}" title="#{bundle.EditUserTitle_educationalOrientation}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_educationalOrientationYears}" for="educationalOrientationYears" />
+                    <h:inputText id="educationalOrientationYears" value="#{userController.selected.educationalOrientationYears}" title="#{bundle.EditUserTitle_educationalOrientationYears}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_bilingual}" for="bilingual" />
+                    <h:inputText id="bilingual" value="#{userController.selected.bilingual}" title="#{bundle.EditUserTitle_bilingual}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_languages}" for="languages" />
+                    <h:inputText id="languages" value="#{userController.selected.languages}" title="#{bundle.EditUserTitle_languages}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_homeLanguages}" for="homeLanguages" />
+                    <h:inputText id="homeLanguages" value="#{userController.selected.homeLanguages}" title="#{bundle.EditUserTitle_homeLanguages}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_learningLenguages}" for="learningLenguages" />
+                    <h:inputText id="learningLenguages" value="#{userController.selected.learningLenguages}" title="#{bundle.EditUserTitle_learningLenguages}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_learningLenguagesList}" for="learningLenguagesList" />
+                    <h:inputText id="learningLenguagesList" value="#{userController.selected.learningLenguagesList}" title="#{bundle.EditUserTitle_learningLenguagesList}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_placeYearsResidence}" for="placeYearsResidence" />
+                    <h:inputText id="placeYearsResidence" value="#{userController.selected.placeYearsResidence}" title="#{bundle.EditUserTitle_placeYearsResidence}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_placeYearsResidenceMother}" for="placeYearsResidenceMother" />
+                    <h:inputText id="placeYearsResidenceMother" value="#{userController.selected.placeYearsResidenceMother}" title="#{bundle.EditUserTitle_placeYearsResidenceMother}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_placeYearsResidenceFather}" for="placeYearsResidenceFather" />
+                    <h:inputText id="placeYearsResidenceFather" value="#{userController.selected.placeYearsResidenceFather}" title="#{bundle.EditUserTitle_placeYearsResidenceFather}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_comments}" for="comments" />
+                    <h:inputText id="comments" value="#{userController.selected.comments}" title="#{bundle.EditUserTitle_comments}" />
+                    <h:outputLabel value="#{bundle.EditUserLabel_adminComments}" for="adminComments" />
+                    <h:inputText id="adminComments" value="#{userController.selected.adminComments}" title="#{bundle.EditUserTitle_adminComments}" />
+                </h:panelGrid>
+                <h:commandLink action="#{userController.update}" value="#{bundle.EditUserSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditUserViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{userController.prepareList}" value="#{bundle.EditUserShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditUserIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

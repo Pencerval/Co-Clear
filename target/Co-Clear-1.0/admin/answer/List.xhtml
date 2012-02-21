@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListAnswerTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListAnswerEmpty}" rendered="#{answerController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{answerController.items.rowCount > 0}">
+                    <h:outputText value="#{answerController.pagination.pageFirstItem + 1}..#{answerController.pagination.pageLastItem + 1}/#{answerController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{answerController.previous}" value="#{bundle.Previous} #{answerController.pagination.pageSize}" rendered="#{answerController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{answerController.next}" value="#{bundle.Next} #{answerController.pagination.pageSize}" rendered="#{answerController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{answerController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAnswerTitle_idAnswer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idAnswer}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAnswerTitle_name}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAnswerTitle_valueName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.valueName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAnswerTitle_example}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.example}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAnswerTitle_idAnswerGroup}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idAnswerGroup}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{answerController.prepareView}" value="#{bundle.ListAnswerViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{answerController.prepareEdit}" value="#{bundle.ListAnswerEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{answerController.destroy}" value="#{bundle.ListAnswerDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{answerController.prepareCreate}" value="#{bundle.ListAnswerCreateLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ListAnswerIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

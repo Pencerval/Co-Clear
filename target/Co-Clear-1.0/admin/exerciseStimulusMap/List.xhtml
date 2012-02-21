@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListExerciseStimulusMapTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListExerciseStimulusMapEmpty}" rendered="#{exerciseStimulusMapController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{exerciseStimulusMapController.items.rowCount > 0}">
+                    <h:outputText value="#{exerciseStimulusMapController.pagination.pageFirstItem + 1}..#{exerciseStimulusMapController.pagination.pageLastItem + 1}/#{exerciseStimulusMapController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{exerciseStimulusMapController.previous}" value="#{bundle.Previous} #{exerciseStimulusMapController.pagination.pageSize}" rendered="#{exerciseStimulusMapController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{exerciseStimulusMapController.next}" value="#{bundle.Next} #{exerciseStimulusMapController.pagination.pageSize}" rendered="#{exerciseStimulusMapController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{exerciseStimulusMapController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListExerciseStimulusMapTitle_idExerciseStimulusMap}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idExerciseStimulusMap}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListExerciseStimulusMapTitle_idStimulus}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idStimulus}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListExerciseStimulusMapTitle_idExcersice}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idExcersice}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{exerciseStimulusMapController.prepareView}" value="#{bundle.ListExerciseStimulusMapViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{exerciseStimulusMapController.prepareEdit}" value="#{bundle.ListExerciseStimulusMapEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{exerciseStimulusMapController.destroy}" value="#{bundle.ListExerciseStimulusMapDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{exerciseStimulusMapController.prepareCreate}" value="#{bundle.ListExerciseStimulusMapCreateLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ListExerciseStimulusMapIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

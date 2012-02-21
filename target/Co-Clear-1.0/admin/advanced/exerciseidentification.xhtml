@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body">
+                <h1 class="title ui-widget-header ui-corner-all">Alta de ejercicios tipo Identificación</h1>
+                <h:form>  
+                    <p:panel id="paneltitulo" header="Titulo" style="margin-bottom:10px;"> 
+                        <h:panelGrid columns="2" > 
+                            <h:outputLabel value="Escribe un titulo para la tarea " />
+                            <p:inputText id="titulo" value="#{exerciseIdentificationController.exersice.name}" required="true" label="Nombre">  
+                                <f:validateLength minimum="2" />  
+                            </p:inputText> 
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:panel id="panel" header="Selecciona el estimulo" style="margin-bottom:10px;"> 
+                        <h:panelGrid columns="2" > 
+                            <h:outputLabel value="Grupo del estimulo: " />
+                            <p:selectOneMenu  value="#{exerciseIdentificationController.stimulusGroup}" effect="fade">  
+                                <p:ajax listener="#{exerciseIdentificationController.stimulusGroupSelectedChanged}" update="exercise"/>
+                                <f:selectItems value="#{exerciseIdentificationController.stimulusGroupList}" var="stimulusGroup" itemLabel="#{stimulusGroup.name}" itemValue="#{stimulusGroup}"/>  
+                            </p:selectOneMenu>  
+                            <h:outputLabel value="Estimulo: " />  
+                            <!--<p:selectOneMenu id="exercise" value="#{exerciseIdentificationController.stimulus}" effect="fade" var="stimulus">  
+                                <f:selectItems value="#{exerciseIdentificationController.stimulusList}" var="stimulus" itemLabel="#{stimulus.name}" itemValue="#{stimulus}"/>  
+                            --><!--<p:column>  
+                                <p:graphicImage value="/resources/images/button-play.png" width="20" height="20" onclick="document.getElementById('sound').play();"/>
+                            </p:column>  -->
+                            <!--<p:column>  
+                            #{stimulus.name}  
+                        </p:column>  
+                    </p:selectOneMenu>  
+                            -->
+                            <p:selectOneListbox id="exercise" value="#{exerciseIdentificationController.stimulus}" style="height:100px">  
+                                <f:selectItems value="#{exerciseIdentificationController.stimulusList}" var="stimulus" itemLabel="#{stimulus.name}" itemValue="#{stimulus}" />
+                            </p:selectOneListbox>  
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:panel id="panelRespuestas" header="Posibles Respuestas" style="margin-bottom:10px;"> 
+                        <h:panelGrid columns="2" > 
+                            <h:outputLabel value="Selecciona las posibles respuestas: " />
+                            <p:pickList value="#{exerciseIdentificationController.answers}" var="answer" 
+                                        itemLabel="#{answer.name}" itemValue="#{answer}" converter="answerConverter">
+                                <f:facet name="sourceCaption">Posibles</f:facet> 
+                                <f:facet name="targetCaption">Añadidas</f:facet> 
+                            </p:pickList>
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:panel id="panelRespuestaCorrecta" header="Respuesta correcta" style="margin-bottom:10px;"> 
+                        <h:panelGrid columns="2" > 
+                            <h:outputLabel value="Selecciona la respuestas correcta: " />
+                            <p:selectOneMenu  value="#{exerciseIdentificationController.correctAnswer}" effect="fade">  
+                                <f:selectItems value="#{exerciseIdentificationController.correctAnswerList}" var="answer" itemLabel="#{answer.name}" itemValue="#{answer}"/>  
+                            </p:selectOneMenu> 
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:commandButton value="Guardar" update="messages" ajax="true" actionListener="#{exerciseIdentificationController.saveExercise}" style="margin-top:10px;"/>
+                    <p:growl id="messages" showDetail="true"/>
+
+                </h:form>  
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

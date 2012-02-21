@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListUserGroupMapTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListUserGroupMapEmpty}" rendered="#{userGroupMapController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{userGroupMapController.items.rowCount > 0}">
+                    <h:outputText value="#{userGroupMapController.pagination.pageFirstItem + 1}..#{userGroupMapController.pagination.pageLastItem + 1}/#{userGroupMapController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{userGroupMapController.previous}" value="#{bundle.Previous} #{userGroupMapController.pagination.pageSize}" rendered="#{userGroupMapController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{userGroupMapController.next}" value="#{bundle.Next} #{userGroupMapController.pagination.pageSize}" rendered="#{userGroupMapController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{userGroupMapController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserGroupMapTitle_idUserGroupMap}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idUserGroupMap}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserGroupMapTitle_idUserGroup}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idUserGroup}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserGroupMapTitle_idUser}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idUser}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{userGroupMapController.prepareView}" value="#{bundle.ListUserGroupMapViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{userGroupMapController.prepareEdit}" value="#{bundle.ListUserGroupMapEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{userGroupMapController.destroy}" value="#{bundle.ListUserGroupMapDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{userGroupMapController.prepareCreate}" value="#{bundle.ListUserGroupMapCreateLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ListUserGroupMapIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

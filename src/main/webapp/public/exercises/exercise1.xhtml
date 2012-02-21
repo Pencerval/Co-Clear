@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Exercise</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body" >
+                <p:growl id="growl" showDetail="true" />  
+                <audio id="sound">
+                    <source src="http://www.tulumba.com/mp3/mogollar/yurudukdurmadan/track%2002.mp3" type="audio/mp3" />
+                    Your browser does not support the audio tag.
+                </audio>
+                <p:panel style="margin-bottom: 20px;" id="pnl" header="Ayuda" toggleable="true" toggleSpeed="500"  >
+                    <h:outputText value="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />  
+                </p:panel>
+                <p:button style="float: right;" value="Siguiente" image="ui-icon-circle-triangle-e"/>
+                <p:button value="Anterior" image="ui-icon-circle-triangle-w"/>
+                <p:panel style="margin-top: 4px;margin-bottom: 5px;" header="Elige la opción correcta">
+                    <h:panelGrid columns="1"  id="grid" style="margin: 0px auto;">
+                        <h:panelGrid columns="2"  id="grid2">
+                            <p:panel header="Opción 1">
+                                <h:panelGrid columns="2"  id="grid3">
+                                    <img alt="play" src="../resources/images/button-play.png" onclick="document.getElementById('sound').play();"/>
+                                    <img alt="play" src="../resources/images/button-check.png"/>
+                                </h:panelGrid>
+                            </p:panel>
+                            <p:panel header="Opción 2">
+                                <h:panelGrid columns="2"  id="grid4">
+                                    <h:panelGrid columns="2"  id="grid5">
+                                        <img alt="play" src="../resources/images/button-play.png" onclick="document.getElementById('sound').play();"/>
+                                        <img alt="play" src="../resources/images/button-check.png"/>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </p:panel>
+                        </h:panelGrid>
+                        <p:panel header="Estimulo prueba">
+                            <div align="center">
+                                <img alt="play" src="../resources/images/button-play.png" onclick="document.getElementById('sound').play();"/>
+                            </div>
+                        </p:panel>
+                    </h:panelGrid>
+                </p:panel>
+                <p:button value="Volver" image="ui-icon-circle-arrow-n"/>
+                <!--<p:button id="btnOk2" />
+                 <p:button id="btnOk1" />
+                -->
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>
+

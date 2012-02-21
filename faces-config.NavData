@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Faces Configuration Only" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="admin/defaultGroupTask/View.xhtml" x="1400" y="450" zoom="true"/>
+        <Node id="admin/excersice/Edit.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="admin/possibleSolution/Create.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="admin/answer/List.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="admin/userTask/List.xhtml" x="1900" y="300" zoom="true"/>
+        <Node id="admin/stimulus/Create.xhtml" x="1400" y="900" zoom="true"/>
+        <Node id="admin/taskExercise/Create.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="admin/possibleSolution/List.xhtml" x="150" y="1500" zoom="true"/>
+        <Node id="admin/task/Create.xhtml" x="1150" y="1050" zoom="true"/>
+        <Node id="public/index.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="admin/possibleSolution/View.xhtml" x="2150" y="450" zoom="true"/>
+        <Node id="admin/userGroup/View.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="admin/stimulusGroup/Edit.xhtml" x="1150" y="750" zoom="true"/>
+        <Node id="admin/taskExercise/Edit.xhtml" x="400" y="1500" zoom="true"/>
+        <Node id="admin/excersice/View.xhtml" x="1650" y="300" zoom="true"/>
+        <Node id="resources/templates/template.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="admin/userGroup/Create.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="admin/possibleSolution/Edit.xhtml" x="2400" y="300" zoom="true"/>
+        <Node id="admin/userGroupMap/Edit.xhtml" x="900" y="750" zoom="true"/>
+        <Node id="admin/userGroupMap/Create.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="admin/index.xhtml" x="400" y="1050" zoom="true"/>
+        <Node id="admin/exerciseStimulusMap/Create.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="admin/exerciseStimulusMap/Edit.xhtml" x="150" y="1200" zoom="true"/>
+        <Node id="admin/excersice/Create.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="admin/defaultGroupTask/Create.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="admin/userTask/Create.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="admin/userGroup/List.xhtml" x="900" y="1200" zoom="true"/>
+        <Node id="admin/userGroup/Edit.xhtml" x="2150" y="150" zoom="true"/>
+        <Node id="admin/defaultGroupTask/List.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="admin/stimulusGroup/View.xhtml" x="1650" y="600" zoom="true"/>
+        <Node id="admin/userGroupMap/List.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="admin/stimulusGroup/Create.xhtml" x="400" y="1200" zoom="true"/>
+        <Node id="admin/user/Edit.xhtml" x="1400" y="600" zoom="true"/>
+        <Node id="admin/result/List.xhtml" x="650" y="1350" zoom="true"/>
+        <Node id="admin/answerGroup/View.xhtml" x="2400" y="150" zoom="true"/>
+        <Node id="admin/stimulus/View.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="admin/user/List.xhtml" x="1900" y="600" zoom="true"/>
+        <Node id="admin/task/View.xhtml" x="650" y="900" zoom="true"/>
+        <Node id="index.jsf" x="650" y="600" zoom="true"/>
+        <Node id="admin/userTask/View.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="admin/answer/View.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="admin/task/List.xhtml" x="1650" y="450" zoom="true"/>
+        <Node id="admin/answerGroup/Create.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="admin/stimulus/List.xhtml" x="900" y="900" zoom="true"/>
+        <Node id="admin/answerGroup/Edit.xhtml" x="2150" y="300" zoom="true"/>
+        <Node id="admin/user/Create.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="admin/stimulusGroup/List.xhtml" x="1650" y="750" zoom="true"/>
+        <Node id="admin/excersice/List.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="admin/result/View.xhtml" x="150" y="1350" zoom="true"/>
+        <Node id="admin/exerciseStimulusMap/View.xhtml" x="650" y="1200" zoom="true"/>
+        <Node id="admin/task/Edit.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="admin/answer/Create.xhtml" x="650" y="1050" zoom="true"/>
+        <Node id="admin/taskExercise/View.xhtml" x="900" y="1050" zoom="true"/>
+        <Node id="admin/result/Edit.xhtml" x="150" y="1650" zoom="true"/>
+        <Node id="admin/stimulus/Edit.xhtml" x="1150" y="600" zoom="true"/>
+        <Node id="admin/result/Create.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="admin/answer/Edit.xhtml" x="2650" y="150" zoom="true"/>
+        <Node id="admin/defaultGroupTask/Edit.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="admin/answerGroup/List.xhtml" x="1150" y="900" zoom="true"/>
+        <Node id="admin/userTask/Edit.xhtml" x="1900" y="450" zoom="true"/>
+        <Node id="index.xhtml" x="1400" y="750" zoom="true"/>
+        <Node id="admin/taskExercise/List.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="admin/user/View.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="admin/exerciseStimulusMap/List.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="resources/templates/template2.xhtml" x="400" y="1350" zoom="true"/>
+        <Node id="admin/userGroupMap/View.xhtml" x="1650" y="150" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

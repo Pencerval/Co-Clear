@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewAnswerTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewAnswerLabel_idAnswer}"/>
+                    <h:outputText value="#{answerController.selected.idAnswer}" title="#{bundle.ViewAnswerTitle_idAnswer}"/>
+                    <h:outputText value="#{bundle.ViewAnswerLabel_name}"/>
+                    <h:outputText value="#{answerController.selected.name}" title="#{bundle.ViewAnswerTitle_name}"/>
+                    <h:outputText value="#{bundle.ViewAnswerLabel_valueName}"/>
+                    <h:outputText value="#{answerController.selected.valueName}" title="#{bundle.ViewAnswerTitle_valueName}"/>
+                    <h:outputText value="#{bundle.ViewAnswerLabel_example}"/>
+                    <h:outputText value="#{answerController.selected.example}" title="#{bundle.ViewAnswerTitle_example}"/>
+                    <h:outputText value="#{bundle.ViewAnswerLabel_idAnswerGroup}"/>
+                    <h:outputText value="#{answerController.selected.idAnswerGroup}" title="#{bundle.ViewAnswerTitle_idAnswerGroup}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{answerController.destroyAndView}" value="#{bundle.ViewAnswerDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewAnswerEditLink}"/>
+                <br />
+                <h:commandLink action="#{answerController.prepareCreate}" value="#{bundle.ViewAnswerCreateLink}" />
+                <br />
+                <h:commandLink action="#{answerController.prepareList}" value="#{bundle.ViewAnswerShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewAnswerIndexLink}" action="/admin/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

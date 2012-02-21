@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <!--<h:outputStylesheet name="css/jsfcrud.css"/>-->
+    </h:head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body" >
+                <h1 class="title ui-widget-header ui-corner-all">Introduce tus credenciales</h1>
+                <p:messages id="msgs"/> 
+                <!--<div class="logincontainersize">-->
+                    <p:panel header="Inicia sesion o crea tu usuario" styleClass="logincontainer">
+                        <h:panelGrid columns="2" cellpadding="5" >
+                            <p:panel header="Iniciar sesion" >
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:form>
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <h:outputLabel>Usuario:</h:outputLabel>
+                                            <p:inputText value="#{loginController.user}" required="true" label="user">
+                                                <f:validateLength minimum="2" />
+                                            </p:inputText>
+                                            <h:outputLabel>Password:</h:outputLabel>
+                                            <p:password value="#{loginController.pass}" feedback="ola" minLength="2"/>
+                                            </h:panelGrid>
+                                            <p:commandButton value="Entrar" ajax="false" action="#{loginController.login}" update="msgs"/> 
+                                        
+                                    </h:form>
+                                </h:panelGrid>
+                            </p:panel>
+                            <p:panel header="Crear usuario" styleClass="loginitem2">
+                                <h:panelGrid columns="1" cellpadding="5">
+                                    <h:form>
+                                        <div class="center">
+                                            <p:commandButton value="Crear usuario" ajax="false" action="#{loginController.create}" image="ui-icon ui-icon-plus" /> 
+                                        </div>
+                                    </h:form>
+                                    <p:separator/>
+                                    <h:form>
+                                        <p:commandButton value="Crear usuario an&oacute;nimo" ajax="false" action="#{loginController.anonymous}" image="ui-icon ui-icon-person" /> 
+                                    </h:form>
+                                </h:panelGrid>
+                            </p:panel>
+                        </h:panelGrid>
+                    </p:panel>
+                
+                <!--</div>-->
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditTaskTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditTaskLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{taskController.selected.name}" title="#{bundle.EditTaskTitle_name}" required="true" requiredMessage="#{bundle.EditTaskRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.EditTaskLabel_repeatable}" for="repeatable" />
+                    <h:inputText id="repeatable" value="#{taskController.selected.repeatable}" title="#{bundle.EditTaskTitle_repeatable}" required="true" requiredMessage="#{bundle.EditTaskRequiredMessage_repeatable}"/>
+                    <h:outputLabel value="#{bundle.EditTaskLabel_isUserDefault}" for="isUserDefault" />
+                    <h:inputText id="isUserDefault" value="#{taskController.selected.isUserDefault}" title="#{bundle.EditTaskTitle_isUserDefault}" required="true" requiredMessage="#{bundle.EditTaskRequiredMessage_isUserDefault}"/>
+                    <h:outputLabel value="#{bundle.EditTaskLabel_type}" for="type" />
+                    <h:inputText id="type" value="#{taskController.selected.type}" title="#{bundle.EditTaskTitle_type}" required="true" requiredMessage="#{bundle.EditTaskRequiredMessage_type}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{taskController.update}" value="#{bundle.EditTaskSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditTaskViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{taskController.prepareList}" value="#{bundle.EditTaskShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditTaskIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

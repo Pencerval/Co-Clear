@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body">
+                <h1 class="title ui-widget-header ui-corner-all">Alta de ejercicios tipo ABX (Discriminación)</h1>
+                <h:form>  
+                    <p:panel id="paneltitulo" header="Titulo" style="margin-bottom:10px;"> 
+                        <h:panelGrid columns="2" > 
+                            <h:outputLabel value="Escribe un titulo para el ejercicio: " />
+                            <p:inputText id="titulo" value="#{exerciseABXController.exersice.name}" required="true" label="Nombre">  
+                                <f:validateLength minimum="2" />  
+                            </p:inputText> 
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:panel id="panel" header="Selecciona el estimulo A" style="margin-bottom:10px;"> 
+                        <h:panelGrid columns="2" > 
+                            <h:outputLabel value="Grupo del estimulo A: " />
+                            <p:selectOneMenu  value="#{exerciseABXController.stimulusGroupA}" effect="fade">  
+                                <p:ajax listener="#{exerciseABXController.stimulusGroupASelectedChanged}" update="exercisea"/>
+                                <f:selectItems value="#{exerciseABXController.stimulusAGroupList}" var="stimulusGroupA" itemLabel="#{stimulusGroupA.name}" itemValue="#{stimulusGroupA}"/>  
+                            </p:selectOneMenu>  
+                            <h:outputLabel value="Estimulo A: " />  
+                            
+                            <p:selectOneMenu id="exercisea" value="#{exerciseABXController.stimulusA}" effect="fade" var="stimulus">  
+                                <f:selectItems value="#{exerciseABXController.stimulusAList}" var="stimulusA" itemLabel="#{stimulusA.name}" itemValue="#{stimulusA}"/>  
+                                <p:column>  
+                                    <p:graphicImage value="/resources/images/button-play.png" width="20" height="20" onclick="document.getElementById('sound').play();"/>
+                                </p:column>  
+                                <p:column>  
+                                    #{stimulus.name}  
+                                </p:column>  
+                                <!--<audio id="sound">
+                                    <source src="c:\\temp\\audio\\ #{stimulus.idStimulus}.wav" type="audio/wav" />
+                                    Your browser does not support the audio tag.
+                                </audio>-->
+                            </p:selectOneMenu>  
+                            <!-- <p:selectOneMenu value="#{exerciseABXController.stimulusA}" effect="fade">  
+                                <f:selectItems value="#{exerciseABXController.stimulusAList}" var="stimulusA" itemLabel="#{stimulusA.name}" itemValue="#{stimulusA}"/>  
+                            </p:selectOneMenu>  -->
+                            <!-- <p:selectOneMenu value="#{autoCompleteBean.selectedPlayer2}" converter="player"  
+                                             effect="fade" var="p">  
+                                <f:selectItem itemLabel="Select One" itemValue="" />  
+                                <f:selectItems value="#{autoCompleteBean.players}" var="player" itemLabel="#{player.name}" itemValue="#{player}"/>  
+
+                                <p:column>  
+                                    <p:graphicImage value="/images/barca/#{p.photo}" width="40" height="50"/>  
+                                </p:column>  
+
+                                <p:column>  
+                            #{p.name} - #{p.number}  
+                        </p:column>  
+                    </p:selectOneMenu>     
+                            -->
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:panel id="panel2" header="Selecciona el estimulo B" style="margin-bottom:10px;"> 
+                        <h:panelGrid columns="2" > 
+                            <h:outputLabel value="Grupo del estimulo B: " />
+                            <p:selectOneMenu  value="#{exerciseABXController.stimulusGroupB}" effect="fade">  
+                                <p:ajax listener="#{exerciseABXController.stimulusGroupBSelectedChanged}" update="exerciseb"/>
+                                <f:selectItems value="#{exerciseABXController.stimulusBGroupList}" var="stimulusGroupB" itemLabel="#{stimulusGroupB.name}" itemValue="#{stimulusGroupB}"/>  
+                            </p:selectOneMenu>  
+                            <h:outputLabel value="Estimulo B: " />  
+                            
+                            <p:selectOneMenu id="exerciseb" value="#{exerciseABXController.stimulusB}" effect="fade" var="stimulus">  
+                                <f:selectItems value="#{exerciseABXController.stimulusBList}" var="stimulusB" itemLabel="#{stimulusB.name}" itemValue="#{stimulusB}"/>  
+                                <p:column>  
+                                    <p:graphicImage value="/resources/images/button-play.png" width="20" height="20" onclick="document.getElementById('sound').play();"/>
+                                </p:column>  
+                                <p:column>  
+                                    #{stimulus.name}  
+                                </p:column>  
+                            </p:selectOneMenu>  
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:panel id="panel3" header="Selecciona el estimulo X" style="margin-bottom:10px;"> 
+                        <h:panelGrid columns="2" > 
+                            <h:outputLabel value="Grupo del estimulo X: " />
+                            <p:selectOneMenu  value="#{exerciseABXController.stimulusGroupX}" effect="fade">  
+                                <p:ajax listener="#{exerciseABXController.stimulusGroupXSelectedChanged}" update="exercisex"/>
+                                <f:selectItems value="#{exerciseABXController.stimulusXGroupList}" var="stimulusGroupX" itemLabel="#{stimulusGroupX.name}" itemValue="#{stimulusGroupX}"/>  
+                            </p:selectOneMenu>  
+                            <h:outputLabel value="Estimulo X: " />  
+                            
+                            <p:selectOneMenu id="exercisex" value="#{exerciseABXController.stimulusX}" effect="fade" var="stimulus">  
+                                <f:selectItems value="#{exerciseABXController.stimulusXList}" var="stimulusX" itemLabel="#{stimulusX.name}" itemValue="#{stimulusX}"/>  
+                                <p:column>  
+                                    <p:graphicImage value="/resources/images/button-play.png" width="20" height="20" onclick="document.getElementById('sound').play();"/>
+                                </p:column>  
+                                <p:column>  
+                                    #{stimulus.name}  
+                                </p:column>  
+                            </p:selectOneMenu>  
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:commandButton value="Crear ejercicio" update="messages" ajax="true" actionListener="#{exerciseABXController.saveExercise}" style="margin-top:10px;"/>
+                    <p:growl id="messages" showDetail="true"/>
+
+                </h:form>  
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

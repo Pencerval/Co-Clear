@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+        <!--<h:outputStylesheet name="css/jsfcrud.css"/>-->
+    </h:head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body" >
+                <h1 class="title ui-widget-header ui-corner-all">Administración</h1>
+                <p:accordionPanel>
+                    <p:tab title="Administración normal">
+                        <h:panelGrid columns="6">
+                            <h:form>
+                                <p:commandButton value="Subida de estímulos" ajax="false" action="advanced/stimulusupload" /> 
+                            </h:form>
+                            <h:form>
+                                <p:commandButton value="Alta de respuestas" ajax="false" action="advanced/answers" /> 
+                            </h:form>
+                            <h:form>
+                                <p:commandButton value="Alta de tareas ABX" ajax="false" action="advanced/exerciseabx" /> 
+                            </h:form>
+                            <h:form>
+                                <p:commandButton value="Alta de tareas Identificación" ajax="false" action="advanced/exerciseidentification" /> 
+                            </h:form>
+                            <h:form>
+                                <p:commandButton value="Asignación de tareas a curriculums" ajax="false" action="advanced/exercisetask" /> 
+                            </h:form>
+                            <h:form>
+                                <p:commandButton value="Asignación de curriculums a usuarios y grupos" ajax="false" action="advanced/taskgroupuser" /> 
+                            </h:form>
+                            <h:form>
+                                <p:commandButton value="Salida de resultados" ajax="false" action="advanced/briefings" /> 
+                            </h:form>
+                            <h:form>
+                                <p:commandButton value="Listado de estimulos" ajax="false" action="stimulus/ListPlus" /> 
+                            </h:form>
+                        </h:panelGrid>    
+                    </p:tab>
+                    <p:tab title="Administración avanzada">
+                        <h:form>
+                            <h:commandLink action="/admin/answer/List" value="Show All Answer Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/answerGroup/List" value="Show All AnswerGroup Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/defaultGroupTask/List" value="Show All DefaultGroupTask Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/excersice/List" value="Show All Exersice Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/exerciseStimulusMap/List" value="Show All ExerciseStimulusMap Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/possibleSolution/List" value="Show All PossibleSolution Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/result/List" value="Show All Result Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/stimulus/List" value="Show All Stimulus Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/stimulusGroup/List" value="Show All StimulusGroup Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/task/List" value="Show All Task Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/taskExercise/List" value="Show All TaskExercise Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/user/List" value="Show All User Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/userGroup/List" value="Show All UserGroup Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/userGroupMap/List" value="Show All UserGroupMap Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/userTask/List" value="Show All UserTask Items"/>
+                        </h:form>
+                    </p:tab>
+                </p:accordionPanel>
+                <!--<h:form><p:commandButton value="Hello from PrimeFaces" onclick="dlg1.show();" type="button" /><p:dialog header="PrimeFaces Dialog" widgetVar="dlg1" width="500">For more information visit <a href="http://primefaces.org">http://primefaces.org</a>.</p:dialog></h:form>-->
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

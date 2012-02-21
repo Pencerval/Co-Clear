@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body">
+                <h1 class="title ui-widget-header ui-corner-all">Alta de tareas</h1>
+                <h:form>  
+                    <p:panel id="panel" header="Crear curriculum" style="margin-bottom:10px;"> 
+                        <h:panelGrid columns="2" > 
+                            <h:outputLabel value="Nombre del curriculum: "/>
+                            <p:inputText id="nombre" value="#{exerciseTaskController.task.name}" required="false" label="Nombre"/>  
+                        </h:panelGrid>
+                        <h:outputLabel value="Selecciona las tareas " />
+                        <p:pickList value="#{exerciseTaskController.exercises}" var="exercise" 
+                                        itemLabel="#{exercise.name}" itemValue="#{exercise}" converter="exerciseConverter">
+                                 <f:facet name="sourceCaption">Posibles</f:facet> 
+                                 <f:facet name="targetCaption">Añadidas</f:facet> 
+                        </p:pickList>
+                    </p:panel>
+                    <p:commandButton value="Guardar" update="messages" ajax="true" actionListener="#{exerciseTaskController.saveTask}" style="margin-top:10px;"/>
+                    <p:growl id="messages" showDetail="true"/>
+                </h:form>  
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

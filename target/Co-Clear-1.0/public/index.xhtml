@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <!--<h:outputStylesheet name="css/jsfcrud.css"/>-->
+    </h:head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body" >
+                <!--<h:form><p:commandButton value="Hello from PrimeFaces" onclick="dlg1.show();" type="button" /><p:dialog header="PrimeFaces Dialog" widgetVar="dlg1" width="500">For more information visit <a href="http://primefaces.org">http://primefaces.org</a>.</p:dialog></h:form>-->
+                <p:panel id="panel" header="Panel del usuario" style="margin-bottom:10px;"> 
+                    <p:tabView dynamic="true" cache="true">
+                        <p:tab title="Task">
+                            <h:form>  
+                                <ul>
+                                    <c:if test="#{empty publicHomeController.incompleteTask}">
+                                        <li>
+                                            <h:outputText value="No tienes asignada ninguna tarea" />
+                                        </li>
+                                    </c:if>
+                                    <c:if test="#{!empty publicHomeController.incompleteTask}">
+                                        <c:forEach items="#{publicHomeController.incompleteTask}" var="task">
+                                            <li>
+                                                <p:commandLink action="#{publicHomeController.exerciseUrl}" style="margin-right:20px;" ajax="false">  
+                                                    <f:param name="task" value="#{task.idTask}" />
+                                                    <h:outputText value="#{task.name}" />
+                                                </p:commandLink>  
+                                            </li>
+                                        </c:forEach>
+                                    </c:if>
+                                </ul>
+                            </h:form>
+                        </p:tab>
+                        <p:tab title="Report">
+                        </p:tab>
+                        <p:tab title="User">
+                        </p:tab>
+                    </p:tabView>
+                </p:panel>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
