@@ -14,15 +14,20 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
+                                    <!-- 
+                    <h:outputLabel value="#{bundle.CreateUserTaskLabel_idUserTask}" for="idUserTask" />
+                    <h:inputText id="idUserTask" value="#{userTaskController.selected.idUserTask}" title="#{bundle.CreateUserTaskTitle_idUserTask}" required="true" requiredMessage="#{bundle.CreateUserTaskRequiredMessage_idUserTask}"/>
+                    -->
                 <h:panelGrid columns="2">
+
                     <h:outputLabel value="#{bundle.CreateUserTaskLabel_complete}" for="complete" />
                     <h:inputText id="complete" value="#{userTaskController.selected.complete}" title="#{bundle.CreateUserTaskTitle_complete}" required="true" requiredMessage="#{bundle.CreateUserTaskRequiredMessage_complete}"/>
-                    <h:outputLabel value="#{bundle.CreateUserTaskLabel_idUser}" for="idUser" />
-                    <h:selectOneMenu id="idUser" value="#{userTaskController.selected.idUser}" title="#{bundle.CreateUserTaskTitle_idUser}" required="true" requiredMessage="#{bundle.CreateUserTaskRequiredMessage_idUser}">
+                    <h:outputLabel value="#{bundle.CreateUserTaskLabel_user}" for="user" />
+                    <h:selectOneMenu id="user" value="#{userTaskController.selected.user}" title="#{bundle.CreateUserTaskTitle_user}" required="true" requiredMessage="#{bundle.CreateUserTaskRequiredMessage_user}">
                         <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateUserTaskLabel_idTask}" for="idTask" />
-                    <h:selectOneMenu id="idTask" value="#{userTaskController.selected.idTask}" title="#{bundle.CreateUserTaskTitle_idTask}" required="true" requiredMessage="#{bundle.CreateUserTaskRequiredMessage_idTask}">
+                    <h:outputLabel value="#{bundle.CreateUserTaskLabel_task}" for="task" />
+                    <h:selectOneMenu id="task" value="#{userTaskController.selected.task}" title="#{bundle.CreateUserTaskTitle_task}" required="true" requiredMessage="#{bundle.CreateUserTaskRequiredMessage_task}">
                         <f:selectItems value="#{taskController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>

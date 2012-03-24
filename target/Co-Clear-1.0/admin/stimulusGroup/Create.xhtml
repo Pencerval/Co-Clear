@@ -14,9 +14,16 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
+                                    <!-- 
+                    <h:outputLabel value="#{bundle.CreateStimulusGroupLabel_idStimulusGroup}" for="idStimulusGroup" />
+                    <h:inputText id="idStimulusGroup" value="#{stimulusGroupController.selected.idStimulusGroup}" title="#{bundle.CreateStimulusGroupTitle_idStimulusGroup}" required="true" requiredMessage="#{bundle.CreateStimulusGroupRequiredMessage_idStimulusGroup}"/>
+                    -->
                 <h:panelGrid columns="2">
+
                     <h:outputLabel value="#{bundle.CreateStimulusGroupLabel_name}" for="name" />
                     <h:inputText id="name" value="#{stimulusGroupController.selected.name}" title="#{bundle.CreateStimulusGroupTitle_name}" required="true" requiredMessage="#{bundle.CreateStimulusGroupRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.CreateStimulusGroupLabel_description}" for="description" />
+                    <h:inputText id="description" value="#{stimulusGroupController.selected.description}" title="#{bundle.CreateStimulusGroupTitle_description}" />
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{stimulusGroupController.create}" value="#{bundle.CreateStimulusGroupSaveLink}" />

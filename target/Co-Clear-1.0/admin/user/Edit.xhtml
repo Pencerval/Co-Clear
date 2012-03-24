@@ -15,6 +15,8 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditUserLabel_idUser}" for="idUser" />
+                    <h:inputText id="idUser" value="#{userController.selected.idUser}" title="#{bundle.EditUserTitle_idUser}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_idUser}"/>
                     <h:outputLabel value="#{bundle.EditUserLabel_login}" for="login" />
                     <h:inputText id="login" value="#{userController.selected.login}" title="#{bundle.EditUserTitle_login}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_login}"/>
                     <h:outputLabel value="#{bundle.EditUserLabel_password}" for="password" />

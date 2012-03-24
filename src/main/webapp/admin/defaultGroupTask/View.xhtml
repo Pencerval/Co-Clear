@@ -17,10 +17,10 @@
                 <h:panelGrid columns="2">
                     <h:outputText value="#{bundle.ViewDefaultGroupTaskLabel_idDefaultGroupTask}"/>
                     <h:outputText value="#{defaultGroupTaskController.selected.idDefaultGroupTask}" title="#{bundle.ViewDefaultGroupTaskTitle_idDefaultGroupTask}"/>
-                    <h:outputText value="#{bundle.ViewDefaultGroupTaskLabel_idUserGroup}"/>
-                    <h:outputText value="#{defaultGroupTaskController.selected.idUserGroup}" title="#{bundle.ViewDefaultGroupTaskTitle_idUserGroup}"/>
-                    <h:outputText value="#{bundle.ViewDefaultGroupTaskLabel_idTask}"/>
-                    <h:outputText value="#{defaultGroupTaskController.selected.idTask}" title="#{bundle.ViewDefaultGroupTaskTitle_idTask}"/>
+                    <h:outputText value="#{bundle.ViewDefaultGroupTaskLabel_userGroup}"/>
+                    <h:outputText value="#{defaultGroupTaskController.selected.userGroup}" title="#{bundle.ViewDefaultGroupTaskTitle_userGroup}"/>
+                    <h:outputText value="#{bundle.ViewDefaultGroupTaskLabel_task}"/>
+                    <h:outputText value="#{defaultGroupTaskController.selected.task}" title="#{bundle.ViewDefaultGroupTaskTitle_task}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{defaultGroupTaskController.destroyAndView}" value="#{bundle.ViewDefaultGroupTaskDestroyLink}"/>

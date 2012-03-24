@@ -15,8 +15,12 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditStimulusGroupLabel_idStimulusGroup}" for="idStimulusGroup" />
+                    <h:inputText id="idStimulusGroup" value="#{stimulusGroupController.selected.idStimulusGroup}" title="#{bundle.EditStimulusGroupTitle_idStimulusGroup}" required="true" requiredMessage="#{bundle.EditStimulusGroupRequiredMessage_idStimulusGroup}"/>
                     <h:outputLabel value="#{bundle.EditStimulusGroupLabel_name}" for="name" />
                     <h:inputText id="name" value="#{stimulusGroupController.selected.name}" title="#{bundle.EditStimulusGroupTitle_name}" required="true" requiredMessage="#{bundle.EditStimulusGroupRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.EditStimulusGroupLabel_description}" for="description" />
+                    <h:inputText id="description" value="#{stimulusGroupController.selected.description}" title="#{bundle.EditStimulusGroupTitle_description}" />
                 </h:panelGrid>
                 <h:commandLink action="#{stimulusGroupController.update}" value="#{bundle.EditStimulusGroupSaveLink}"/>
                 <br />

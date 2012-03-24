@@ -15,6 +15,8 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditTaskLabel_idTask}" for="idTask" />
+                    <h:inputText id="idTask" value="#{taskController.selected.idTask}" title="#{bundle.EditTaskTitle_idTask}" required="true" requiredMessage="#{bundle.EditTaskRequiredMessage_idTask}"/>
                     <h:outputLabel value="#{bundle.EditTaskLabel_name}" for="name" />
                     <h:inputText id="name" value="#{taskController.selected.name}" title="#{bundle.EditTaskTitle_name}" required="true" requiredMessage="#{bundle.EditTaskRequiredMessage_name}"/>
                     <h:outputLabel value="#{bundle.EditTaskLabel_repeatable}" for="repeatable" />
@@ -23,6 +25,10 @@
                     <h:inputText id="isUserDefault" value="#{taskController.selected.isUserDefault}" title="#{bundle.EditTaskTitle_isUserDefault}" required="true" requiredMessage="#{bundle.EditTaskRequiredMessage_isUserDefault}"/>
                     <h:outputLabel value="#{bundle.EditTaskLabel_type}" for="type" />
                     <h:inputText id="type" value="#{taskController.selected.type}" title="#{bundle.EditTaskTitle_type}" required="true" requiredMessage="#{bundle.EditTaskRequiredMessage_type}"/>
+                    <h:outputLabel value="#{bundle.EditTaskLabel_description}" for="description" />
+                    <h:inputText id="description" value="#{taskController.selected.description}" title="#{bundle.EditTaskTitle_description}" />
+                    <h:outputLabel value="#{bundle.EditTaskLabel_help}" for="help" />
+                    <h:inputText id="help" value="#{taskController.selected.help}" title="#{bundle.EditTaskTitle_help}" />
                 </h:panelGrid>
                 <h:commandLink action="#{taskController.update}" value="#{bundle.EditTaskSaveLink}"/>
                 <br />

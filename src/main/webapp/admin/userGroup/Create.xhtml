@@ -14,7 +14,11 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
+                                    <!-- <h:outputLabel value="#{bundle.CreateUserGroupLabel_idUserGroup}" for="idUserGroup" />
+                    <h:inputText id="idUserGroup" value="#{userGroupController.selected.idUserGroup}" title="#{bundle.CreateUserGroupTitle_idUserGroup}" required="true" requiredMessage="#{bundle.CreateUserGroupRequiredMessage_idUserGroup}"/>
+                    -->
                 <h:panelGrid columns="2">
+
                     <h:outputLabel value="#{bundle.CreateUserGroupLabel_name}" for="name" />
                     <h:inputText id="name" value="#{userGroupController.selected.name}" title="#{bundle.CreateUserGroupTitle_name}" required="true" requiredMessage="#{bundle.CreateUserGroupRequiredMessage_name}"/>
                     <h:outputLabel value="#{bundle.CreateUserGroupLabel_isDefault}" for="isDefault" />

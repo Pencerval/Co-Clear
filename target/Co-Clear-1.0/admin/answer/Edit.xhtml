@@ -15,14 +15,16 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditAnswerLabel_idAnswer}" for="idAnswer" />
+                    <h:inputText id="idAnswer" value="#{answerController.selected.idAnswer}" title="#{bundle.EditAnswerTitle_idAnswer}" required="true" requiredMessage="#{bundle.EditAnswerRequiredMessage_idAnswer}"/>
                     <h:outputLabel value="#{bundle.EditAnswerLabel_name}" for="name" />
                     <h:inputText id="name" value="#{answerController.selected.name}" title="#{bundle.EditAnswerTitle_name}" required="true" requiredMessage="#{bundle.EditAnswerRequiredMessage_name}"/>
                     <h:outputLabel value="#{bundle.EditAnswerLabel_valueName}" for="valueName" />
                     <h:inputText id="valueName" value="#{answerController.selected.valueName}" title="#{bundle.EditAnswerTitle_valueName}" required="true" requiredMessage="#{bundle.EditAnswerRequiredMessage_valueName}"/>
                     <h:outputLabel value="#{bundle.EditAnswerLabel_example}" for="example" />
                     <h:inputText id="example" value="#{answerController.selected.example}" title="#{bundle.EditAnswerTitle_example}" />
-                    <h:outputLabel value="#{bundle.EditAnswerLabel_idAnswerGroup}" for="idAnswerGroup" />
-                    <h:selectOneMenu id="idAnswerGroup" value="#{answerController.selected.idAnswerGroup}" title="#{bundle.EditAnswerTitle_idAnswerGroup}" required="true" requiredMessage="#{bundle.EditAnswerRequiredMessage_idAnswerGroup}">
+                    <h:outputLabel value="#{bundle.EditAnswerLabel_answerGroup}" for="answerGroup" />
+                    <h:selectOneMenu id="answerGroup" value="#{answerController.selected.answerGroup}" title="#{bundle.EditAnswerTitle_answerGroup}" required="true" requiredMessage="#{bundle.EditAnswerRequiredMessage_answerGroup}">
                         <f:selectItems value="#{answerGroupController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>

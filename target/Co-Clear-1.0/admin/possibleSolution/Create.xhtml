@@ -14,15 +14,21 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
+                                    <!-- 
+                    <h:outputLabel value="#{bundle.CreatePossibleSolutionLabel_idPossibleSolution}" for="idPossibleSolution" />
+                    <h:inputText id="idPossibleSolution" value="#{possibleSolutionController.selected.idPossibleSolution}" title="#{bundle.CreatePossibleSolutionTitle_idPossibleSolution}" required="true" requiredMessage="#{bundle.CreatePossibleSolutionRequiredMessage_idPossibleSolution}"/>
+                    -->
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreatePossibleSolutionLabel_correct}" for="correct" />
                     <h:inputText id="correct" value="#{possibleSolutionController.selected.correct}" title="#{bundle.CreatePossibleSolutionTitle_correct}" required="true" requiredMessage="#{bundle.CreatePossibleSolutionRequiredMessage_correct}"/>
-                    <h:outputLabel value="#{bundle.CreatePossibleSolutionLabel_idExcersice}" for="idExcersice" />
-                    <h:selectOneMenu id="idExcersice" value="#{possibleSolutionController.selected.idExcersice}" title="#{bundle.CreatePossibleSolutionTitle_idExcersice}" required="true" requiredMessage="#{bundle.CreatePossibleSolutionRequiredMessage_idExcersice}">
-                        <f:selectItems value="#{excersiceController.itemsAvailableSelectOne}"/>
+                    <h:outputLabel value="#{bundle.CreatePossibleSolutionLabel_order}" for="order" />
+                    <h:inputText id="order" value="#{possibleSolutionController.selected.order}" title="#{bundle.CreatePossibleSolutionTitle_order}" />
+                    <h:outputLabel value="#{bundle.CreatePossibleSolutionLabel_exercise}" for="exercise" />
+                    <h:selectOneMenu id="exercise" value="#{possibleSolutionController.selected.exercise}" title="#{bundle.CreatePossibleSolutionTitle_exercise}" required="true" requiredMessage="#{bundle.CreatePossibleSolutionRequiredMessage_exercise}">
+                        <f:selectItems value="#{exerciseController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreatePossibleSolutionLabel_idAnswer}" for="idAnswer" />
-                    <h:selectOneMenu id="idAnswer" value="#{possibleSolutionController.selected.idAnswer}" title="#{bundle.CreatePossibleSolutionTitle_idAnswer}" required="true" requiredMessage="#{bundle.CreatePossibleSolutionRequiredMessage_idAnswer}">
+                    <h:outputLabel value="#{bundle.CreatePossibleSolutionLabel_answer}" for="answer" />
+                    <h:selectOneMenu id="answer" value="#{possibleSolutionController.selected.answer}" title="#{bundle.CreatePossibleSolutionTitle_answer}" required="true" requiredMessage="#{bundle.CreatePossibleSolutionRequiredMessage_answer}">
                         <f:selectItems value="#{answerController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>

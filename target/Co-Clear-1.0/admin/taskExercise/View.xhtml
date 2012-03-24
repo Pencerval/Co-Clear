@@ -17,12 +17,12 @@
                 <h:panelGrid columns="2">
                     <h:outputText value="#{bundle.ViewTaskExerciseLabel_idTaskExercise}"/>
                     <h:outputText value="#{taskExerciseController.selected.idTaskExercise}" title="#{bundle.ViewTaskExerciseTitle_idTaskExercise}"/>
-                    <h:outputText value="#{bundle.ViewTaskExerciseLabel_number}"/>
-                    <h:outputText value="#{taskExerciseController.selected.number}" title="#{bundle.ViewTaskExerciseTitle_number}"/>
-                    <h:outputText value="#{bundle.ViewTaskExerciseLabel_idTask}"/>
-                    <h:outputText value="#{taskExerciseController.selected.idTask}" title="#{bundle.ViewTaskExerciseTitle_idTask}"/>
-                    <h:outputText value="#{bundle.ViewTaskExerciseLabel_idExcersice}"/>
-                    <h:outputText value="#{taskExerciseController.selected.idExcersice}" title="#{bundle.ViewTaskExerciseTitle_idExcersice}"/>
+                    <h:outputText value="#{bundle.ViewTaskExerciseLabel_order}"/>
+                    <h:outputText value="#{taskExerciseController.selected.order}" title="#{bundle.ViewTaskExerciseTitle_order}"/>
+                    <h:outputText value="#{bundle.ViewTaskExerciseLabel_task}"/>
+                    <h:outputText value="#{taskExerciseController.selected.task}" title="#{bundle.ViewTaskExerciseTitle_task}"/>
+                    <h:outputText value="#{bundle.ViewTaskExerciseLabel_exercise}"/>
+                    <h:outputText value="#{taskExerciseController.selected.exercise}" title="#{bundle.ViewTaskExerciseTitle_exercise}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{taskExerciseController.destroyAndView}" value="#{bundle.ViewTaskExerciseDestroyLink}"/>

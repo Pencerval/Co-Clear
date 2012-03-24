@@ -15,6 +15,8 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditAnswerGroupLabel_idAnswerGroup}" for="idAnswerGroup" />
+                    <h:inputText id="idAnswerGroup" value="#{answerGroupController.selected.idAnswerGroup}" title="#{bundle.EditAnswerGroupTitle_idAnswerGroup}" required="true" requiredMessage="#{bundle.EditAnswerGroupRequiredMessage_idAnswerGroup}"/>
                     <h:outputLabel value="#{bundle.EditAnswerGroupLabel_name}" for="name" />
                     <h:inputText id="name" value="#{answerGroupController.selected.name}" title="#{bundle.EditAnswerGroupTitle_name}" required="true" requiredMessage="#{bundle.EditAnswerGroupRequiredMessage_name}"/>
                 </h:panelGrid>

@@ -14,6 +14,9 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
+                <!-- <h:outputLabel value="#{bundle.CreateAnswerLabel_idAnswer}" for="idAnswer" />
+                    <h:inputText id="idAnswer" value="#{answerController.selected.idAnswer}" title="#{bundle.CreateAnswerTitle_idAnswer}" required="true" requiredMessage="#{bundle.CreateAnswerRequiredMessage_idAnswer}"/>
+                    -->
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateAnswerLabel_name}" for="name" />
                     <h:inputText id="name" value="#{answerController.selected.name}" title="#{bundle.CreateAnswerTitle_name}" required="true" requiredMessage="#{bundle.CreateAnswerRequiredMessage_name}"/>
@@ -21,8 +24,8 @@
                     <h:inputText id="valueName" value="#{answerController.selected.valueName}" title="#{bundle.CreateAnswerTitle_valueName}" required="true" requiredMessage="#{bundle.CreateAnswerRequiredMessage_valueName}"/>
                     <h:outputLabel value="#{bundle.CreateAnswerLabel_example}" for="example" />
                     <h:inputText id="example" value="#{answerController.selected.example}" title="#{bundle.CreateAnswerTitle_example}" />
-                    <h:outputLabel value="#{bundle.CreateAnswerLabel_idAnswerGroup}" for="idAnswerGroup" />
-                    <h:selectOneMenu id="idAnswerGroup" value="#{answerController.selected.idAnswerGroup}" title="#{bundle.CreateAnswerTitle_idAnswerGroup}" required="true" requiredMessage="#{bundle.CreateAnswerRequiredMessage_idAnswerGroup}">
+                    <h:outputLabel value="#{bundle.CreateAnswerLabel_answerGroup}" for="answerGroup" />
+                    <h:selectOneMenu id="answerGroup" value="#{answerController.selected.answerGroup}" title="#{bundle.CreateAnswerTitle_answerGroup}" required="true" requiredMessage="#{bundle.CreateAnswerRequiredMessage_answerGroup}">
                         <f:selectItems value="#{answerGroupController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditExerciseTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditExerciseLabel_idExercise}" for="idExercise" />
+                    <h:inputText id="idExercise" value="#{exerciseController.selected.idExercise}" title="#{bundle.EditExerciseTitle_idExercise}" required="true" requiredMessage="#{bundle.EditExerciseRequiredMessage_idExercise}"/>
+                    <h:outputLabel value="#{bundle.EditExerciseLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{exerciseController.selected.name}" title="#{bundle.EditExerciseTitle_name}" required="true" requiredMessage="#{bundle.EditExerciseRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.EditExerciseLabel_type}" for="type" />
+                    <h:inputText id="type" value="#{exerciseController.selected.type}" title="#{bundle.EditExerciseTitle_type}" required="true" requiredMessage="#{bundle.EditExerciseRequiredMessage_type}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{exerciseController.update}" value="#{bundle.EditExerciseSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditExerciseViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{exerciseController.prepareList}" value="#{bundle.EditExerciseShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditExerciseIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

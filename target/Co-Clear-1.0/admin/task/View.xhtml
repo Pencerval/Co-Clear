@@ -25,6 +25,10 @@
                     <h:outputText value="#{taskController.selected.isUserDefault}" title="#{bundle.ViewTaskTitle_isUserDefault}"/>
                     <h:outputText value="#{bundle.ViewTaskLabel_type}"/>
                     <h:outputText value="#{taskController.selected.type}" title="#{bundle.ViewTaskTitle_type}"/>
+                    <h:outputText value="#{bundle.ViewTaskLabel_description}"/>
+                    <h:outputText value="#{taskController.selected.description}" title="#{bundle.ViewTaskTitle_description}"/>
+                    <h:outputText value="#{bundle.ViewTaskLabel_help}"/>
+                    <h:outputText value="#{taskController.selected.help}" title="#{bundle.ViewTaskTitle_help}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{taskController.destroyAndView}" value="#{bundle.ViewTaskDestroyLink}"/>

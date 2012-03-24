@@ -28,21 +28,37 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListResultTitle_idUser}"/>
+                                <h:outputText value="#{bundle.ListResultTitle_start}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idUser}"/>
+                            <h:outputText value="#{item.start}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListResultTitle_idTaskExercise}"/>
+                                <h:outputText value="#{bundle.ListResultTitle_end}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idTaskExercise}"/>
+                            <h:outputText value="#{item.end}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListResultTitle_idAnswer}"/>
+                                <h:outputText value="#{bundle.ListResultTitle_user}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idAnswer}"/>
+                            <h:outputText value="#{item.user}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListResultTitle_taskExercise}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taskExercise}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListResultTitle_answer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.answer}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

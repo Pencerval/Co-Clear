@@ -14,14 +14,17 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
+                    <!-- <h:outputLabel value="#{bundle.CreateExerciseStimulusMapLabel_idExerciseStimulusMap}" for="idExerciseStimulusMap" />
+                    <h:inputText id="idExerciseStimulusMap" value="#{exerciseStimulusMapController.selected.idExerciseStimulusMap}" title="#{bundle.CreateExerciseStimulusMapTitle_idExerciseStimulusMap}" required="true" requiredMessage="#{bundle.CreateExerciseStimulusMapRequiredMessage_idExerciseStimulusMap}"/>
+                    -->
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateExerciseStimulusMapLabel_idStimulus}" for="idStimulus" />
-                    <h:selectOneMenu id="idStimulus" value="#{exerciseStimulusMapController.selected.idStimulus}" title="#{bundle.CreateExerciseStimulusMapTitle_idStimulus}" required="true" requiredMessage="#{bundle.CreateExerciseStimulusMapRequiredMessage_idStimulus}">
+                    <h:outputLabel value="#{bundle.CreateExerciseStimulusMapLabel_stimulus}" for="stimulus" />
+                    <h:selectOneMenu id="stimulus" value="#{exerciseStimulusMapController.selected.stimulus}" title="#{bundle.CreateExerciseStimulusMapTitle_stimulus}" required="true" requiredMessage="#{bundle.CreateExerciseStimulusMapRequiredMessage_stimulus}">
                         <f:selectItems value="#{stimulusController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateExerciseStimulusMapLabel_idExcersice}" for="idExcersice" />
-                    <h:selectOneMenu id="idExcersice" value="#{exerciseStimulusMapController.selected.idExcersice}" title="#{bundle.CreateExerciseStimulusMapTitle_idExcersice}" required="true" requiredMessage="#{bundle.CreateExerciseStimulusMapRequiredMessage_idExcersice}">
-                        <f:selectItems value="#{excersiceController.itemsAvailableSelectOne}"/>
+                    <h:outputLabel value="#{bundle.CreateExerciseStimulusMapLabel_exercise}" for="exercise" />
+                    <h:selectOneMenu id="exercise" value="#{exerciseStimulusMapController.selected.exercise}" title="#{bundle.CreateExerciseStimulusMapTitle_exercise}" required="true" requiredMessage="#{bundle.CreateExerciseStimulusMapRequiredMessage_exercise}">
+                        <f:selectItems value="#{exerciseController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
                 <br />

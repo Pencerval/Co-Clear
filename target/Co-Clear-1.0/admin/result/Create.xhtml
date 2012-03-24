@@ -14,17 +14,30 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
+                    <!-- 
+                    <h:outputLabel value="#{bundle.CreateResultLabel_idResult}" for="idResult" />
+                    <h:inputText id="idResult" value="#{resultController.selected.idResult}" title="#{bundle.CreateResultTitle_idResult}" required="true" requiredMessage="#{bundle.CreateResultRequiredMessage_idResult}"/>
+                    -->
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateResultLabel_idUser}" for="idUser" />
-                    <h:selectOneMenu id="idUser" value="#{resultController.selected.idUser}" title="#{bundle.CreateResultTitle_idUser}" required="true" requiredMessage="#{bundle.CreateResultRequiredMessage_idUser}">
+
+                    <h:outputLabel value="#{bundle.CreateResultLabel_start}" for="start" />
+                    <h:inputText id="start" value="#{resultController.selected.start}" title="#{bundle.CreateResultTitle_start}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateResultLabel_end}" for="end" />
+                    <h:inputText id="end" value="#{resultController.selected.end}" title="#{bundle.CreateResultTitle_end}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateResultLabel_user}" for="user" />
+                    <h:selectOneMenu id="user" value="#{resultController.selected.user}" title="#{bundle.CreateResultTitle_user}" required="true" requiredMessage="#{bundle.CreateResultRequiredMessage_user}">
                         <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateResultLabel_idTaskExercise}" for="idTaskExercise" />
-                    <h:selectOneMenu id="idTaskExercise" value="#{resultController.selected.idTaskExercise}" title="#{bundle.CreateResultTitle_idTaskExercise}" required="true" requiredMessage="#{bundle.CreateResultRequiredMessage_idTaskExercise}">
+                    <h:outputLabel value="#{bundle.CreateResultLabel_taskExercise}" for="taskExercise" />
+                    <h:selectOneMenu id="taskExercise" value="#{resultController.selected.taskExercise}" title="#{bundle.CreateResultTitle_taskExercise}" required="true" requiredMessage="#{bundle.CreateResultRequiredMessage_taskExercise}">
                         <f:selectItems value="#{taskExerciseController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateResultLabel_idAnswer}" for="idAnswer" />
-                    <h:selectOneMenu id="idAnswer" value="#{resultController.selected.idAnswer}" title="#{bundle.CreateResultTitle_idAnswer}" required="true" requiredMessage="#{bundle.CreateResultRequiredMessage_idAnswer}">
+                    <h:outputLabel value="#{bundle.CreateResultLabel_answer}" for="answer" />
+                    <h:selectOneMenu id="answer" value="#{resultController.selected.answer}" title="#{bundle.CreateResultTitle_answer}" required="true" requiredMessage="#{bundle.CreateResultRequiredMessage_answer}">
                         <f:selectItems value="#{answerController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>

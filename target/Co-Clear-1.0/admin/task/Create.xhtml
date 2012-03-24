@@ -14,7 +14,12 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
+                                    <!--
+                    <h:outputLabel value="#{bundle.CreateTaskLabel_idTask}" for="idTask" />
+                    <h:inputText id="idTask" value="#{taskController.selected.idTask}" title="#{bundle.CreateTaskTitle_idTask}" required="true" requiredMessage="#{bundle.CreateTaskRequiredMessage_idTask}"/>
+                     -->
                 <h:panelGrid columns="2">
+
                     <h:outputLabel value="#{bundle.CreateTaskLabel_name}" for="name" />
                     <h:inputText id="name" value="#{taskController.selected.name}" title="#{bundle.CreateTaskTitle_name}" required="true" requiredMessage="#{bundle.CreateTaskRequiredMessage_name}"/>
                     <h:outputLabel value="#{bundle.CreateTaskLabel_repeatable}" for="repeatable" />
@@ -23,6 +28,10 @@
                     <h:inputText id="isUserDefault" value="#{taskController.selected.isUserDefault}" title="#{bundle.CreateTaskTitle_isUserDefault}" required="true" requiredMessage="#{bundle.CreateTaskRequiredMessage_isUserDefault}"/>
                     <h:outputLabel value="#{bundle.CreateTaskLabel_type}" for="type" />
                     <h:inputText id="type" value="#{taskController.selected.type}" title="#{bundle.CreateTaskTitle_type}" required="true" requiredMessage="#{bundle.CreateTaskRequiredMessage_type}"/>
+                    <h:outputLabel value="#{bundle.CreateTaskLabel_description}" for="description" />
+                    <h:inputText id="description" value="#{taskController.selected.description}" title="#{bundle.CreateTaskTitle_description}" />
+                    <h:outputLabel value="#{bundle.CreateTaskLabel_help}" for="help" />
+                    <h:inputText id="help" value="#{taskController.selected.help}" title="#{bundle.CreateTaskTitle_help}" />
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{taskController.create}" value="#{bundle.CreateTaskSaveLink}" />

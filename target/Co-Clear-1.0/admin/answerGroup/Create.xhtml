@@ -14,6 +14,9 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
+                <!--<h:outputLabel value="#{bundle.CreateAnswerGroupLabel_idAnswerGroup}" for="idAnswerGroup" />
+                    <h:inputText id="idAnswerGroup" value="#{answerGroupController.selected.idAnswerGroup}" title="#{bundle.CreateAnswerGroupTitle_idAnswerGroup}" required="true" requiredMessage="#{bundle.CreateAnswerGroupRequiredMessage_idAnswerGroup}"/>
+                    -->
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateAnswerGroupLabel_name}" for="name" />
                     <h:inputText id="name" value="#{answerGroupController.selected.name}" title="#{bundle.CreateAnswerGroupTitle_name}" required="true" requiredMessage="#{bundle.CreateAnswerGroupRequiredMessage_name}"/>

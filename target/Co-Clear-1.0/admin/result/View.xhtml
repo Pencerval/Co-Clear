@@ -17,12 +17,20 @@
                 <h:panelGrid columns="2">
                     <h:outputText value="#{bundle.ViewResultLabel_idResult}"/>
                     <h:outputText value="#{resultController.selected.idResult}" title="#{bundle.ViewResultTitle_idResult}"/>
-                    <h:outputText value="#{bundle.ViewResultLabel_idUser}"/>
-                    <h:outputText value="#{resultController.selected.idUser}" title="#{bundle.ViewResultTitle_idUser}"/>
-                    <h:outputText value="#{bundle.ViewResultLabel_idTaskExercise}"/>
-                    <h:outputText value="#{resultController.selected.idTaskExercise}" title="#{bundle.ViewResultTitle_idTaskExercise}"/>
-                    <h:outputText value="#{bundle.ViewResultLabel_idAnswer}"/>
-                    <h:outputText value="#{resultController.selected.idAnswer}" title="#{bundle.ViewResultTitle_idAnswer}"/>
+                    <h:outputText value="#{bundle.ViewResultLabel_start}"/>
+                    <h:outputText value="#{resultController.selected.start}" title="#{bundle.ViewResultTitle_start}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewResultLabel_end}"/>
+                    <h:outputText value="#{resultController.selected.end}" title="#{bundle.ViewResultTitle_end}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewResultLabel_user}"/>
+                    <h:outputText value="#{resultController.selected.user}" title="#{bundle.ViewResultTitle_user}"/>
+                    <h:outputText value="#{bundle.ViewResultLabel_taskExercise}"/>
+                    <h:outputText value="#{resultController.selected.taskExercise}" title="#{bundle.ViewResultTitle_taskExercise}"/>
+                    <h:outputText value="#{bundle.ViewResultLabel_answer}"/>
+                    <h:outputText value="#{resultController.selected.answer}" title="#{bundle.ViewResultTitle_answer}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{resultController.destroyAndView}" value="#{bundle.ViewResultDestroyLink}"/>

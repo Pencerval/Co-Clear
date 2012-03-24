@@ -14,13 +14,18 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
+                                    <!-- 
+                    <h:outputLabel value="#{bundle.CreateUserGroupMapLabel_idUserGroupMap}" for="idUserGroupMap" />
+                    <h:inputText id="idUserGroupMap" value="#{userGroupMapController.selected.idUserGroupMap}" title="#{bundle.CreateUserGroupMapTitle_idUserGroupMap}" required="true" requiredMessage="#{bundle.CreateUserGroupMapRequiredMessage_idUserGroupMap}"/>
+                    -->
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateUserGroupMapLabel_idUserGroup}" for="idUserGroup" />
-                    <h:selectOneMenu id="idUserGroup" value="#{userGroupMapController.selected.idUserGroup}" title="#{bundle.CreateUserGroupMapTitle_idUserGroup}" required="true" requiredMessage="#{bundle.CreateUserGroupMapRequiredMessage_idUserGroup}">
+
+                    <h:outputLabel value="#{bundle.CreateUserGroupMapLabel_userGroup}" for="userGroup" />
+                    <h:selectOneMenu id="userGroup" value="#{userGroupMapController.selected.userGroup}" title="#{bundle.CreateUserGroupMapTitle_userGroup}" required="true" requiredMessage="#{bundle.CreateUserGroupMapRequiredMessage_userGroup}">
                         <f:selectItems value="#{userGroupController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateUserGroupMapLabel_idUser}" for="idUser" />
-                    <h:selectOneMenu id="idUser" value="#{userGroupMapController.selected.idUser}" title="#{bundle.CreateUserGroupMapTitle_idUser}" required="true" requiredMessage="#{bundle.CreateUserGroupMapRequiredMessage_idUser}">
+                    <h:outputLabel value="#{bundle.CreateUserGroupMapLabel_user}" for="user" />
+                    <h:selectOneMenu id="user" value="#{userGroupMapController.selected.user}" title="#{bundle.CreateUserGroupMapTitle_user}" required="true" requiredMessage="#{bundle.CreateUserGroupMapRequiredMessage_user}">
                         <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>

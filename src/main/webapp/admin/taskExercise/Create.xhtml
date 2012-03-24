@@ -14,16 +14,21 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
+                                    <!-- 
+                    <h:outputLabel value="#{bundle.CreateTaskExerciseLabel_idTaskExercise}" for="idTaskExercise" />
+                    <h:inputText id="idTaskExercise" value="#{taskExerciseController.selected.idTaskExercise}" title="#{bundle.CreateTaskExerciseTitle_idTaskExercise}" required="true" requiredMessage="#{bundle.CreateTaskExerciseRequiredMessage_idTaskExercise}"/>
+                    -->
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateTaskExerciseLabel_number}" for="number" />
-                    <h:inputText id="number" value="#{taskExerciseController.selected.number}" title="#{bundle.CreateTaskExerciseTitle_number}" required="true" requiredMessage="#{bundle.CreateTaskExerciseRequiredMessage_number}"/>
-                    <h:outputLabel value="#{bundle.CreateTaskExerciseLabel_idTask}" for="idTask" />
-                    <h:selectOneMenu id="idTask" value="#{taskExerciseController.selected.idTask}" title="#{bundle.CreateTaskExerciseTitle_idTask}" required="true" requiredMessage="#{bundle.CreateTaskExerciseRequiredMessage_idTask}">
+
+                    <h:outputLabel value="#{bundle.CreateTaskExerciseLabel_order}" for="order" />
+                    <h:inputText id="order" value="#{taskExerciseController.selected.order}" title="#{bundle.CreateTaskExerciseTitle_order}" required="true" requiredMessage="#{bundle.CreateTaskExerciseRequiredMessage_order}"/>
+                    <h:outputLabel value="#{bundle.CreateTaskExerciseLabel_task}" for="task" />
+                    <h:selectOneMenu id="task" value="#{taskExerciseController.selected.task}" title="#{bundle.CreateTaskExerciseTitle_task}" required="true" requiredMessage="#{bundle.CreateTaskExerciseRequiredMessage_task}">
                         <f:selectItems value="#{taskController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateTaskExerciseLabel_idExcersice}" for="idExcersice" />
-                    <h:selectOneMenu id="idExcersice" value="#{taskExerciseController.selected.idExcersice}" title="#{bundle.CreateTaskExerciseTitle_idExcersice}" required="true" requiredMessage="#{bundle.CreateTaskExerciseRequiredMessage_idExcersice}">
-                        <f:selectItems value="#{excersiceController.itemsAvailableSelectOne}"/>
+                    <h:outputLabel value="#{bundle.CreateTaskExerciseLabel_exercise}" for="exercise" />
+                    <h:selectOneMenu id="exercise" value="#{taskExerciseController.selected.exercise}" title="#{bundle.CreateTaskExerciseTitle_exercise}" required="true" requiredMessage="#{bundle.CreateTaskExerciseRequiredMessage_exercise}">
+                        <f:selectItems value="#{exerciseController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
                 <br />

@@ -15,14 +15,16 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditUserTaskLabel_idUserTask}" for="idUserTask" />
+                    <h:inputText id="idUserTask" value="#{userTaskController.selected.idUserTask}" title="#{bundle.EditUserTaskTitle_idUserTask}" required="true" requiredMessage="#{bundle.EditUserTaskRequiredMessage_idUserTask}"/>
                     <h:outputLabel value="#{bundle.EditUserTaskLabel_complete}" for="complete" />
                     <h:inputText id="complete" value="#{userTaskController.selected.complete}" title="#{bundle.EditUserTaskTitle_complete}" required="true" requiredMessage="#{bundle.EditUserTaskRequiredMessage_complete}"/>
-                    <h:outputLabel value="#{bundle.EditUserTaskLabel_idUser}" for="idUser" />
-                    <h:selectOneMenu id="idUser" value="#{userTaskController.selected.idUser}" title="#{bundle.EditUserTaskTitle_idUser}" required="true" requiredMessage="#{bundle.EditUserTaskRequiredMessage_idUser}">
+                    <h:outputLabel value="#{bundle.EditUserTaskLabel_user}" for="user" />
+                    <h:selectOneMenu id="user" value="#{userTaskController.selected.user}" title="#{bundle.EditUserTaskTitle_user}" required="true" requiredMessage="#{bundle.EditUserTaskRequiredMessage_user}">
                         <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditUserTaskLabel_idTask}" for="idTask" />
-                    <h:selectOneMenu id="idTask" value="#{userTaskController.selected.idTask}" title="#{bundle.EditUserTaskTitle_idTask}" required="true" requiredMessage="#{bundle.EditUserTaskRequiredMessage_idTask}">
+                    <h:outputLabel value="#{bundle.EditUserTaskLabel_task}" for="task" />
+                    <h:selectOneMenu id="task" value="#{userTaskController.selected.task}" title="#{bundle.EditUserTaskTitle_task}" required="true" requiredMessage="#{bundle.EditUserTaskRequiredMessage_task}">
                         <f:selectItems value="#{taskController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>

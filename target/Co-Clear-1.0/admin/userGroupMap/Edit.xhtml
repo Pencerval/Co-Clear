@@ -15,12 +15,14 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditUserGroupMapLabel_idUserGroup}" for="idUserGroup" />
-                    <h:selectOneMenu id="idUserGroup" value="#{userGroupMapController.selected.idUserGroup}" title="#{bundle.EditUserGroupMapTitle_idUserGroup}" required="true" requiredMessage="#{bundle.EditUserGroupMapRequiredMessage_idUserGroup}">
+                    <h:outputLabel value="#{bundle.EditUserGroupMapLabel_idUserGroupMap}" for="idUserGroupMap" />
+                    <h:inputText id="idUserGroupMap" value="#{userGroupMapController.selected.idUserGroupMap}" title="#{bundle.EditUserGroupMapTitle_idUserGroupMap}" required="true" requiredMessage="#{bundle.EditUserGroupMapRequiredMessage_idUserGroupMap}"/>
+                    <h:outputLabel value="#{bundle.EditUserGroupMapLabel_userGroup}" for="userGroup" />
+                    <h:selectOneMenu id="userGroup" value="#{userGroupMapController.selected.userGroup}" title="#{bundle.EditUserGroupMapTitle_userGroup}" required="true" requiredMessage="#{bundle.EditUserGroupMapRequiredMessage_userGroup}">
                         <f:selectItems value="#{userGroupController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditUserGroupMapLabel_idUser}" for="idUser" />
-                    <h:selectOneMenu id="idUser" value="#{userGroupMapController.selected.idUser}" title="#{bundle.EditUserGroupMapTitle_idUser}" required="true" requiredMessage="#{bundle.EditUserGroupMapRequiredMessage_idUser}">
+                    <h:outputLabel value="#{bundle.EditUserGroupMapLabel_user}" for="user" />
+                    <h:selectOneMenu id="user" value="#{userGroupMapController.selected.user}" title="#{bundle.EditUserGroupMapTitle_user}" required="true" requiredMessage="#{bundle.EditUserGroupMapRequiredMessage_user}">
                         <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>

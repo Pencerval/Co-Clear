@@ -14,13 +14,17 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
+                                    <!-- <h:outputLabel value="#{bundle.CreateStimulusLabel_idStimulus}" for="idStimulus" />
+                    <h:inputText id="idStimulus" value="#{stimulusController.selected.idStimulus}" title="#{bundle.CreateStimulusTitle_idStimulus}" required="true" requiredMessage="#{bundle.CreateStimulusRequiredMessage_idStimulus}"/>
                     <h:outputLabel value="#{bundle.CreateStimulusLabel_name}" for="name" />
+                    -->
+                <h:panelGrid columns="2">
+
                     <h:inputText id="name" value="#{stimulusController.selected.name}" title="#{bundle.CreateStimulusTitle_name}" required="true" requiredMessage="#{bundle.CreateStimulusRequiredMessage_name}"/>
-                    <h:outputLabel value="#{bundle.CreateStimulusLabel_path}" for="path" />
-                    <h:inputText id="path" value="#{stimulusController.selected.path}" title="#{bundle.CreateStimulusTitle_path}" required="true" requiredMessage="#{bundle.CreateStimulusRequiredMessage_path}"/>
-                    <h:outputLabel value="#{bundle.CreateStimulusLabel_idStimulusGroup}" for="idStimulusGroup" />
-                    <h:selectOneMenu id="idStimulusGroup" value="#{stimulusController.selected.idStimulusGroup}" title="#{bundle.CreateStimulusTitle_idStimulusGroup}" required="true" requiredMessage="#{bundle.CreateStimulusRequiredMessage_idStimulusGroup}">
+                    <h:outputLabel value="#{bundle.CreateStimulusLabel_type}" for="type" />
+                    <h:inputText id="type" value="#{stimulusController.selected.type}" title="#{bundle.CreateStimulusTitle_type}" required="true" requiredMessage="#{bundle.CreateStimulusRequiredMessage_type}"/>
+                    <h:outputLabel value="#{bundle.CreateStimulusLabel_stimulusGroup}" for="stimulusGroup" />
+                    <h:selectOneMenu id="stimulusGroup" value="#{stimulusController.selected.stimulusGroup}" title="#{bundle.CreateStimulusTitle_stimulusGroup}" required="true" requiredMessage="#{bundle.CreateStimulusRequiredMessage_stimulusGroup}">
                         <f:selectItems value="#{stimulusGroupController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>

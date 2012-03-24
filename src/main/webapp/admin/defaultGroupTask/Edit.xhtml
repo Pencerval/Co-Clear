@@ -15,12 +15,14 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditDefaultGroupTaskLabel_idUserGroup}" for="idUserGroup" />
-                    <h:selectOneMenu id="idUserGroup" value="#{defaultGroupTaskController.selected.idUserGroup}" title="#{bundle.EditDefaultGroupTaskTitle_idUserGroup}" required="true" requiredMessage="#{bundle.EditDefaultGroupTaskRequiredMessage_idUserGroup}">
+                    <h:outputLabel value="#{bundle.EditDefaultGroupTaskLabel_idDefaultGroupTask}" for="idDefaultGroupTask" />
+                    <h:inputText id="idDefaultGroupTask" value="#{defaultGroupTaskController.selected.idDefaultGroupTask}" title="#{bundle.EditDefaultGroupTaskTitle_idDefaultGroupTask}" required="true" requiredMessage="#{bundle.EditDefaultGroupTaskRequiredMessage_idDefaultGroupTask}"/>
+                    <h:outputLabel value="#{bundle.EditDefaultGroupTaskLabel_userGroup}" for="userGroup" />
+                    <h:selectOneMenu id="userGroup" value="#{defaultGroupTaskController.selected.userGroup}" title="#{bundle.EditDefaultGroupTaskTitle_userGroup}" required="true" requiredMessage="#{bundle.EditDefaultGroupTaskRequiredMessage_userGroup}">
                         <f:selectItems value="#{userGroupController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditDefaultGroupTaskLabel_idTask}" for="idTask" />
-                    <h:selectOneMenu id="idTask" value="#{defaultGroupTaskController.selected.idTask}" title="#{bundle.EditDefaultGroupTaskTitle_idTask}" required="true" requiredMessage="#{bundle.EditDefaultGroupTaskRequiredMessage_idTask}">
+                    <h:outputLabel value="#{bundle.EditDefaultGroupTaskLabel_task}" for="task" />
+                    <h:selectOneMenu id="task" value="#{defaultGroupTaskController.selected.task}" title="#{bundle.EditDefaultGroupTaskTitle_task}" required="true" requiredMessage="#{bundle.EditDefaultGroupTaskRequiredMessage_task}">
                         <f:selectItems value="#{taskController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>

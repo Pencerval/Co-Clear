@@ -15,12 +15,14 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditStimulusLabel_idStimulus}" for="idStimulus" />
+                    <h:inputText id="idStimulus" value="#{stimulusController.selected.idStimulus}" title="#{bundle.EditStimulusTitle_idStimulus}" required="true" requiredMessage="#{bundle.EditStimulusRequiredMessage_idStimulus}"/>
                     <h:outputLabel value="#{bundle.EditStimulusLabel_name}" for="name" />
                     <h:inputText id="name" value="#{stimulusController.selected.name}" title="#{bundle.EditStimulusTitle_name}" required="true" requiredMessage="#{bundle.EditStimulusRequiredMessage_name}"/>
-                    <h:outputLabel value="#{bundle.EditStimulusLabel_path}" for="path" />
-                    <h:inputText id="path" value="#{stimulusController.selected.path}" title="#{bundle.EditStimulusTitle_path}" required="true" requiredMessage="#{bundle.EditStimulusRequiredMessage_path}"/>
-                    <h:outputLabel value="#{bundle.EditStimulusLabel_idStimulusGroup}" for="idStimulusGroup" />
-                    <h:selectOneMenu id="idStimulusGroup" value="#{stimulusController.selected.idStimulusGroup}" title="#{bundle.EditStimulusTitle_idStimulusGroup}" required="true" requiredMessage="#{bundle.EditStimulusRequiredMessage_idStimulusGroup}">
+                    <h:outputLabel value="#{bundle.EditStimulusLabel_type}" for="type" />
+                    <h:inputText id="type" value="#{stimulusController.selected.type}" title="#{bundle.EditStimulusTitle_type}" required="true" requiredMessage="#{bundle.EditStimulusRequiredMessage_type}"/>
+                    <h:outputLabel value="#{bundle.EditStimulusLabel_stimulusGroup}" for="stimulusGroup" />
+                    <h:selectOneMenu id="stimulusGroup" value="#{stimulusController.selected.stimulusGroup}" title="#{bundle.EditStimulusTitle_stimulusGroup}" required="true" requiredMessage="#{bundle.EditStimulusRequiredMessage_stimulusGroup}">
                         <f:selectItems value="#{stimulusGroupController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
