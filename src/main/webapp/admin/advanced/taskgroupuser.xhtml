@@ -13,7 +13,7 @@
             <ui:define name="body">
                 <h1 class="title ui-widget-header ui-corner-all">Asignación de tareas</h1>
                 <h:form>  
-                    <p:panel id="panel" header="Asignar curriculums a un usuario" style="margin-bottom:10px;"> 
+                    <p:panel id="panel" header="Asignar tareas a un usuario" style="margin-bottom:10px;"> 
                         <p:dataTable var="user" value="#{taskGroupUserController.users}" rowKey="#{user.idUser}" paginator="true" rows="10"  
                                      selection="#{taskGroupUserController.selectedUser}" selectionMode="single" id="usersTable">  
                             <f:facet name="header">  

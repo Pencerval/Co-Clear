@@ -16,10 +16,11 @@
             <ui:define name="body" >
 
 
-                <h:form id="form">
-                    <p:growl id="growl" showDetail="true" />
-                    <audio id="sound" >
-                        <source src="../../stimulus?id=#{playExerciseIdentificationController.currentStimulus.idStimulus}" type="audio/wav"/>
+                <h:form id="form1">
+                    
+                    <p:growl id="growlexercise" showDetail="true"/>
+                    <audio id="sound" autoplay="autoplay">
+                        <source src="../stimulus?id=#{playExerciseIdentificationController.currentStimulus.idStimulus}" type="audio/wav"/>
                         Your browser does not support the audio tag.
                     </audio>
 
@@ -28,29 +29,37 @@
                     </p:panel>
                     <!--<p:button style="float: right;" value="Siguiente" image="ui-icon-circle-triangle-e"/>-->
                     <!--<p:button value="Anterior" image="ui-icon-circle-triangle-w"/>-->
-                    <p:panel id="exersice" style="margin-top: 4px;margin-bottom: 5px;" header="#{playExerciseIdentificationController.currentExcersice.name}">
+                    <p:panel id="exersice" style="margin-top: 4px;margin-bottom: 5px;" header="#{playExerciseIdentificationController.task.name}">
                         <h:panelGrid columns="1"  id="grid" style="width: 100%" >
                             <p:panel id="panelanswer" header="Elige la opción correcta"  >
                                 <h:panelGrid columns="5"  id="grid2" styleClass="identificationanswertable">
                                     <c:forEach items="#{playExerciseIdentificationController.currentAnswers}" var="answer">
-                                        <p:commandButton rendered="${playExerciseIdentificationController.selectedIdAnswers == answer.idAnswer}" update="panelanswer next" actionListener="#{playExerciseIdentificationController.setSelectedIdAnswers(answer.idAnswer)}" icon="ui-icon-check" value="#{answer.valueName}&#10;#{answer.example}" styleClass="answerbutton" style="white-space: pre; width: 100%; height: 100%;" />
-                                        <p:commandButton rendered="${playExerciseIdentificationController.selectedIdAnswers != answer.idAnswer}" update="panelanswer next" actionListener="#{playExerciseIdentificationController.setSelectedIdAnswers(answer.idAnswer)}" value="#{answer.valueName}&#10;#{answer.example}" styleClass="answerbutton" style="white-space: pre; width: 100%; height: 100%;" />
+                                        <p:commandButton rendered="${playExerciseIdentificationController.selectedIdAnswers == answer.idAnswer}" update="panelanswer panelplay" actionListener="#{playExerciseIdentificationController.setSelectedIdAnswers(answer.idAnswer)}" icon="ui-icon-check" value="#{answer.valueName}&#10;#{answer.example}" styleClass="answerbuttonClicked" style="white-space: pre; width: 100%; height: 100%;" />
+                                        <p:commandButton rendered="${playExerciseIdentificationController.selectedIdAnswers != answer.idAnswer}" update="panelanswer panelplay" actionListener="#{playExerciseIdentificationController.setSelectedIdAnswers(answer.idAnswer)}" value="#{answer.valueName}&#10;#{answer.example}" styleClass="answerbutton" style="white-space: pre; width: 100%; height: 100%;" />
                                     </c:forEach>
                                 </h:panelGrid>    
                             </p:panel>
                             <p:panel id="panelplay" header="Pulsa para escuchar" style="margin-top: 10px">
                                 <div id="playbutton" align="center">
-                                    <p:commandButton update="next" actionListener="${playExerciseIdentificationController.setPlayed(true)}"  onclick="document.getElementById('sound').play();" icon="play" alt="play" style="width: 70px;height: 68px;" >
-                                        <p:effect for="panelplay" type="blind" event="click"  />
+                                    <p:commandButton disabled="#{playExerciseIdentificationController.played}" actionListener="#{playExerciseIdentificationController.doNext}"   icon="play" alt="play" style="width: 70px;height: 68px;" >
+                                        <!-- onclick="document.getElementById('sound').play();"
+                                        <p:effect for="panelplay" type="blind" event="click"  /> -->
                                     </p:commandButton>
                                 </div>
                             </p:panel>
 
                         </h:panelGrid>
-                        <h:panelGrid id="next" columns="2" width="100%" style="margin-top: 10px">
-                            <p:progressBar id="progressBarClient" ajax="true" value="#{playExerciseIdentificationController.progress}" interval="0" style="width:300px"/>
-                            <p:commandButton rendered="${playExerciseIdentificationController.selectedIdAnswers != -1 and playExerciseIdentificationController.played}" update="form progressBarClient" actionListener="#{playExerciseIdentificationController.next}" value="Confirmar" style="float: right"/>
-                            <h:outputText rendered="${playExerciseIdentificationController.selectedIdAnswers == -1 or not playExerciseIdentificationController.played}" value=""/>
+                        <h:panelGrid columns="1" width="100%" style="margin-top: 10px">
+                            <!-- <p:progressBar widgetVar="pb" id="progressBarClient" ajax="false" labelTemplate="{value}%" value="#{playExerciseIdentificationController.progress}" style="width:300px"/>
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    
+                                        pb.setValue(#{playExerciseIdentificationController.progress});
+                                    
+                                    
+                                });
+                            </script>
+                            -->
                             <h:outputText value="#{playExerciseIdentificationController.position} / #{playExerciseIdentificationController.exersices.size()}"/>
                         </h:panelGrid>
                     </p:panel>
@@ -61,6 +70,8 @@
                      <p:button id="btnOk1" />
                     -->
                 </h:form>
+                                       
+     
             </ui:define>
         </ui:composition>
 

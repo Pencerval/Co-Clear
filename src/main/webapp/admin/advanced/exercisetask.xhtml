@@ -12,21 +12,43 @@
         <ui:composition template="/resources/templates/template.xhtml">
             <ui:define name="body">
                 <h1 class="title ui-widget-header ui-corner-all">Alta de tareas</h1>
-                <h:form>  
-                    <p:panel id="panel" header="Crear curriculum" style="margin-bottom:10px;"> 
+                <h:form id="form">  
+                    <p:panel id="panel" header="Crear tarea" style="margin-bottom:10px;"> 
                         <h:panelGrid columns="2" > 
-                            <h:outputLabel value="Nombre del curriculum: "/>
+                            <h:outputLabel value="Nombre de la tarea: "/>
                             <p:inputText id="nombre" value="#{exerciseTaskController.task.name}" required="false" label="Nombre"/>  
                         </h:panelGrid>
                         <h:outputLabel value="Selecciona las tareas " />
-                        <p:pickList value="#{exerciseTaskController.exercises}" var="exercise" 
-                                        itemLabel="#{exercise.name}" itemValue="#{exercise}" converter="exerciseConverter">
-                                 <f:facet name="sourceCaption">Posibles</f:facet> 
-                                 <f:facet name="targetCaption">Añadidas</f:facet> 
+                        <h:outputLabel value="Filtra por grupos de estimulos: "/>
+                            <p:selectOneMenu value="#{exerciseTaskController.stimulusGroupSelected}" >  
+                                <p:ajax listener="#{exerciseTaskController.stimulusGroupSelectedChanged}" update="stimulus"/>
+                                <f:selectItems value="#{exerciseTaskController.stimulusGroupList}" var="stimulusGroupSelected" itemLabel="#{stimulusGroupSelected.name}" itemValue="#{stimulusGroupSelected}"/>  
+                            </p:selectOneMenu>  
+                        <p:pickList id="stimulus" value="#{exerciseTaskController.exercises}" var="exercise" 
+                                    itemValue="#{exercise}" converter="exerciseConverter" >
+                            <f:facet name="sourceCaption">Posibles</f:facet> 
+                            <f:facet name="targetCaption">Añadidas</f:facet>
+                            <p:column>  
+                                <p:commandButton action="#{exerciseTaskController.stimulusFromExersice(exercise)}" icon="playPick" alt="playPick" style="width: 40px;height: 38px;">
+                                </p:commandButton>
+                            </p:column>  
+                            <p:column>  
+                                <h:panelGrid columns="1" > 
+                                    <div>#{exercise.name}  </div>
+                                    <div><h:outputText value="#{exerciseTaskController.getStimulusName(exercise)}"/></div>
+                                </h:panelGrid>
+
+                            </p:column>
                         </p:pickList>
                     </p:panel>
                     <p:commandButton value="Guardar" update="messages" ajax="true" actionListener="#{exerciseTaskController.saveTask}" style="margin-top:10px;"/>
                     <p:growl id="messages" showDetail="true"/>
+                    <!-- <h:panelGroup id="soundGroup" >
+                        <audio id="sound">
+                            <source src="../../stimulus?id=#{exerciseTaskController.idStimulus}" type="audio/wav"/>
+                            Your browser does not support the audio tag.
+                        </audio>
+                    </h:panelGroup>-->
                 </h:form>  
             </ui:define>
         </ui:composition>

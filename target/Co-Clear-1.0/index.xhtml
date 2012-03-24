@@ -16,24 +16,24 @@
                 <p:messages id="msgs"/> 
                 <!--<div class="logincontainersize">-->
                     <p:panel header="Inicia sesion o crea tu usuario" styleClass="logincontainer">
-                        <h:panelGrid columns="2" cellpadding="5" >
-                            <p:panel header="Iniciar sesion" >
+                        <h:panelGrid columns="2" cellpadding="2" >
+                            <p:panel styleClass="loginitem" header="Iniciar sesion" >
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <h:form>
-                                        <h:panelGrid columns="2" cellpadding="5">
+                                        <h:panelGrid style="float: left;" columns="2" cellpadding="5" >
                                             <h:outputLabel>Usuario:</h:outputLabel>
                                             <p:inputText value="#{loginController.user}" required="true" label="user">
                                                 <f:validateLength minimum="2" />
                                             </p:inputText>
                                             <h:outputLabel>Password:</h:outputLabel>
-                                            <p:password value="#{loginController.pass}" feedback="ola" minLength="2"/>
+                                            <p:password value="#{loginController.pass}" minLength="2"/>
                                             </h:panelGrid>
                                             <p:commandButton value="Entrar" ajax="false" action="#{loginController.login}" update="msgs"/> 
                                         
                                     </h:form>
                                 </h:panelGrid>
                             </p:panel>
-                            <p:panel header="Crear usuario" styleClass="loginitem2">
+                            <p:panel styleClass="loginitem" header="Crear usuario">
                                 <h:panelGrid columns="1" cellpadding="5">
                                     <h:form>
                                         <div class="center">
