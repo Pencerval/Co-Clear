@@ -5,20 +5,8 @@
 package com.coclear.entitys;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -33,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TaskExercise.findAll", query = "SELECT t FROM TaskExercise t"),
     @NamedQuery(name = "TaskExercise.findByIdTaskExercise", query = "SELECT t FROM TaskExercise t WHERE t.idTaskExercise = :idTaskExercise"),
-    @NamedQuery(name = "TaskExercise.findByNumber", query = "SELECT t FROM TaskExercise t WHERE t.number = :number")})
+    @NamedQuery(name = "TaskExercise.findByExerciseOrder", query = "SELECT t FROM TaskExercise t WHERE t.exerciseOrder = :exerciseOrder")})
 public class TaskExercise implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,16 +31,16 @@ public class TaskExercise implements Serializable {
     private Integer idTaskExercise;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "number")
-    private int number;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTaskExercise")
-    private Collection<Result> resultCollection;
+    @Column(name = "exercise_order")
+    private int exerciseOrder;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskExercise", fetch = FetchType.LAZY)
+    private List<Result> resultList;
     @JoinColumn(name = "id_task", referencedColumnName = "id_task")
-    @ManyToOne(optional = false)
-    private Task idTask;
-    @JoinColumn(name = "id_excersice", referencedColumnName = "id_excersice")
-    @ManyToOne(optional = false)
-    private Excersice idExcersice;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Task task;
+    @JoinColumn(name = "id_excersice", referencedColumnName = "id_exercise")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Exercise exercise;
 
     public TaskExercise() {
     }
@@ -61,9 +49,9 @@ public class TaskExercise implements Serializable {
         this.idTaskExercise = idTaskExercise;
     }
 
-    public TaskExercise(Integer idTaskExercise, int number) {
+    public TaskExercise(Integer idTaskExercise, int order) {
         this.idTaskExercise = idTaskExercise;
-        this.number = number;
+        this.exerciseOrder = order;
     }
 
     public Integer getIdTaskExercise() {
@@ -74,37 +62,37 @@ public class TaskExercise implements Serializable {
         this.idTaskExercise = idTaskExercise;
     }
 
-    public int getNumber() {
-        return number;
+    public int getExerciseOrder() {
+        return exerciseOrder;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setExerciseOrder(int order) {
+        this.exerciseOrder = order;
     }
 
     @XmlTransient
-    public Collection<Result> getResultCollection() {
-        return resultCollection;
+    public List<Result> getResultList() {
+        return resultList;
     }
 
-    public void setResultCollection(Collection<Result> resultCollection) {
-        this.resultCollection = resultCollection;
+    public void setResultList(List<Result> resultList) {
+        this.resultList = resultList;
     }
 
-    public Task getIdTask() {
-        return idTask;
+    public Task getTask() {
+        return task;
     }
 
-    public void setIdTask(Task idTask) {
-        this.idTask = idTask;
+    public void setTask(Task task) {
+        this.task = task;
     }
 
-    public Excersice getIdExcersice() {
-        return idExcersice;
+    public Exercise getExercise() {
+        return exercise;
     }
 
-    public void setIdExcersice(Excersice idExcersice) {
-        this.idExcersice = idExcersice;
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
     }
 
     @Override

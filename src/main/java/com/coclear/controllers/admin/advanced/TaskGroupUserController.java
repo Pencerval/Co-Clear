@@ -79,7 +79,7 @@ public class TaskGroupUserController implements Serializable {
 
     public List<User> getUsers() {
         if (users == null) {
-            users = ejbUserFacade.getUserbyAdmin(0);
+            users = ejbUserFacade.getUserbyAdmin(false);
         }
         return users;
     }
@@ -104,9 +104,9 @@ public class TaskGroupUserController implements Serializable {
             } else {
                 for (Task task : getTask().getTarget()) {
                     UserTask userTask = new UserTask();
-                    userTask.setIdTask(task);
-                    userTask.setIdUser(selectedUser);
-                    userTask.setComplete(0);
+                    userTask.setTask(task);
+                    userTask.setUser(selectedUser);
+                    userTask.setComplete(false);
                     ejbUserTaskFacade.create(userTask);
                 }
                 FacesMessage msg = new FacesMessage("Succesful", "Tareas asignadas correctamente al usuario "+selectedUser.getLogin());

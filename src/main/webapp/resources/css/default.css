@@ -445,9 +445,9 @@ img.right {
     font-size: 98% !important;
 }
 
-.ui-growl {
+/*.ui-growl {
     top:115px;
-}
+}*/
 
 .themeMenu {
     overflow: auto;
@@ -529,8 +529,20 @@ img.right {
     float: none;
 }  
 
+.image-same {
+    background-image: url(../images/perros.png) !important;
+    background-size:contain;
+    background-repeat:no-repeat;
+}
+
+.image-different{
+    background-image: url(../images/gatos.png) !important;
+    background-size:contain;
+    background-repeat:no-repeat;
+}
+
 .ui-growl {
-     top: 91% !important;
+     top: 87% !important;
     left: 40% !important;
 }
 
@@ -551,6 +563,6 @@ img.right {
     left: 40% !important;
 }
 
-#growlexercise .ui-growl {   
-    
+.tablegrid tbody tr td {
+    vertical-align: top;
 }

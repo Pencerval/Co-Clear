@@ -5,17 +5,8 @@
 package com.coclear.entitys;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -36,11 +27,11 @@ public class ExerciseStimulusMap implements Serializable {
     @Column(name = "id_exercise_stimulus_map")
     private Integer idExerciseStimulusMap;
     @JoinColumn(name = "id_stimulus", referencedColumnName = "id_stimulus")
-    @ManyToOne(optional = false)
-    private Stimulus idStimulus;
-    @JoinColumn(name = "id_excersice", referencedColumnName = "id_excersice")
-    @ManyToOne(optional = false)
-    private Excersice idExcersice;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Stimulus stimulus;
+    @JoinColumn(name = "id_excersice", referencedColumnName = "id_exercise")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Exercise exercise;
 
     public ExerciseStimulusMap() {
     }
@@ -57,20 +48,20 @@ public class ExerciseStimulusMap implements Serializable {
         this.idExerciseStimulusMap = idExerciseStimulusMap;
     }
 
-    public Stimulus getIdStimulus() {
-        return idStimulus;
+    public Stimulus getStimulus() {
+        return stimulus;
     }
 
-    public void setIdStimulus(Stimulus idStimulus) {
-        this.idStimulus = idStimulus;
+    public void setStimulus(Stimulus stimulus) {
+        this.stimulus = stimulus;
     }
 
-    public Excersice getIdExcersice() {
-        return idExcersice;
+    public Exercise getExercise() {
+        return exercise;
     }
 
-    public void setIdExcersice(Excersice idExcersice) {
-        this.idExcersice = idExcersice;
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
     }
 
     @Override

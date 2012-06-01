@@ -5,20 +5,8 @@
 package com.coclear.entitys;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -57,13 +45,13 @@ public class Answer implements Serializable {
     @Size(max = 255)
     @Column(name = "example")
     private String example;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAnswer")
-    private Collection<Result> resultCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "answer", fetch = FetchType.LAZY)
+    private List<Result> resultList;
     @JoinColumn(name = "id_answer_group", referencedColumnName = "id_answer_group")
-    @ManyToOne(optional = false)
-    private AnswerGroup idAnswerGroup;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAnswer")
-    private Collection<PossibleSolution> possibleSolutionCollection;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private AnswerGroup answerGroup;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "answer", fetch = FetchType.LAZY)
+    private List<PossibleSolution> possibleSolutionList;
 
     public Answer() {
     }
@@ -111,29 +99,29 @@ public class Answer implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Result> getResultCollection() {
-        return resultCollection;
+    public List<Result> getResultList() {
+        return resultList;
     }
 
-    public void setResultCollection(Collection<Result> resultCollection) {
-        this.resultCollection = resultCollection;
+    public void setResultList(List<Result> resultList) {
+        this.resultList = resultList;
     }
 
-    public AnswerGroup getIdAnswerGroup() {
-        return idAnswerGroup;
+    public AnswerGroup getAnswerGroup() {
+        return answerGroup;
     }
 
-    public void setIdAnswerGroup(AnswerGroup idAnswerGroup) {
-        this.idAnswerGroup = idAnswerGroup;
+    public void setAnswerGroup(AnswerGroup answerGroup) {
+        this.answerGroup = answerGroup;
     }
 
     @XmlTransient
-    public Collection<PossibleSolution> getPossibleSolutionCollection() {
-        return possibleSolutionCollection;
+    public List<PossibleSolution> getPossibleSolutionList() {
+        return possibleSolutionList;
     }
 
-    public void setPossibleSolutionCollection(Collection<PossibleSolution> possibleSolutionCollection) {
-        this.possibleSolutionCollection = possibleSolutionCollection;
+    public void setPossibleSolutionList(List<PossibleSolution> possibleSolutionList) {
+        this.possibleSolutionList = possibleSolutionList;
     }
 
     @Override

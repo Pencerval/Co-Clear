@@ -88,7 +88,7 @@ public class AnswersController implements Serializable {
             if(answerGroupSelected==null && getAnswerGroupList().size()>0){
                 answerGroupSelected=getAnswerGroupList().get(0);
             }
-            answer.setIdAnswerGroup(answerGroupSelected);
+            answer.setAnswerGroup(answerGroupSelected);
             ejbFacadeAnswer.create(answer);
             FacesMessage msg = new FacesMessage("Succesful", "Respuesta "+answer.getName()+ " añadida al grupo "+answerGroupSelected.getName()+" correctamente.");  
             FacesContext.getCurrentInstance().addMessage(null, msg);  

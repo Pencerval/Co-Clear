@@ -1,18 +1,19 @@
 package com.coclear.entitys;
 
 import com.coclear.entitys.Answer;
-import com.coclear.entitys.Excersice;
+import com.coclear.entitys.Exercise;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.2.0.v20110202-r8913", date="2012-03-23T15:10:01")
+@Generated(value="EclipseLink-2.2.0.v20110202-r8913", date="2012-04-20T10:21:38")
 @StaticMetamodel(PossibleSolution.class)
 public class PossibleSolution_ { 
 
     public static volatile SingularAttribute<PossibleSolution, Integer> idPossibleSolution;
-    public static volatile SingularAttribute<PossibleSolution, Integer> correct;
-    public static volatile SingularAttribute<PossibleSolution, Answer> idAnswer;
-    public static volatile SingularAttribute<PossibleSolution, Excersice> idExcersice;
+    public static volatile SingularAttribute<PossibleSolution, Boolean> correct;
+    public static volatile SingularAttribute<PossibleSolution, Answer> answer;
+    public static volatile SingularAttribute<PossibleSolution, Exercise> exercise;
+    public static volatile SingularAttribute<PossibleSolution, Integer> answerOrder;
 
 }

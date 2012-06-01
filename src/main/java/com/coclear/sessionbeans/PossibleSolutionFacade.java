@@ -15,9 +15,10 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class PossibleSolutionFacade extends AbstractFacade<PossibleSolution> {
-    @PersistenceContext(unitName = "coclear")
+    @PersistenceContext(unitName = "coclearPU")
     private EntityManager em;
 
+    @Override
     protected EntityManager getEntityManager() {
         return em;
     }

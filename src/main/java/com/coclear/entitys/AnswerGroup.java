@@ -5,18 +5,8 @@
 package com.coclear.entitys;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -42,11 +32,11 @@ public class AnswerGroup implements Serializable {
     private Integer idAnswerGroup;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 0, max = 255)
+    @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAnswerGroup")
-    private Collection<Answer> answerCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "answerGroup", fetch = FetchType.LAZY)
+    private List<Answer> answerList;
 
     public AnswerGroup() {
     }
@@ -77,12 +67,12 @@ public class AnswerGroup implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Answer> getAnswerCollection() {
-        return answerCollection;
+    public List<Answer> getAnswerList() {
+        return answerList;
     }
 
-    public void setAnswerCollection(Collection<Answer> answerCollection) {
-        this.answerCollection = answerCollection;
+    public void setAnswerList(List<Answer> answerList) {
+        this.answerList = answerList;
     }
 
     @Override

@@ -6,8 +6,6 @@ import com.coclear.controllers.util.PaginationHelper;
 import com.coclear.sessionbeans.StimulusGroupFacade;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -113,6 +111,7 @@ public class StimulusGroupController implements Serializable {
         current = (StimulusGroup) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
+        recreatePagination();
         recreateModel();
         return "List";
     }
@@ -163,6 +162,10 @@ public class StimulusGroupController implements Serializable {
 
     private void recreateModel() {
         items = null;
+    }
+
+    private void recreatePagination() {
+        pagination = null;
     }
 
     public String next() {

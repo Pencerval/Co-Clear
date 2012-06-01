@@ -5,17 +5,7 @@
 package com.coclear.entitys;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -37,11 +27,11 @@ public class UserGroupMap implements Serializable {
     @Column(name = "id_user_group_map")
     private Integer idUserGroupMap;
     @JoinColumn(name = "id_user_group", referencedColumnName = "id_user_group")
-    @ManyToOne(optional = false)
-    private UserGroup idUserGroup;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private UserGroup userGroup;
     @JoinColumn(name = "id_user", referencedColumnName = "id_user")
-    @ManyToOne(optional = false)
-    private User id_User;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private User user;
 
     public UserGroupMap() {
     }
@@ -58,20 +48,20 @@ public class UserGroupMap implements Serializable {
         this.idUserGroupMap = idUserGroupMap;
     }
 
-    public UserGroup getIdUserGroup() {
-        return idUserGroup;
+    public UserGroup getUserGroup() {
+        return userGroup;
     }
 
-    public void setIdUserGroup(UserGroup idUserGroup) {
-        this.idUserGroup = idUserGroup;
+    public void setUserGroup(UserGroup userGroup) {
+        this.userGroup = userGroup;
     }
 
-    public User getIdUser() {
-        return id_User;
+    public User getUser() {
+        return user;
     }
 
-    public void setIdUser(User idUser) {
-        this.id_User = idUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

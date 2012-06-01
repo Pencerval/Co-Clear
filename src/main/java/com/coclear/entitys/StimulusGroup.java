@@ -5,18 +5,8 @@
 package com.coclear.entitys;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -32,7 +22,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "StimulusGroup.findAll", query = "SELECT s FROM StimulusGroup s"),
     @NamedQuery(name = "StimulusGroup.findByIdStimulusGroup", query = "SELECT s FROM StimulusGroup s WHERE s.idStimulusGroup = :idStimulusGroup"),
-    @NamedQuery(name = "StimulusGroup.findByName", query = "SELECT s FROM StimulusGroup s WHERE s.name = :name")})
+    @NamedQuery(name = "StimulusGroup.findByName", query = "SELECT s FROM StimulusGroup s WHERE s.name = :name"),
+    @NamedQuery(name = "StimulusGroup.findByDescription", query = "SELECT s FROM StimulusGroup s WHERE s.description = :description")})
 public class StimulusGroup implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,8 +36,11 @@ public class StimulusGroup implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idStimulusGroup")
-    private Collection<Stimulus> stimulusCollection;
+    @Size(max = 255)
+    @Column(name = "description")
+    private String description;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stimulusGroup", fetch = FetchType.LAZY)
+    private List<Stimulus> stimulusList;
 
     public StimulusGroup() {
     }
@@ -76,13 +70,21 @@ public class StimulusGroup implements Serializable {
         this.name = name;
     }
 
-    @XmlTransient
-    public Collection<Stimulus> getStimulusCollection() {
-        return stimulusCollection;
+    public String getDescription() {
+        return description;
     }
 
-    public void setStimulusCollection(Collection<Stimulus> stimulusCollection) {
-        this.stimulusCollection = stimulusCollection;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @XmlTransient
+    public List<Stimulus> getStimulusList() {
+        return stimulusList;
+    }
+
+    public void setStimulusList(List<Stimulus> stimulusList) {
+        this.stimulusList = stimulusList;
     }
 
     @Override

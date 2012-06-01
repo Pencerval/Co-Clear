@@ -111,6 +111,7 @@ public class DefaultGroupTaskController implements Serializable {
         current = (DefaultGroupTask) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
+        recreatePagination();
         recreateModel();
         return "List";
     }
@@ -161,6 +162,10 @@ public class DefaultGroupTaskController implements Serializable {
 
     private void recreateModel() {
         items = null;
+    }
+
+    private void recreatePagination() {
+        pagination = null;
     }
 
     public String next() {

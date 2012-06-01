@@ -22,16 +22,18 @@
                                 <p:commandButton value="Alta de respuestas" ajax="false" action="advanced/answers" /> 
                             </h:form>
                             <h:form>
-                                <p:commandButton value="Alta de ejercicios ABX" ajax="false" action="advanced/exerciseabx" /> 
+                                <p:menuButton value="Administración de ejercicios">  
+                                    <p:menuitem value="Identificación" action="advanced/exerciseidentification" ajax="false"/>  
+                                    <p:menuitem value="Discriminación" action="exerciseDiscrimination/ListPlus" ajax="false"/>  
+                                    <p:menuitem value="ABX" action="advanced/exerciseabx" ajax="false"/>  
+                                </p:menuButton> 
+                            </h:form>
+
+                            <h:form>
+                                <p:commandButton value="Administración de tareas" ajax="false" action="task/ListPlus" /> 
                             </h:form>
                             <h:form>
-                                <p:commandButton value="Alta de ejercicios Identificación" ajax="false" action="advanced/exerciseidentification" /> 
-                            </h:form>
-                            <h:form>
-                                <p:commandButton value="Asignación de ejercicios a tareas" ajax="false" action="advanced/exercisetask" /> 
-                            </h:form>
-                            <h:form>
-                                <p:commandButton value="Asignación de tareas a usuarios y grupos" ajax="false" action="advanced/taskgroupuser" /> 
+                                <p:commandButton value="Asignación de tareas" ajax="false" action="advanced/taskgroupuser" /> 
                             </h:form>
                             <h:form>
                                 <p:commandButton value="Salida de resultados" ajax="false" action="advanced/briefings" /> 
@@ -90,7 +92,14 @@
                     </p:tab>
                 </p:accordionPanel>
                 <!--<h:form><p:commandButton value="Hello from PrimeFaces" onclick="dlg1.show();" type="button" /><p:dialog header="PrimeFaces Dialog" widgetVar="dlg1" width="500">For more information visit <a href="http://primefaces.org">http://primefaces.org</a>.</p:dialog></h:form>-->
-
+                <!--
+                                            <h:form>
+                                <p:commandButton value="Alta de ejercicios ABX" ajax="false" action="advanced/exerciseabx" /> 
+                            </h:form>
+                            <h:form>
+                                <p:commandButton value="Alta de ejercicios Identificación" ajax="false" action="advanced/exerciseidentification" /> 
+                            </h:form>
+                -->
             </ui:define>
         </ui:composition>
     </h:body>

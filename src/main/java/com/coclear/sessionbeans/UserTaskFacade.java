@@ -4,9 +4,7 @@
  */
 package com.coclear.sessionbeans;
 
-import com.coclear.entitys.User;
 import com.coclear.entitys.UserTask;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,9 +15,10 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class UserTaskFacade extends AbstractFacade<UserTask> {
-    @PersistenceContext(unitName = "coclear")
+    @PersistenceContext(unitName = "coclearPU")
     private EntityManager em;
 
+    @Override
     protected EntityManager getEntityManager() {
         return em;
     }
@@ -27,8 +26,5 @@ public class UserTaskFacade extends AbstractFacade<UserTask> {
     public UserTaskFacade() {
         super(UserTask.class);
     }
-    
-    
-
     
 }

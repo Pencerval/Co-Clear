@@ -5,9 +5,11 @@
 package com.coclear.controllers;
 
 import com.coclear.controllers.util.JsfUtil;
+import com.coclear.entitys.Exercise;
 import com.coclear.entitys.User;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -28,6 +30,8 @@ public class LoginController implements Serializable {
     public String pass;
     @EJB
     private com.coclear.sessionbeans.UserFacade ejbFacade;
+    @EJB
+    private com.coclear.sessionbeans.ExerciseFacade exerciseFacade;
 
     public LoginController() {
     }
@@ -38,6 +42,7 @@ public class LoginController implements Serializable {
         user.setPassword(pass);
         try {
             user = ejbFacade.getUserByname(username);
+            //user = ejbFacade.find(user);
         } catch (Exception e) {
             logger.error("SQL problem ",e);
             JsfUtil.addErrorMessage("Login Failed");
@@ -52,7 +57,7 @@ public class LoginController implements Serializable {
         Object session = externalContext.getSession(true);
         HttpSession httpSession = (HttpSession) session;
         httpSession.setAttribute("user", user);
-        if (user.getIsAdmin() == 1) {
+        if (user.getIsAdmin()) {
             return "/admin/index";
 
         } else {

@@ -5,17 +5,8 @@
 package com.coclear.entitys;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -40,13 +31,15 @@ public class UserTask implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "complete")
-    private int complete;
+    private boolean complete;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userTask", fetch = FetchType.LAZY)
+    private List<Result> resultList;
     @JoinColumn(name = "id_user", referencedColumnName = "id_user")
-    @ManyToOne(optional = false)
-    private User id_User;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private User user;
     @JoinColumn(name = "id_task", referencedColumnName = "id_task")
-    @ManyToOne(optional = false)
-    private Task idTask;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Task task;
 
     public UserTask() {
     }
@@ -55,7 +48,7 @@ public class UserTask implements Serializable {
         this.idUserTask = idUserTask;
     }
 
-    public UserTask(Integer idUserTask, int complete) {
+    public UserTask(Integer idUserTask, boolean complete) {
         this.idUserTask = idUserTask;
         this.complete = complete;
     }
@@ -68,30 +61,40 @@ public class UserTask implements Serializable {
         this.idUserTask = idUserTask;
     }
 
-    public int getComplete() {
+    public boolean getComplete() {
         return complete;
     }
 
-    public void setComplete(int complete) {
+    public void setComplete(boolean complete) {
         this.complete = complete;
     }
 
-    public User getIdUser() {
-        return id_User;
+    public User getUser() {
+        return user;
     }
 
-    public void setIdUser(User idUser) {
-        this.id_User = idUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Task getIdTask() {
-        return idTask;
+    public Task getTask() {
+        return task;
     }
 
-    public void setIdTask(Task idTask) {
-        this.idTask = idTask;
+    public void setTask(Task task) {
+        this.task = task;
     }
 
+    public List<Result> getResultList() {
+        return resultList;
+    }
+
+    public void setResultList(List<Result> resultList) {
+        this.resultList = resultList;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -5,17 +5,7 @@
 package com.coclear.entitys;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -29,7 +19,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "PossibleSolution.findAll", query = "SELECT p FROM PossibleSolution p"),
     @NamedQuery(name = "PossibleSolution.findByIdPossibleSolution", query = "SELECT p FROM PossibleSolution p WHERE p.idPossibleSolution = :idPossibleSolution"),
-    @NamedQuery(name = "PossibleSolution.findByCorrect", query = "SELECT p FROM PossibleSolution p WHERE p.correct = :correct")})
+    @NamedQuery(name = "PossibleSolution.findByCorrect", query = "SELECT p FROM PossibleSolution p WHERE p.correct = :correct"),
+    @NamedQuery(name = "PossibleSolution.findByAnswerOrder", query = "SELECT p FROM PossibleSolution p WHERE p.answerOrder = :answerOrder")})
 public class PossibleSolution implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,13 +31,15 @@ public class PossibleSolution implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "correct")
-    private int correct;
-    @JoinColumn(name = "id_excersice", referencedColumnName = "id_excersice")
-    @ManyToOne(optional = false)
-    private Excersice idExcersice;
+    private boolean correct;
+    @Column(name = "answer_order")
+    private Integer answerOrder;
+    @JoinColumn(name = "id_excersice", referencedColumnName = "id_exercise")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Exercise exercise;
     @JoinColumn(name = "id_answer", referencedColumnName = "id_answer")
-    @ManyToOne(optional = false)
-    private Answer idAnswer;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Answer answer;
 
     public PossibleSolution() {
     }
@@ -55,7 +48,7 @@ public class PossibleSolution implements Serializable {
         this.idPossibleSolution = idPossibleSolution;
     }
 
-    public PossibleSolution(Integer idPossibleSolution, int correct) {
+    public PossibleSolution(Integer idPossibleSolution, boolean correct) {
         this.idPossibleSolution = idPossibleSolution;
         this.correct = correct;
     }
@@ -68,28 +61,36 @@ public class PossibleSolution implements Serializable {
         this.idPossibleSolution = idPossibleSolution;
     }
 
-    public int getCorrect() {
+    public boolean getCorrect() {
         return correct;
     }
 
-    public void setCorrect(int correct) {
+    public void setCorrect(boolean correct) {
         this.correct = correct;
     }
 
-    public Excersice getIdExcersice() {
-        return idExcersice;
+    public Integer getAnswerOrder() {
+        return answerOrder;
     }
 
-    public void setIdExcersice(Excersice idExcersice) {
-        this.idExcersice = idExcersice;
+    public void setAnswerOrder(Integer order) {
+        this.answerOrder = order;
     }
 
-    public Answer getIdAnswer() {
-        return idAnswer;
+    public Exercise getExercise() {
+        return exercise;
     }
 
-    public void setIdAnswer(Answer idAnswer) {
-        this.idAnswer = idAnswer;
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
+    }
+
+    public Answer getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
     }
 
     @Override

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body">
+                <h1 class="title ui-widget-header ui-corner-all">Listado de estímulos</h1>
+                <p:messages id="msgs"/> 
+                <h:form id="form" enctype="multipart/form-data">  
+                    
+                    <p:dataTable id="table" var="stimulus" value="#{stimulusControllerPlus.stimulusList}" rowKey="#{stimulus.idStimulus}" paginator="true" rows="10"  
+                                 selection="#{stimulusControllerPlus.stimulusSelected}" selectionMode="multiple">  
+                        <f:facet name="header">  
+                            Lista de estímulos  
+                        </f:facet>  
+                        <p:column headerText="ID" sortBy="#{stimulus.idStimulus}" filterBy="#{stimulus.idStimulus}" id="ID">  
+                            <div style="text-align: center;">
+                                #{stimulus.idStimulus}  
+                            </div>
+                        </p:column>  
+                        <p:column headerText="Grupo" sortBy="#{stimulus.stimulusGroup.name}" filterBy="#{stimulus.stimulusGroup.name}" id="group">  
+                            <div style="text-align: center;">
+                                #{stimulus.stimulusGroup.name}  
+                            </div>
+                        </p:column>  
+                        <p:column headerText="Nombre" sortBy="#{stimulus.name}" filterBy="#{stimulus.name}" id="name">  
+                            <div style="text-align: center;">
+                                #{stimulus.name}  
+                            </div>
+                        </p:column>  
+                        <p:column headerText="Acciones" id="actions" > 
+                            <div style="text-align: center;">
+                                <p:commandButton title="Editar" icon="ui-icon-circle-zoomin" >  
+                                    <f:param name="idStimulus" value="#{stimulus.idStimulus}" />  
+                                </p:commandButton>
+                                <p:commandButton title="Borrar" id="delete"  
+                                                 onclick="confirmation#{stimulus.idStimulus}.show()" icon="ui-icon-circle-close" />
+                            </div>
+                            <p:confirmDialog style="left: 40% !important;top: 40% !important;" id="confirmDialog" message="¿Esta seguro de eliminar el elemento?" header="Eliminar elemento" severity="alert" widgetVar="confirmation#{stimulus.idStimulus}">  
+                                <div style="text-align: center;">
+                                    <p:commandButton id="confirm#{stimulus.idStimulus}" value="Si" update=":form" oncomplete="confirmation#{stimulus.idStimulus}.hide()"  
+                                                     actionListener="#{stimulusControllerPlus.delete(stimulus)}" />  
+                                    <p:commandButton id="decline" value="No" onclick="confirmation#{stimulus.idStimulus}.hide()" type="button" />   
+                                </div>
+                            </p:confirmDialog> 
+                        </p:column>  
+
+                        <f:facet name="footer">  
+                            <div style="float: left;">
+                                Existen #{stimulusControllerPlus.stimulusList.size()} estímulos.  
+                            </div>
+                            <div style="float: right;">
+                                <p:commandButton value="Borrar Seleccionados" icon="ui-icon-circle-close"/>
+                                <p:commandButton value="Añadir" icon="ui-icon-circle-plus" action="../advanced/stimulusupload.xhtml" ajax="false"/>
+                            </div>
+                        </f:facet>  
+                    </p:dataTable> 
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

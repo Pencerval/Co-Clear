@@ -33,7 +33,7 @@ public class LoginFilter implements Filter{
         FacesContext fc=FacesContext.getCurrentInstance();
         if (session.getAttribute("user") != null && (req.getRequestURI() == null ? req.getContextPath() == null : req.getRequestURI().equals(req.getContextPath()+"/"))) {
             User user=(User) session.getAttribute("user");
-            if(user.getIsAdmin()==1){
+            if(user.getIsAdmin()){
                 res.sendRedirect(req.getContextPath() +"/admin/index.xhtml");
             }else{
                 res.sendRedirect(req.getContextPath() +"/public/index.xhtml");

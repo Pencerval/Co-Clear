@@ -11,12 +11,16 @@
     <h:body>
         <ui:composition template="/resources/templates/template.xhtml">
             <ui:define name="body">
-                <h1 class="title ui-widget-header ui-corner-all">Estadisticas de usuario</h1>
+                <h1 class="title ui-widget-header ui-corner-all">Resultados</h1>
                 <h:form id="form">  
-                    <p:panel header="Selecciona el usuario" style="margin-bottom:10px;"> 
-                        <p:dataTable id="usersTable" var="user" value="#{userBriefingsController.users}" rowKey="#{user.idUser}" paginator="true" rows="10"  
-                                     selection="#{userBriefingsController.selectedUser}" selectionMode="single" >  
-                            <p:ajax event="rowSelect" listener="#{userBriefingsController.onUserSelect}" update=":form:taskTable"/>
+                    <p:panel id="panel1" header="Obtener resultados por usuario" style="margin-bottom:10px;"> 
+                        <p:dataTable var="user" value="#{briefingsController.users}" rowKey="#{user.idUser}" paginator="true" rows="10"  
+                                     selection="#{briefingsController.selectedUser}" selectionMode="single" id="usersTable">  
+
+                            <p:ajax event="rowSelect" update=":form:userTaskTable" />  
+                            <p:ajax event="rowUnselect" update=":form:userTaskTable"/>  
+
+
                             <f:facet name="header">  
                                 Selecciona el usuario:
                             </f:facet>  
@@ -30,24 +34,56 @@
                                 #{user.name}  
                             </p:column>  
                         </p:dataTable> 
-                        <p:dataTable id="taskTable" var="task" value="#{userBriefingsController.tasks}" rowKey="#{task.idTask}" paginator="true" rows="10"  
-                                     selection="#{userBriefingsController.selectedTask}" selectionMode="single" >  
-                            <p:ajax event="rowSelect" update="taskTable"/>
+                        <p:dataTable var="usertask" value="#{briefingsController.userTasks}" rowKey="#{usertask.idUserTask}" paginator="true" rows="10"  
+                                     id="userTaskTable">  
+
                             <f:facet name="header">  
                                 Selecciona la tarea:
                             </f:facet>  
-                            <p:column headerText="ID" sortBy="#{task.idTask}" filterBy="#{task.idTask}" id="ID">  
+                            <p:column headerText="ID" sortBy="#{usertask.idUserTask}" filterBy="#{usertask.idUserTask}" id="ID">  
+                                #{usertask.idUserTask} 
+                            </p:column>  
+                            <p:column headerText="Tarea" sortBy="#{usertask.task.name}" filterBy="#{usertask.task.name}" id="name">  
+                                #{usertask.task.name}
+                            </p:column>  
+                            <p:column headerText="Generar" id="actions" > 
+                                <div style="text-align: center;">
+                                    <p:commandButton title="Generar" icon="ui-icon-gear" ajax="false" actionListener="#{briefingsController.getCsvFromUserTask(usertask)}">
+                                        <p:fileDownload value="#{briefingsController.csv}" />
+                                    </p:commandButton>
+                                </div>
+                            </p:column>  
+
+                        </p:dataTable> 
+                    </p:panel>
+                    <p:panel id="panel2" header="Obtener resultados por usuario" style="margin-bottom:10px;"> 
+                        <p:dataTable var="task" value="#{briefingsController.tasks}" rowKey="#{task.idTask}" paginator="true" rows="10"  
+                                     id="taskTable">  
+
+                            <f:facet name="header">  
+                                Selecciona la tarea:
+                            </f:facet>  
+                            <p:column headerText="ID" sortBy="#{task.idTask}" filterBy="#{task.idTask}" id="ID2">  
                                 #{task.idTask} 
                             </p:column>  
-                            <p:column headerText="Nombre" sortBy="#{task.name}" filterBy="#{task.name}" id="name">  
-                                #{task.name}  
+                            <p:column headerText="Nombre" sortBy="#{task.name}" filterBy="#{task.name}" id="name2">  
+                                #{task.name}
+                            </p:column>
+                            <p:column headerText="Descripción" sortBy="#{task.description}" filterBy="#{task.description}" id="description">  
+                                #{task.description}
                             </p:column>  
-                        </p:dataTable>
-                        <p:commandLink id="downloadLink" value="Download" ajax="false">  
-                            <p:fileDownload value="#{userBriefingsController.getCsv}" />  
-                        </p:commandLink>
+                            <p:column headerText="Generar" id="actions2" > 
+                                <div style="text-align: center;">
+                                    <p:commandButton title="Generar" icon="ui-icon-gear" ajax="false" actionListener="#{briefingsController.getCsvFromTask(task)}">
+                                        <p:fileDownload value="#{briefingsController.csv}" />
+                                    </p:commandButton>
+                                </div>
+                            </p:column>  
+
+                        </p:dataTable> 
                     </p:panel>
-                </h:form>
+                    <p:growl id="messages" showDetail="true"/>
+                </h:form>  
             </ui:define>
         </ui:composition>
     </h:body>

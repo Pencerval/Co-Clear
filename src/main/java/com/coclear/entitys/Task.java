@@ -5,18 +5,8 @@
 package com.coclear.entitys;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,7 +25,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Task.findByName", query = "SELECT t FROM Task t WHERE t.name = :name"),
     @NamedQuery(name = "Task.findByRepeatable", query = "SELECT t FROM Task t WHERE t.repeatable = :repeatable"),
     @NamedQuery(name = "Task.findByIsUserDefault", query = "SELECT t FROM Task t WHERE t.isUserDefault = :isUserDefault"),
-    @NamedQuery(name = "Task.findByType", query = "SELECT t FROM Task t WHERE t.type = :type")})
+    @NamedQuery(name = "Task.findByType", query = "SELECT t FROM Task t WHERE t.type = :type"),
+    @NamedQuery(name = "Task.findByDescription", query = "SELECT t FROM Task t WHERE t.description = :description"),
+    @NamedQuery(name = "Task.findByHelp", query = "SELECT t FROM Task t WHERE t.help = :help")})
 public class Task implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,21 +43,27 @@ public class Task implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "repeatable")
-    private int repeatable;
+    private boolean repeatable;
     @Basic(optional = false)
     @NotNull
     @Column(name = "is_user_default")
-    private int isUserDefault;
+    private boolean isUserDefault;
     @Basic(optional = false)
     @NotNull
     @Column(name = "type")
     private int type;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTask")
-    private Collection<TaskExercise> taskExerciseCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTask")
-    private Collection<DefaultGroupTask> defaultGroupTaskCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTask")
-    private Collection<UserTask> userTaskCollection;
+    @Size(max = 255)
+    @Column(name = "description")
+    private String description;
+    @Size(max = 255)
+    @Column(name = "help")
+    private String help;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "task", fetch = FetchType.LAZY)
+    private List<TaskExercise> taskExerciseList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "task", fetch = FetchType.LAZY)
+    private List<DefaultGroupTask> defaultGroupTaskList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "task", fetch = FetchType.LAZY)
+    private List<UserTask> userTaskList;
 
     public Task() {
     }
@@ -74,7 +72,7 @@ public class Task implements Serializable {
         this.idTask = idTask;
     }
 
-    public Task(Integer idTask, String name, int repeatable, int isUserDefault, int type) {
+    public Task(Integer idTask, String name, boolean repeatable, boolean isUserDefault, int type) {
         this.idTask = idTask;
         this.name = name;
         this.repeatable = repeatable;
@@ -98,19 +96,19 @@ public class Task implements Serializable {
         this.name = name;
     }
 
-    public int getRepeatable() {
+    public boolean getRepeatable() {
         return repeatable;
     }
 
-    public void setRepeatable(int repeatable) {
+    public void setRepeatable(boolean repeatable) {
         this.repeatable = repeatable;
     }
 
-    public int getIsUserDefault() {
+    public boolean getIsUserDefault() {
         return isUserDefault;
     }
 
-    public void setIsUserDefault(int isUserDefault) {
+    public void setIsUserDefault(boolean isUserDefault) {
         this.isUserDefault = isUserDefault;
     }
 
@@ -122,31 +120,47 @@ public class Task implements Serializable {
         this.type = type;
     }
 
-    @XmlTransient
-    public Collection<TaskExercise> getTaskExerciseCollection() {
-        return taskExerciseCollection;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTaskExerciseCollection(Collection<TaskExercise> taskExerciseCollection) {
-        this.taskExerciseCollection = taskExerciseCollection;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    @XmlTransient
-    public Collection<DefaultGroupTask> getDefaultGroupTaskCollection() {
-        return defaultGroupTaskCollection;
+    public String getHelp() {
+        return help;
     }
 
-    public void setDefaultGroupTaskCollection(Collection<DefaultGroupTask> defaultGroupTaskCollection) {
-        this.defaultGroupTaskCollection = defaultGroupTaskCollection;
+    public void setHelp(String help) {
+        this.help = help;
     }
 
     @XmlTransient
-    public Collection<UserTask> getUserTaskCollection() {
-        return userTaskCollection;
+    public List<TaskExercise> getTaskExerciseList() {
+        return taskExerciseList;
     }
 
-    public void setUserTaskCollection(Collection<UserTask> userTaskCollection) {
-        this.userTaskCollection = userTaskCollection;
+    public void setTaskExerciseList(List<TaskExercise> taskExerciseList) {
+        this.taskExerciseList = taskExerciseList;
+    }
+
+    @XmlTransient
+    public List<DefaultGroupTask> getDefaultGroupTaskList() {
+        return defaultGroupTaskList;
+    }
+
+    public void setDefaultGroupTaskList(List<DefaultGroupTask> defaultGroupTaskList) {
+        this.defaultGroupTaskList = defaultGroupTaskList;
+    }
+
+    @XmlTransient
+    public List<UserTask> getUserTaskList() {
+        return userTaskList;
+    }
+
+    public void setUserTaskList(List<UserTask> userTaskList) {
+        this.userTaskList = userTaskList;
     }
 
     @Override

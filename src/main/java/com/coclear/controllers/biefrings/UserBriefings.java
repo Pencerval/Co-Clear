@@ -47,7 +47,7 @@ public class UserBriefings implements Serializable {
 
     public List<User> getUsers() {
         if (users == null) {
-            users = ejbUserFacade.getUserbyAdmin(0);
+            users = ejbUserFacade.getUserbyAdmin(false);
         }
         return users;
     }
@@ -74,11 +74,11 @@ public class UserBriefings implements Serializable {
     
     
     public void onUserSelect(){
-        List<UserTask> userTasks=(List<UserTask>) getSelectedUser().getUserTaskCollection();
+        List<UserTask> userTasks=(List<UserTask>) getSelectedUser().getUserTaskList();
         List<Task> tasks=new LinkedList<Task>();
         for(UserTask userTask:userTasks){
-            if(userTask.getComplete()==1){
-                tasks.add(userTask.getIdTask());
+            if(userTask.getComplete()){
+                tasks.add(userTask.getTask());
             }
         }
         setTasks(tasks);

@@ -13,36 +13,49 @@
             <ui:define name="body">
                 <h1 class="title ui-widget-header ui-corner-all">Alta de ejercicios tipo Identificación</h1>
                 <h:form>  
-                    <p:panel id="paneltitulo" header="Titulo" style="margin-bottom:10px;"> 
+                    <p:panel id="paneltitulo" header="Nombre" style="margin-bottom:10px;"> 
                         <h:panelGrid columns="2" > 
-                            <h:outputLabel value="Escribe un titulo para el ejercicio " />
-                            <p:inputText id="titulo" value="#{exerciseIdentificationController.exersice.name}" required="true" label="Nombre">  
-                                <f:validateLength minimum="2" />  
+                            <h:outputLabel value="Escribe un nombre para el ejercicio" />
+                            <p:inputText id="titulo" value="#{exerciseIdentificationController.exercise.name}" required="false" label="Nombre" title="Puede dejar este campo en blanco para ser generado por el servidor.">  
+                                
                             </p:inputText> 
+                            <p:tooltip for="titulo" showEvent="focus" hideEvent="blur" />
                         </h:panelGrid>
                     </p:panel>
                     <p:panel id="panel" header="Selecciona el estimulo" style="margin-bottom:10px;"> 
-                        <h:panelGrid columns="2" > 
-                            <h:outputLabel value="Grupo del estimulo: " />
-                            <p:selectOneMenu  value="#{exerciseIdentificationController.stimulusGroup}" effect="fade">  
-                                <p:ajax listener="#{exerciseIdentificationController.stimulusGroupSelectedChanged}" update="exercise"/>
-                                <f:selectItems value="#{exerciseIdentificationController.stimulusGroupList}" var="stimulusGroup" itemLabel="#{stimulusGroup.name}" itemValue="#{stimulusGroup}"/>  
-                            </p:selectOneMenu>  
-                            <h:outputLabel value="Estimulo: " />  
-                            <!--<p:selectOneMenu id="exercise" value="#{exerciseIdentificationController.stimulus}" effect="fade" var="stimulus">  
-                                <f:selectItems value="#{exerciseIdentificationController.stimulusList}" var="stimulus" itemLabel="#{stimulus.name}" itemValue="#{stimulus}"/>  
-                            --><!--<p:column>  
-                                <p:graphicImage value="/resources/images/button-play.png" width="20" height="20" onclick="document.getElementById('sound').play();"/>
-                            </p:column>  -->
-                            <!--<p:column>  
-                            #{stimulus.name}  
-                        </p:column>  
-                    </p:selectOneMenu>  
-                            -->
-                            <p:selectOneListbox id="exercise" value="#{exerciseIdentificationController.stimulus}" style="height:100px">  
-                                <f:selectItems value="#{exerciseIdentificationController.stimulusList}" var="stimulus" itemLabel="#{stimulus.name}" itemValue="#{stimulus}" />
-                            </p:selectOneListbox>  
-                        </h:panelGrid>
+                        <p:dataTable id="table" var="stimulus" value="#{exerciseIdentificationController.stimulusList}" rowKey="#{stimulus.idStimulus}" paginator="true" rows="10"  
+                                     selection="#{exerciseIdentificationController.stimulus}" >  
+                            <f:facet name="header">  
+                                Lista de estímulos  
+                            </f:facet>  
+                            <p:column selectionMode="single" style="width:18px" />
+                            <p:column headerText="ID" sortBy="#{stimulus.idStimulus}" filterBy="#{stimulus.idStimulus}" id="ID">  
+                                <div style="text-align: center;">
+                                    #{stimulus.idStimulus}  
+                                </div>
+                            </p:column>  
+                            <p:ajax event="rowSelect"/>  
+                            <p:ajax event="rowUnselect"/>  
+                            <p:column headerText="Grupo" sortBy="#{stimulus.stimulusGroup.name}" filterBy="#{stimulus.stimulusGroup.name}" id="group">  
+                                <div style="text-align: center;"  filterOptions="#{stimulus.stimulusGroup.name}"  
+                                     filterMatchMode="exact">
+                                    #{stimulus.stimulusGroup.name}  
+                                </div>
+                            </p:column>  
+                            <p:column headerText="Nombre" sortBy="#{stimulus.name}" filterBy="#{stimulus.name}" id="name">  
+                                <div style="text-align: center;">
+                                    #{stimulus.name}  
+                                </div>
+                            </p:column>  
+                            <f:facet name="footer">  
+                                <div style="float: left;">
+                                    Existen #{exerciseIdentificationController.stimulusList.size()} estímulos.  
+                                </div>
+                            </f:facet>  
+                        </p:dataTable> 
+
+
+
                     </p:panel>
                     <p:panel id="panelRespuestas" header="Posibles Respuestas" style="margin-bottom:10px;"> 
                         <h:panelGrid columns="2" > 
@@ -62,7 +75,8 @@
                             </p:selectOneMenu> 
                         </h:panelGrid>
                     </p:panel>
-                    <p:commandButton value="Guardar" update="messages" ajax="true" actionListener="#{exerciseIdentificationController.saveExercise}" style="margin-top:10px;"/>
+                    <p:commandButton value="Guardar" update="messages" ajax="true" actionListener="#{exerciseIdentificationController.saveExercise}" style="margin-top:10px;">
+                    </p:commandButton>
                     <p:growl id="messages" showDetail="true"/>
 
                 </h:form>  

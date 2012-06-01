@@ -15,9 +15,10 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class TaskExerciseFacade extends AbstractFacade<TaskExercise> {
-    @PersistenceContext(unitName = "coclear")
+    @PersistenceContext(unitName = "coclearPU")
     private EntityManager em;
 
+    @Override
     protected EntityManager getEntityManager() {
         return em;
     }

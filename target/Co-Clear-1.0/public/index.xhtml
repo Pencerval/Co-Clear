@@ -25,21 +25,21 @@
                                         </li>
                                     </c:if>
                                     <c:if test="#{!empty publicHomeController.incompleteTask}">
-                                        <c:forEach items="#{publicHomeController.incompleteTask}" var="task">
+                                        <c:forEach items="#{publicHomeController.incompleteTask}" var="userTask">
                                             <li>
-                                                <p:commandLink onclick="confirmation#{task.idTask}.show();" style="margin-right:20px;" ajax="true">  
-                                                    <h:outputText value="#{task.name}" />
+                                                <p:commandLink onclick="confirmation#{userTask.idUserTask}.show();" style="margin-right:20px;" ajax="true">  
+                                                    <h:outputText value="#{userTask.task.name}" />
                                                 </p:commandLink>  
                                             </li>
                                             <p:confirmDialog style="left: 40% !important;top: 40% !important;" message="Se dispone a iniciar una actividad. Este preparado."  
-                                                             header="Inicio actividad" severity="info" widgetVar="confirmation#{task.idTask}">  
-
-                                                <p:commandButton id="confirm" value="Ok" oncomplete="confirmation.hide()"  
-                                                                 action="#{publicHomeController.exerciseUrl}" ajax="false">
-                                                    <f:param name="task" value="#{task.idTask}" />
-                                                </p:commandButton>  
-                                                <p:commandButton id="decline" value="Cancelar" onclick="confirmation#{task.idTask}.hide()" type="button" />   
-
+                                                             header="Inicio actividad" severity="info" widgetVar="confirmation#{userTask.idUserTask}">  
+                                                <div style="text-align: center;">
+                                                    <p:commandButton id="confirm#{userTask.idUserTask}" value="Ok" oncomplete="confirmation#{userTask.idUserTask}.hide()"  
+                                                                     action="#{publicHomeController.exerciseUrl}" ajax="false">
+                                                        <f:param name="task" value="#{userTask.idUserTask}" />
+                                                    </p:commandButton>  
+                                                    <p:commandButton id="decline#{userTask.idUserTask}" value="Cancelar" onclick="confirmation#{userTask.idUserTask}.hide()" type="button" />   
+                                                </div>
                                             </p:confirmDialog>
                                         </c:forEach>
                                     </c:if>

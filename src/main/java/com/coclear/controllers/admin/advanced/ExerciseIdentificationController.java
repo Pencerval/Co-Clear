@@ -1,27 +1,43 @@
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
+ * <!-- <h:panelGrid columns="2" > 
+                            <h:outputLabel value="Grupo del estimulo: " />
+                            <p:selectOneMenu  value="#{exerciseIdentificationController.stimulusGroup}" effect="fade">  
+                                <p:ajax listener="#{exerciseIdentificationController.stimulusGroupSelectedChanged}" update="exercise"/>
+                                <f:selectItems value="#{exerciseIdentificationController.stimulusGroupList}" var="stimulusGroup" itemLabel="#{stimulusGroup.name}" itemValue="#{stimulusGroup}"/>  
+                            </p:selectOneMenu>  
+                            <h:outputLabel value="Estimulo: " />  
+                            <p:selectOneMenu id="exercise" value="#{exerciseIdentificationController.stimulus}" effect="fade" var="stimulus">  
+                                <f:selectItems value="#{exerciseIdentificationController.stimulusList}" var="stimulus" itemLabel="#{stimulus.name}" itemValue="#{stimulus}"/>  
+                            --><!--<p:column>  
+                                <p:graphicImage value="/resources/images/button-play.png" width="20" height="20" onclick="document.getElementById('sound').play();"/>
+                            </p:column>  -->
+                            <!--<p:column>  
+                            #{stimulus.name}  
+                        </p:column>  
+                    </p:selectOneMenu>  
+                            
+                            <p:selectOneListbox id="exercise" value="#{exerciseIdentificationController.stimulus}" style="height:100px">  
+                                <f:selectItems value="#{exerciseIdentificationController.stimulusList}" var="stimulus" itemLabel="#{stimulus.name}" itemValue="#{stimulus}" />
+                            </p:selectOneListbox>  
+                        </h:panelGrid>
+                            -->
  */
 package com.coclear.controllers.admin.advanced;
 
-import com.coclear.entitys.Answer;
-import com.coclear.entitys.Excersice;
-import com.coclear.entitys.ExerciseStimulusMap;
-import com.coclear.entitys.PossibleSolution;
-import com.coclear.entitys.Stimulus;
-import com.coclear.entitys.StimulusGroup;
+import com.coclear.entitys.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.event.ActionEvent;
 import org.primefaces.model.DualListModel;
 
 /**
@@ -29,16 +45,14 @@ import org.primefaces.model.DualListModel;
  * @author Pencerval
  */
 @ManagedBean(name = "exerciseIdentificationController")
-@SessionScoped
+@ViewScoped
 public class ExerciseIdentificationController implements Serializable {
 
     
     private static final long serialVersionUID = 1L;
     
     @EJB
-    private com.coclear.sessionbeans.ExcersiceFacade ejbExercise;
-    @EJB
-    private com.coclear.sessionbeans.StimulusGroupFacade ejbStimulusGroup;
+    private com.coclear.sessionbeans.ExerciseFacade ejbExercise;
     @EJB
     private com.coclear.sessionbeans.StimulusFacade ejbStimulus;
     @EJB
@@ -49,11 +63,8 @@ public class ExerciseIdentificationController implements Serializable {
     private com.coclear.sessionbeans.PossibleSolutionFacade ejbPosiPossibleSolutionFacade;
     
     
-    private Excersice exersice=new Excersice();
-    private StimulusGroup stimulusGroup=new StimulusGroup();
+    private Exercise exercise=new Exercise();
     private Stimulus stimulus=new Stimulus();
-    
-    private List<StimulusGroup> stimulusGroupList;
     
     private List<Stimulus> stimulusList;
     
@@ -126,50 +137,53 @@ public class ExerciseIdentificationController implements Serializable {
     public ExerciseIdentificationController() {
     }
 
-    public void saveExercise(ActionEvent event) {
+    public void saveExercise() {
         try {
-            exersice.setExerciseStimulusMapCollection(null);
-            exersice.setPossibleSolutionCollection(null);
-            ejbExercise.create(exersice);
+            if(stimulus==null){
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Necesita seleccionar un estimulo de la tabla.");  
+                FacesContext.getCurrentInstance().addMessage(null, msg); 
+                return;
+            }
+            exercise.setExerciseStimulusMapList(null);
+            exercise.setPossibleSolutionList(null);
+            if(exercise.getName()==null || exercise.getName().isEmpty()){
+                exercise.setName(getStimulus().getName()+"-"+getCorrectAnswer().getName());
+            }
+            ejbExercise.create(exercise);
             ExerciseStimulusMap exerciseStimulusMap=new ExerciseStimulusMap();
-            exerciseStimulusMap.setIdStimulus(stimulus);
-            exerciseStimulusMap.setIdExcersice(exersice);
+            exerciseStimulusMap.setStimulus(stimulus);
+            exerciseStimulusMap.setExercise(exercise);
             ejbExerciseStimulusMap.create(exerciseStimulusMap);
             List<ExerciseStimulusMap> exerciseStimulusMaps=new ArrayList<ExerciseStimulusMap>();
             exerciseStimulusMaps.add(exerciseStimulusMap);
             List<PossibleSolution> possibleSolutions=new ArrayList<PossibleSolution>();
             PossibleSolution possibleSolution=new PossibleSolution();
-            possibleSolution.setCorrect(1);
-            possibleSolution.setIdExcersice(exersice);
-            possibleSolution.setIdAnswer(correctAnswer);
+            possibleSolution.setCorrect(true);
+            possibleSolution.setExercise(exercise);
+            possibleSolution.setAnswer(correctAnswer);
+            possibleSolution.setAnswerOrder(0);
             ejbPosiPossibleSolutionFacade.create(possibleSolution);
             possibleSolutions.add(possibleSolution);
             for(Answer answer:answers.getTarget()){
                 if(answer.getIdAnswer()!=correctAnswer.getIdAnswer()){
                     PossibleSolution possibleSolutionFail=new PossibleSolution();
-                    possibleSolutionFail.setCorrect(0);
-                    possibleSolutionFail.setIdExcersice(exersice);
-                    possibleSolutionFail.setIdAnswer(answer);
+                    possibleSolutionFail.setCorrect(false);
+                    possibleSolutionFail.setExercise(exercise);
+                    possibleSolutionFail.setAnswer(answer);
+                    possibleSolutionFail.setAnswerOrder(0);
                     ejbPosiPossibleSolutionFacade.create(possibleSolutionFail);
                     possibleSolutions.add(possibleSolutionFail);
                 }
             }
-
-            exersice.setExerciseStimulusMapCollection(exerciseStimulusMaps);
-            exersice.setPossibleSolutionCollection(possibleSolutions);
-            ejbExercise.edit(exersice);
-            FacesMessage msg = new FacesMessage("Succesful", "Ejercicio "+exersice.getName()+" creado correctamente");  
+            exercise.setExerciseStimulusMapList(exerciseStimulusMaps);
+            exercise.setPossibleSolutionList(possibleSolutions);
+            ejbExercise.edit(exercise);
+            FacesMessage msg = new FacesMessage("Succesful", "Ejercicio "+exercise.getName()+" creado correctamente");  
             FacesContext.getCurrentInstance().addMessage(null, msg);  
+            exercise=new Exercise();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    
-    public void stimulusGroupSelectedChanged(){
-        if(stimulusGroup==null && ejbStimulusGroup.count()>0){
-            stimulusGroup=ejbStimulusGroup.findAll().get(0);
-        }
-        stimulusList=(List<Stimulus>) stimulusGroup.getStimulusCollection();
     }
     
     public Stimulus getStimulus() {
@@ -179,35 +193,12 @@ public class ExerciseIdentificationController implements Serializable {
     public void setStimulus(Stimulus stimulus) {
         this.stimulus = stimulus;
     }
-
-    
-
-    public StimulusGroup getStimulusGroup() {
-        return stimulusGroup;
-    }
-
-    public void setStimulusGroup(StimulusGroup stimulusGroup) {
-        this.stimulusGroup = stimulusGroup;
-    }
-
-
-
-    public List<StimulusGroup> getStimulusGroupList() {
-        stimulusGroupList=ejbStimulusGroup.findAll();
-        return stimulusGroupList;
-    }
-
-    public void setStimulusGroupList(List<StimulusGroup> stimulusGroupList) {
-        this.stimulusGroupList = stimulusGroupList;
-    }
-
-   
+  
 
     public List<Stimulus> getStimulusList() {
-        if(stimulusGroup==null || stimulusGroup.getName()==null || stimulusGroup.getName()=="" || stimulusGroup.getName().isEmpty()){
-            stimulusGroup=ejbStimulusGroup.findAll().get(0);
+        if(stimulusList==null){
+            stimulusList=ejbStimulus.findAll();
         }
-        stimulusList=(List<Stimulus>) stimulusGroup.getStimulusCollection();
         return stimulusList;
     }
 
@@ -217,12 +208,12 @@ public class ExerciseIdentificationController implements Serializable {
 
    
 
-    public Excersice getExersice() {
-        return exersice;
+    public Exercise getExercise() {
+        return exercise;
     }
 
-    public void setExersice(Excersice exersice) {
-        this.exersice = exersice;
+    public void setExersice(Exercise exercise) {
+        this.exercise = exercise;
     }
     
     

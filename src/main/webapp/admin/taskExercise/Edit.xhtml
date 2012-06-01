@@ -18,7 +18,7 @@
                     <h:outputLabel value="#{bundle.EditTaskExerciseLabel_idTaskExercise}" for="idTaskExercise" />
                     <h:inputText id="idTaskExercise" value="#{taskExerciseController.selected.idTaskExercise}" title="#{bundle.EditTaskExerciseTitle_idTaskExercise}" required="true" requiredMessage="#{bundle.EditTaskExerciseRequiredMessage_idTaskExercise}"/>
                     <h:outputLabel value="#{bundle.EditTaskExerciseLabel_order}" for="order" />
-                    <h:inputText id="order" value="#{taskExerciseController.selected.order}" title="#{bundle.EditTaskExerciseTitle_order}" required="true" requiredMessage="#{bundle.EditTaskExerciseRequiredMessage_order}"/>
+                    <h:inputText id="order" value="#{taskExerciseController.selected.exerciseOrder}" title="#{bundle.EditTaskExerciseTitle_order}" required="true" requiredMessage="#{bundle.EditTaskExerciseRequiredMessage_order}"/>
                     <h:outputLabel value="#{bundle.EditTaskExerciseLabel_task}" for="task" />
                     <h:selectOneMenu id="task" value="#{taskExerciseController.selected.task}" title="#{bundle.EditTaskExerciseTitle_task}" required="true" requiredMessage="#{bundle.EditTaskExerciseRequiredMessage_task}">
                         <f:selectItems value="#{taskController.itemsAvailableSelectOne}"/>

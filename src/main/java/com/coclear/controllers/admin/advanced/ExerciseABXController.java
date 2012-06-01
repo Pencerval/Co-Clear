@@ -4,7 +4,7 @@
  */
 package com.coclear.controllers.admin.advanced;
 
-import com.coclear.entitys.Excersice;
+import com.coclear.entitys.Exercise;
 import com.coclear.entitys.Stimulus;
 import com.coclear.entitys.StimulusGroup;
 import java.io.Serializable;
@@ -26,13 +26,13 @@ public class ExerciseABXController implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @EJB
-    private com.coclear.sessionbeans.ExcersiceFacade ejbExercise;
+    private com.coclear.sessionbeans.ExerciseFacade ejbExercise;
     @EJB
     private com.coclear.sessionbeans.StimulusGroupFacade ejbStimulusGroup;
     @EJB
     private com.coclear.sessionbeans.StimulusFacade ejbStimulus;
     
-    private Excersice exersice=new Excersice();
+    private Exercise exercise=new Exercise();
     private StimulusGroup stimulusGroupA=new StimulusGroup();
     private StimulusGroup stimulusGroupB=new StimulusGroup();
     private StimulusGroup stimulusGroupX=new StimulusGroup();
@@ -54,7 +54,7 @@ public class ExerciseABXController implements Serializable {
 
     public void saveExercise(ActionEvent event) {
         try {
-            ejbExercise.create(exersice);
+            ejbExercise.create(exercise);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,19 +64,19 @@ public class ExerciseABXController implements Serializable {
         if(stimulusGroupA==null && ejbStimulusGroup.count()>0){
             stimulusGroupA=ejbStimulusGroup.findAll().get(0);
         }
-        stimulusAList=(List<Stimulus>) stimulusGroupA.getStimulusCollection();
+        stimulusAList=(List<Stimulus>) stimulusGroupA.getStimulusList();
     }
     public void stimulusGroupBSelectedChanged(){
         if(stimulusGroupB==null && ejbStimulusGroup.count()>0){
             stimulusGroupB=ejbStimulusGroup.findAll().get(0);
         }
-        stimulusBList=(List<Stimulus>) stimulusGroupB.getStimulusCollection();
+        stimulusBList=(List<Stimulus>) stimulusGroupB.getStimulusList();
     }
     public void stimulusGroupXSelectedChanged(){
         if(stimulusGroupX==null && ejbStimulusGroup.count()>0){
             stimulusGroupX=ejbStimulusGroup.findAll().get(0);
         }
-        stimulusXList=(List<Stimulus>) stimulusGroupX.getStimulusCollection();
+        stimulusXList=(List<Stimulus>) stimulusGroupX.getStimulusList();
     }
     
     
@@ -159,10 +159,10 @@ public class ExerciseABXController implements Serializable {
     }
 
     public List<Stimulus> getStimulusAList() {
-        if(stimulusGroupA.getStimulusCollection() == null ){
+        if(stimulusGroupA.getStimulusList() == null ){
             stimulusGroupA=ejbStimulusGroup.findAll().get(0);
         }
-        stimulusAList=(List<Stimulus>) stimulusGroupA.getStimulusCollection();
+        stimulusAList=stimulusGroupA.getStimulusList();
         return stimulusAList;
     }
 
@@ -171,10 +171,10 @@ public class ExerciseABXController implements Serializable {
     }
 
     public List<Stimulus> getStimulusBList() {
-        if(stimulusGroupB.getStimulusCollection() == null ){
+        if(stimulusGroupB.getStimulusList() == null ){
             stimulusGroupB=ejbStimulusGroup.findAll().get(0);
         }
-        stimulusBList=(List<Stimulus>) stimulusGroupB.getStimulusCollection();
+        stimulusBList=(List<Stimulus>) stimulusGroupB.getStimulusList();
         return stimulusBList;
     }
 
@@ -183,10 +183,10 @@ public class ExerciseABXController implements Serializable {
     }
 
     public List<Stimulus> getStimulusXList() {
-        if(stimulusGroupX.getStimulusCollection() == null ){
+        if(stimulusGroupX.getStimulusList() == null ){
             stimulusGroupX=ejbStimulusGroup.findAll().get(0);
         }
-        stimulusXList=(List<Stimulus>) stimulusGroupX.getStimulusCollection();
+        stimulusXList=(List<Stimulus>) stimulusGroupX.getStimulusList();
         return stimulusXList;
     }
 
@@ -194,12 +194,12 @@ public class ExerciseABXController implements Serializable {
         this.stimulusXList = stimulusXList;
     }
 
-    public Excersice getExersice() {
-        return exersice;
+    public Exercise getExersice() {
+        return exercise;
     }
 
-    public void setExersice(Excersice exersice) {
-        this.exersice = exersice;
+    public void setExersice(Exercise exercise) {
+        this.exercise = exercise;
     }
     
     

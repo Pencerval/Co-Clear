@@ -22,7 +22,7 @@
                     <h:outputLabel value="#{bundle.CreatePossibleSolutionLabel_correct}" for="correct" />
                     <h:inputText id="correct" value="#{possibleSolutionController.selected.correct}" title="#{bundle.CreatePossibleSolutionTitle_correct}" required="true" requiredMessage="#{bundle.CreatePossibleSolutionRequiredMessage_correct}"/>
                     <h:outputLabel value="#{bundle.CreatePossibleSolutionLabel_order}" for="order" />
-                    <h:inputText id="order" value="#{possibleSolutionController.selected.order}" title="#{bundle.CreatePossibleSolutionTitle_order}" />
+                    <h:inputText id="order" value="#{possibleSolutionController.selected.answerOrder}" title="#{bundle.CreatePossibleSolutionTitle_order}" />
                     <h:outputLabel value="#{bundle.CreatePossibleSolutionLabel_exercise}" for="exercise" />
                     <h:selectOneMenu id="exercise" value="#{possibleSolutionController.selected.exercise}" title="#{bundle.CreatePossibleSolutionTitle_exercise}" required="true" requiredMessage="#{bundle.CreatePossibleSolutionRequiredMessage_exercise}">
                         <f:selectItems value="#{exerciseController.itemsAvailableSelectOne}"/>

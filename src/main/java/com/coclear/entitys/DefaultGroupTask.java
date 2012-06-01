@@ -5,17 +5,7 @@
 package com.coclear.entitys;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -37,11 +27,11 @@ public class DefaultGroupTask implements Serializable {
     @Column(name = "id_default_group_task")
     private Integer idDefaultGroupTask;
     @JoinColumn(name = "id_user_group", referencedColumnName = "id_user_group")
-    @ManyToOne(optional = false)
-    private UserGroup idUserGroup;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private UserGroup userGroup;
     @JoinColumn(name = "id_task", referencedColumnName = "id_task")
-    @ManyToOne(optional = false)
-    private Task idTask;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Task task;
 
     public DefaultGroupTask() {
     }
@@ -58,20 +48,20 @@ public class DefaultGroupTask implements Serializable {
         this.idDefaultGroupTask = idDefaultGroupTask;
     }
 
-    public UserGroup getIdUserGroup() {
-        return idUserGroup;
+    public UserGroup getUserGroup() {
+        return userGroup;
     }
 
-    public void setIdUserGroup(UserGroup idUserGroup) {
-        this.idUserGroup = idUserGroup;
+    public void setUserGroup(UserGroup userGroup) {
+        this.userGroup = userGroup;
     }
 
-    public Task getIdTask() {
-        return idTask;
+    public Task getTask() {
+        return task;
     }
 
-    public void setIdTask(Task idTask) {
-        this.idTask = idTask;
+    public void setTask(Task task) {
+        this.task = task;
     }
 
     @Override

@@ -5,20 +5,8 @@
 package com.coclear.entitys;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Stimulus.findAll", query = "SELECT s FROM Stimulus s"),
     @NamedQuery(name = "Stimulus.findByIdStimulus", query = "SELECT s FROM Stimulus s WHERE s.idStimulus = :idStimulus"),
     @NamedQuery(name = "Stimulus.findByName", query = "SELECT s FROM Stimulus s WHERE s.name = :name"),
-    @NamedQuery(name = "Stimulus.findByPath", query = "SELECT s FROM Stimulus s WHERE s.path = :path")})
+    @NamedQuery(name = "Stimulus.findByType", query = "SELECT s FROM Stimulus s WHERE s.type = :type")})
 public class Stimulus implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,13 +39,13 @@ public class Stimulus implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "path")
-    private String path;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idStimulus")
-    private Collection<ExerciseStimulusMap> exerciseStimulusMapCollection;
+    @Column(name = "type")
+    private String type;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stimulus", fetch = FetchType.LAZY)
+    private List<ExerciseStimulusMap> exerciseStimulusMapList;
     @JoinColumn(name = "id_stimulus_group", referencedColumnName = "id_stimulus_group")
-    @ManyToOne(optional = false)
-    private StimulusGroup idStimulusGroup;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private StimulusGroup stimulusGroup;
 
     public Stimulus() {
     }
@@ -66,16 +54,16 @@ public class Stimulus implements Serializable {
         this.idStimulus = idStimulus;
     }
 
-    public Stimulus(Integer idStimulus, String name, String path) {
+    public Stimulus(Integer idStimulus, String name, String type) {
         this.idStimulus = idStimulus;
         this.name = name;
-        this.path = path;
+        this.type = type;
     }
     
-    public Stimulus(String name, String path,StimulusGroup stimulusGroup) {
+    public Stimulus(String name, String type,StimulusGroup stimulusGroup) {
         this.name = name;
-        this.path = path;
-        this.idStimulusGroup=stimulusGroup;
+        this.type = type;
+        this.stimulusGroup=stimulusGroup;
     }
 
     public Integer getIdStimulus() {
@@ -94,29 +82,29 @@ public class Stimulus implements Serializable {
         this.name = name;
     }
 
-    public String getPath() {
-        return path;
+    public String getType() {
+        return type;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setType(String type) {
+        this.type = type;
     }
 
     @XmlTransient
-    public Collection<ExerciseStimulusMap> getExerciseStimulusMapCollection() {
-        return exerciseStimulusMapCollection;
+    public List<ExerciseStimulusMap> getExerciseStimulusMapList() {
+        return exerciseStimulusMapList;
     }
 
-    public void setExerciseStimulusMapCollection(Collection<ExerciseStimulusMap> exerciseStimulusMapCollection) {
-        this.exerciseStimulusMapCollection = exerciseStimulusMapCollection;
+    public void setExerciseStimulusMapList(List<ExerciseStimulusMap> exerciseStimulusMapList) {
+        this.exerciseStimulusMapList = exerciseStimulusMapList;
     }
 
-    public StimulusGroup getIdStimulusGroup() {
-        return idStimulusGroup;
+    public StimulusGroup getStimulusGroup() {
+        return stimulusGroup;
     }
 
-    public void setIdStimulusGroup(StimulusGroup idStimulusGroup) {
-        this.idStimulusGroup = idStimulusGroup;
+    public void setStimulusGroup(StimulusGroup stimulusGroup) {
+        this.stimulusGroup = stimulusGroup;
     }
 
     @Override

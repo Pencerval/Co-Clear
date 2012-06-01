@@ -17,9 +17,10 @@ import javax.persistence.Query;
  */
 @Stateless
 public class UserFacade extends AbstractFacade<User> {
-    @PersistenceContext(unitName = "coclear")
+    @PersistenceContext(unitName = "coclearPU")
     private EntityManager em;
 
+    @Override
     protected EntityManager getEntityManager() {
         return em;
     }
@@ -28,16 +29,16 @@ public class UserFacade extends AbstractFacade<User> {
         super(User.class);
     }
     
-    public User getUserByname(String login){
+     public User getUserByname(String login){
         Query query = em.createNamedQuery("User.findByLogin");
         query.setParameter("login", login);
         List resultList = query.getResultList();
         return (User) resultList.get(0);
     }
     
-     public List<User> getUserbyAdmin (int admin){
+     public List<User> getUserbyAdmin (boolean isAdmin){
         Query query = em.createNamedQuery("User.findByIsAdmin");
-        query.setParameter("isAdmin", admin);
+        query.setParameter("isAdmin", isAdmin);
         return query.getResultList();
     }
     

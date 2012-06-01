@@ -5,21 +5,9 @@
 package com.coclear.entitys;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.util.List;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -98,11 +86,11 @@ public class User implements Serializable {
     @Column(name = "phone")
     private Integer phone;
     @Column(name = "gender")
-    private Integer gender=1;
+    private Boolean gender;
     @Basic(optional = false)
     @NotNull
     @Column(name = "is_admin")
-    private int isAdmin;
+    private boolean isAdmin;
     @Column(name = "hearing_loss_date")
     @Temporal(TemporalType.DATE)
     private Date hearingLossDate;
@@ -125,23 +113,23 @@ public class User implements Serializable {
     @Column(name = "cochlear_implant_model")
     private String cochlearImplantModel;
     @Column(name = "sign_language")
-    private Integer signLanguage=0;
+    private Boolean signLanguage;
     @Column(name = "sign_language_years")
     private Integer signLanguageYears;
     @Column(name = "speech_reading")
-    private Integer speechReading=0;
+    private Boolean speechReading;
     @Column(name = "speech_reading_years")
     private Integer speechReadingYears;
     @Column(name = "speech_therapy")
-    private Integer speechTherapy=0;
+    private Boolean speechTherapy;
     @Column(name = "speech_therapy_years")
     private Integer speechTherapyYears;
     @Column(name = "educational_orientation")
-    private Integer educationalOrientation=0;
+    private Boolean educationalOrientation;
     @Column(name = "educational_orientation_years")
     private Integer educationalOrientationYears;
     @Column(name = "bilingual")
-    private Integer bilingual=0;
+    private Boolean bilingual;
     @Size(max = 255)
     @Column(name = "languages")
     private String languages;
@@ -149,7 +137,7 @@ public class User implements Serializable {
     @Column(name = "home_languages")
     private String homeLanguages;
     @Column(name = "learning_lenguages")
-    private Integer learningLenguages;
+    private Boolean learningLenguages;
     @Size(max = 255)
     @Column(name = "learning_lenguages_list")
     private String learningLenguagesList;
@@ -168,12 +156,10 @@ public class User implements Serializable {
     @Size(max = 255)
     @Column(name = "admin_comments")
     private String adminComments;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id_User")
-    private Collection<Result> resultCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id_User")
-    private Collection<UserGroupMap> userGroupMapCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id_User")
-    private Collection<UserTask> userTaskCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    private List<UserGroupMap> userGroupMapList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    private List<UserTask> userTaskList;
 
     public User() {
     }
@@ -182,7 +168,7 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
 
-    public User(Integer idUser, String login, String password, int isAdmin) {
+    public User(Integer idUser, String login, String password, boolean isAdmin) {
         this.idUser = idUser;
         this.login = login;
         this.password = password;
@@ -245,19 +231,19 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
-    public Integer getGender() {
+    public Boolean getGender() {
         return gender;
     }
 
-    public void setGender(Integer gender) {
+    public void setGender(Boolean gender) {
         this.gender = gender;
     }
 
-    public int getIsAdmin() {
+    public boolean getIsAdmin() {
         return isAdmin;
     }
 
-    public void setIsAdmin(int isAdmin) {
+    public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
 
@@ -317,11 +303,11 @@ public class User implements Serializable {
         this.cochlearImplantModel = cochlearImplantModel;
     }
 
-    public Integer getSignLanguage() {
+    public Boolean getSignLanguage() {
         return signLanguage;
     }
 
-    public void setSignLanguage(Integer signLanguage) {
+    public void setSignLanguage(Boolean signLanguage) {
         this.signLanguage = signLanguage;
     }
 
@@ -333,11 +319,11 @@ public class User implements Serializable {
         this.signLanguageYears = signLanguageYears;
     }
 
-    public Integer getSpeechReading() {
+    public Boolean getSpeechReading() {
         return speechReading;
     }
 
-    public void setSpeechReading(Integer speechReading) {
+    public void setSpeechReading(Boolean speechReading) {
         this.speechReading = speechReading;
     }
 
@@ -349,11 +335,11 @@ public class User implements Serializable {
         this.speechReadingYears = speechReadingYears;
     }
 
-    public Integer getSpeechTherapy() {
+    public Boolean getSpeechTherapy() {
         return speechTherapy;
     }
 
-    public void setSpeechTherapy(Integer speechTherapy) {
+    public void setSpeechTherapy(Boolean speechTherapy) {
         this.speechTherapy = speechTherapy;
     }
 
@@ -365,11 +351,11 @@ public class User implements Serializable {
         this.speechTherapyYears = speechTherapyYears;
     }
 
-    public Integer getEducationalOrientation() {
+    public Boolean getEducationalOrientation() {
         return educationalOrientation;
     }
 
-    public void setEducationalOrientation(Integer educationalOrientation) {
+    public void setEducationalOrientation(Boolean educationalOrientation) {
         this.educationalOrientation = educationalOrientation;
     }
 
@@ -381,11 +367,11 @@ public class User implements Serializable {
         this.educationalOrientationYears = educationalOrientationYears;
     }
 
-    public Integer getBilingual() {
+    public Boolean getBilingual() {
         return bilingual;
     }
 
-    public void setBilingual(Integer bilingual) {
+    public void setBilingual(Boolean bilingual) {
         this.bilingual = bilingual;
     }
 
@@ -405,11 +391,11 @@ public class User implements Serializable {
         this.homeLanguages = homeLanguages;
     }
 
-    public Integer getLearningLenguages() {
+    public Boolean getLearningLenguages() {
         return learningLenguages;
     }
 
-    public void setLearningLenguages(Integer learningLenguages) {
+    public void setLearningLenguages(Boolean learningLenguages) {
         this.learningLenguages = learningLenguages;
     }
 
@@ -462,30 +448,21 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Result> getResultCollection() {
-        return resultCollection;
+    public List<UserGroupMap> getUserGroupMapList() {
+        return userGroupMapList;
     }
 
-    public void setResultCollection(Collection<Result> resultCollection) {
-        this.resultCollection = resultCollection;
-    }
-
-    @XmlTransient
-    public Collection<UserGroupMap> getUserGroupMapCollection() {
-        return userGroupMapCollection;
-    }
-
-    public void setUserGroupMapCollection(Collection<UserGroupMap> userGroupMapCollection) {
-        this.userGroupMapCollection = userGroupMapCollection;
+    public void setUserGroupMapList(List<UserGroupMap> userGroupMapList) {
+        this.userGroupMapList = userGroupMapList;
     }
 
     @XmlTransient
-    public Collection<UserTask> getUserTaskCollection() {
-        return userTaskCollection;
+    public List<UserTask> getUserTaskList() {
+        return userTaskList;
     }
 
-    public void setUserTaskCollection(Collection<UserTask> userTaskCollection) {
-        this.userTaskCollection = userTaskCollection;
+    public void setUserTaskList(List<UserTask> userTaskList) {
+        this.userTaskList = userTaskList;
     }
 
     @Override

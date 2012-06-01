@@ -4,7 +4,7 @@
  */
 package com.coclear.controllers.admin.advanced;
 
-import com.coclear.controllers.admin.ExcersiceController;
+import com.coclear.controllers.admin.ExerciseController;
 import com.coclear.entitys.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class ExerciseTaskController implements Serializable {
     @EJB
     private com.coclear.sessionbeans.TaskFacade ejbTaskFacade;
     @EJB
-    private com.coclear.sessionbeans.ExcersiceFacade ejbExcersiceFacade;
+    private com.coclear.sessionbeans.ExerciseFacade ejbExerciseFacade;
     @EJB
     private com.coclear.sessionbeans.TaskExerciseFacade ejbTaskExerciseFacade;
     @EJB
@@ -49,9 +49,9 @@ public class ExerciseTaskController implements Serializable {
     private List<StimulusGroup> stimulusGroupList;
     private StimulusGroup stimulusGroupSelected;
     
-    private DualListModel<Excersice> exercises;
-    private List<Excersice> source;
-    private List<Excersice> target = new ArrayList<Excersice>();
+    private DualListModel<Exercise> exercises;
+    private List<Exercise> source;
+    private List<Exercise> target = new ArrayList<Exercise>();
     private Task selectedTask;
     private int idStimulus;
 
@@ -83,33 +83,33 @@ public class ExerciseTaskController implements Serializable {
         this.stimulusGroupSelected = stimulusGroupSelected;
     }
     
-    public DualListModel<Excersice> getExercises() {
+    public DualListModel<Exercise> getExercises() {
         if(exercises==null){
-           exercises=new DualListModel<Excersice>(getSource(),getTarget());
+           exercises=new DualListModel<Exercise>(getSource(),getTarget());
         }
         return exercises;
     }
 
-    public void setExercises(DualListModel<Excersice> exercises) {
+    public void setExercises(DualListModel<Exercise> exercises) {
         this.exercises = exercises;
     }
 
-    public List<Excersice> getSource() {
+    public List<Exercise> getSource() {
         if(source==null){
-            source=ejbExcersiceFacade.findAll();
+            source=ejbExerciseFacade.findAll();
         }
         return source;
     }
 
-    public void setSource(List<Excersice> source) {
+    public void setSource(List<Exercise> source) {
         this.source = source;
     }
 
-    public List<Excersice> getTarget() {
+    public List<Exercise> getTarget() {
         return target;
     }
 
-    public void setTarget(List<Excersice> target) {
+    public void setTarget(List<Exercise> target) {
         this.target = target;
     }
 
@@ -143,17 +143,17 @@ public class ExerciseTaskController implements Serializable {
         try {
             ejbTaskFacade.create(task);
             List<TaskExercise> taskExercises=new ArrayList<TaskExercise>();
-            for(Excersice exercise:getExercises().getTarget()){
+            for(Exercise exercise:getExercises().getTarget()){
                 int cont=0;
                 TaskExercise taskExercise=new TaskExercise();
-                taskExercise.setIdTask(task);
-                taskExercise.setIdExcersice(exercise);
-                taskExercise.setNumber(cont);
+                taskExercise.setTask(task);
+                taskExercise.setExercise(exercise);
+                taskExercise.setExerciseOrder(cont);
                 taskExercises.add(taskExercise);
                 cont++;
                 ejbTaskExerciseFacade.create(taskExercise);
             }
-            task.setTaskExerciseCollection(taskExercises);
+            task.setTaskExerciseList(taskExercises);
             ejbTaskFacade.edit(task);
             FacesMessage msg = new FacesMessage("Succesful", "Tarea "+task.getName()+" creada correctamente.");  
             FacesContext.getCurrentInstance().addMessage(null, msg);  
@@ -163,36 +163,36 @@ public class ExerciseTaskController implements Serializable {
     }    
     
     public void stimulusGroupSelectedChanged(){
-        List<Excersice> excersices=new LinkedList<Excersice>();
+        List<Exercise> exercises=new LinkedList<Exercise>();
         if(getStimulusGroupSelected().getIdStimulusGroup()!=0){
-            for(Excersice excersice:ejbExcersiceFacade.findAll()){
-                for(ExerciseStimulusMap exerciseStimulusMap:excersice.getExerciseStimulusMapCollection()){
-                    if(exerciseStimulusMap.getIdStimulus().getIdStimulusGroup().getIdStimulusGroup()==getStimulusGroupSelected().getIdStimulusGroup()){
-                        excersices.add(excersice);
+            for(Exercise exercise:ejbExerciseFacade.findAll()){
+                for(ExerciseStimulusMap exerciseStimulusMap:exercise.getExerciseStimulusMapList()){
+                    if(exerciseStimulusMap.getStimulus().getStimulusGroup().getIdStimulusGroup()==getStimulusGroupSelected().getIdStimulusGroup()){
+                        exercises.add(exercise);
                         break;
                     }
                 }
             }
         }else{
-            excersices=ejbExcersiceFacade.findAll();
+            exercises=ejbExerciseFacade.findAll();
         }
-        source=excersices;
-        setExercises(new DualListModel<Excersice>(getSource(), getTarget()));
+        source=exercises;
+        setExercises(new DualListModel<Exercise>(getSource(), getTarget()));
         
     }
     
     
-    public String getStimulusName(Excersice excersice){
-        if(excersice.getExerciseStimulusMapCollection().iterator().hasNext()){
-            return excersice.getExerciseStimulusMapCollection().iterator().next().getIdStimulus().getName();
+    public String getStimulusName(Exercise exercise){
+        if(exercise.getExerciseStimulusMapList().iterator().hasNext()){
+            return exercise.getExerciseStimulusMapList().iterator().next().getStimulus().getName();
         }else{
             return "";
         }
         
     }    
     
-    public void stimulusFromExersice(Excersice excersice){
-        setIdStimulus(excersice.getExerciseStimulusMapCollection().iterator().next().getIdStimulus().getIdStimulus());
+    public void stimulusFromExersice(Exercise exercise){
+        setIdStimulus(exercise.getExerciseStimulusMapList().iterator().next().getStimulus().getIdStimulus());
     }
     
     @FacesConverter( value="exerciseConverter")
@@ -204,7 +204,7 @@ public class ExerciseTaskController implements Serializable {
             }
             ExerciseTaskController controller = (ExerciseTaskController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "exerciseTaskController");
-            return controller.ejbExcersiceFacade.find(getKey(value));
+            return controller.ejbExerciseFacade.find(getKey(value));
        }
 
         java.lang.Integer getKey(String value) {
@@ -223,11 +223,11 @@ public class ExerciseTaskController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Excersice) {
-                Excersice o = (Excersice) object;
-                return getStringKey(o.getIdExcersice());
+            if (object instanceof Exercise) {
+                Exercise o = (Exercise) object;
+                return getStringKey(o.getIdExercise());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + ExcersiceController.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + ExerciseController.class.getName());
             }
         }
     }

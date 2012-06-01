@@ -5,18 +5,8 @@
 package com.coclear.entitys;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -49,11 +39,11 @@ public class UserGroup implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "is_default")
-    private int isDefault;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUserGroup")
-    private Collection<UserGroupMap> userGroupMapCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUserGroup")
-    private Collection<DefaultGroupTask> defaultGroupTaskCollection;
+    private boolean isDefault;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userGroup", fetch = FetchType.LAZY)
+    private List<UserGroupMap> userGroupMapList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userGroup", fetch = FetchType.LAZY)
+    private List<DefaultGroupTask> defaultGroupTaskList;
 
     public UserGroup() {
     }
@@ -62,7 +52,7 @@ public class UserGroup implements Serializable {
         this.idUserGroup = idUserGroup;
     }
 
-    public UserGroup(Integer idUserGroup, String name, int isDefault) {
+    public UserGroup(Integer idUserGroup, String name, boolean isDefault) {
         this.idUserGroup = idUserGroup;
         this.name = name;
         this.isDefault = isDefault;
@@ -84,30 +74,30 @@ public class UserGroup implements Serializable {
         this.name = name;
     }
 
-    public int getIsDefault() {
+    public boolean getIsDefault() {
         return isDefault;
     }
 
-    public void setIsDefault(int isDefault) {
+    public void setIsDefault(boolean isDefault) {
         this.isDefault = isDefault;
     }
 
     @XmlTransient
-    public Collection<UserGroupMap> getUserGroupMapCollection() {
-        return userGroupMapCollection;
+    public List<UserGroupMap> getUserGroupMapList() {
+        return userGroupMapList;
     }
 
-    public void setUserGroupMapCollection(Collection<UserGroupMap> userGroupMapCollection) {
-        this.userGroupMapCollection = userGroupMapCollection;
+    public void setUserGroupMapList(List<UserGroupMap> userGroupMapList) {
+        this.userGroupMapList = userGroupMapList;
     }
 
     @XmlTransient
-    public Collection<DefaultGroupTask> getDefaultGroupTaskCollection() {
-        return defaultGroupTaskCollection;
+    public List<DefaultGroupTask> getDefaultGroupTaskList() {
+        return defaultGroupTaskList;
     }
 
-    public void setDefaultGroupTaskCollection(Collection<DefaultGroupTask> defaultGroupTaskCollection) {
-        this.defaultGroupTaskCollection = defaultGroupTaskCollection;
+    public void setDefaultGroupTaskList(List<DefaultGroupTask> defaultGroupTaskList) {
+        this.defaultGroupTaskList = defaultGroupTaskList;
     }
 
     @Override

@@ -32,22 +32,19 @@ import org.primefaces.event.FileUploadEvent;
 @ViewScoped
 public class StimulusUploadController implements Serializable {
 
-    
     private static final long serialVersionUID = 1L;
-    
     @EJB
     private com.coclear.sessionbeans.StimulusGroupFacade ejbFacadeStimulusGroup;
     @EJB
     private com.coclear.sessionbeans.StimulusFacade ejbFacadeStimulus;
-    private StimulusGroup stimulusGroupInput=new StimulusGroup();
+    private StimulusGroup stimulusGroupInput = new StimulusGroup();
     private StimulusGroup stimulusGroupSelected;
     private List<StimulusGroup> stimulusGroupList;
 
-   
     public StimulusUploadController() {
     }
 
-     public StimulusGroup getStimulusGroupInput() {
+    public StimulusGroup getStimulusGroupInput() {
         return stimulusGroupInput;
     }
 
@@ -62,16 +59,16 @@ public class StimulusUploadController implements Serializable {
     public void setStimulusGroupSelected(StimulusGroup stimulusGroupSelected) {
         this.stimulusGroupSelected = stimulusGroupSelected;
     }
-    
+
     public List<StimulusGroup> getStimulusGroupList() {
-        stimulusGroupList=ejbFacadeStimulusGroup.findAll();
+        stimulusGroupList = ejbFacadeStimulusGroup.findAll();
         return stimulusGroupList;
     }
 
     public void setStimulusGroupList(List<StimulusGroup> stimulusGroupList) {
         this.stimulusGroupList = stimulusGroupList;
     }
-    
+
     public void saveStimulusGroup(ActionEvent event) {
         try {
             ejbFacadeStimulusGroup.create(stimulusGroupInput);
@@ -79,25 +76,35 @@ public class StimulusUploadController implements Serializable {
             e.printStackTrace();
         }
     }
-    
-    
-    public void uploadStimulus(FileUploadEvent event) {  
-        if(stimulusGroupSelected==null && getStimulusGroupList().size()>0){
-            stimulusGroupSelected=getStimulusGroupList().get(0);
+
+    public void uploadStimulus(FileUploadEvent event) {
+        if (stimulusGroupSelected == null && getStimulusGroupList().size() > 0) {
+            stimulusGroupSelected = getStimulusGroupList().get(0);
         }
-        ExternalContext context=FacesContext.getCurrentInstance().getExternalContext();
-        Stimulus stimulus=new Stimulus(event.getFile().getFileName(), "audio",stimulusGroupSelected);
-        ejbFacadeStimulus.create(stimulus);
-        File file=new File(context.getInitParameter("stimulusstore")+"audio"+File.separator+stimulus.getIdStimulus()+"."+FilenameUtils.getExtension(event.getFile().getFileName()));
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        Stimulus stimulus=null;
+        File file=null;
+        if (FilenameUtils.getExtension(event.getFile().getFileName()).toLowerCase().equals("png")) {
+            stimulus = new Stimulus(event.getFile().getFileName(), "image", stimulusGroupSelected);
+            ejbFacadeStimulus.create(stimulus);
+            file = new File(context.getInitParameter("stimulusstore") + "image" + File.separator + stimulus.getIdStimulus() + "." + FilenameUtils.getExtension(event.getFile().getFileName()));
+        } else {
+            stimulus = new Stimulus(event.getFile().getFileName(), "audio", stimulusGroupSelected);
+            ejbFacadeStimulus.create(stimulus);
+            file = new File(context.getInitParameter("stimulusstore") + "audio" + File.separator + stimulus.getIdStimulus() + "." + FilenameUtils.getExtension(event.getFile().getFileName()));
+        }
         try {
             FileUtils.writeByteArrayToFile(file, IOUtils.toByteArray(event.getFile().getInputstream()));
+            FacesMessage msg = new FacesMessage("Succesful", "Archivo " + event.getFile().getFileName() + " subido correctamente.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (IOException ex) {
-            Logger.getLogger(StimulusUploadController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StimulusUploadController.class.getName()).log(Level.WARNING, null, ex);
+            FacesMessage msg = new FacesMessage("Error", "Archivo " + event.getFile().getFileName() + " subido incorrectamente.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-        FacesMessage msg = new FacesMessage("Succesful", "Archivo "+event.getFile().getFileName() + " subido correctamente.");  
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
-    } 
-    
-    public void stimulusGroupSelectedChanged(){
+        
+    }
+
+    public void stimulusGroupSelectedChanged() {
     }
 }

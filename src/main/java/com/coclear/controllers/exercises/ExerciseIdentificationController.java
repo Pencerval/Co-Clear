@@ -13,8 +13,7 @@
 package com.coclear.controllers.exercises;
 
 import com.coclear.controllers.admin.AnswerController;
-import com.coclear.controllers.admin.TaskController;
-import com.coclear.controllers.admin.TaskController.TaskControllerConverter;
+import com.coclear.controllers.admin.UserTaskController;
 import com.coclear.entitys.*;
 import java.io.IOException;
 import java.io.Serializable;
@@ -47,22 +46,21 @@ public class ExerciseIdentificationController implements Serializable {
     private com.coclear.sessionbeans.ResultFacade ejbResultFacade;
     @EJB
     private com.coclear.sessionbeans.UserTaskFacade ejbUserTaskFacade;
-    private List<Excersice> exersices = new LinkedList<Excersice>();
+    private List<Exercise> exercises = new LinkedList<Exercise>();
     private List<TaskExercise> taskExercises = new LinkedList<TaskExercise>();
-    private Excersice currentExcersice;
-    private TaskExercise currentTaskExcersice;
+    private Exercise currentExercise;
+    private TaskExercise currentTaskExercise;
     private Stimulus currentStimulus;
     private List<Answer> currentAnswers;
     private int position = 0;
     private boolean end = false;
     private Task task;
+    private UserTask userTask;
     private int selectedIdAnswers = -1;
     private List<TaskDone> taskDones = new LinkedList<TaskDone>();
     private boolean played=true;
     private Integer progress;
-    private String first;
     private boolean disabled=true;
-    private String next;
 
 
 
@@ -86,19 +84,20 @@ public class ExerciseIdentificationController implements Serializable {
      */
     public void init() {
         end = false;
-        TaskControllerConverter taskControllerConverter = new TaskController.TaskControllerConverter();
-        task = (Task) taskControllerConverter.getAsObject(FacesContext.getCurrentInstance(), null, FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("task"));
-        setTaskExercises(new LinkedList<TaskExercise>(task.getTaskExerciseCollection()));
+        UserTaskController.UserTaskControllerConverter userTaskControllerConverter = new UserTaskController.UserTaskControllerConverter();
+        userTask = (UserTask) userTaskControllerConverter.getAsObject(FacesContext.getCurrentInstance(), null, FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("task"));
+        task=userTask.getTask();
+        //Randomizamos
+        setTaskExercises(new LinkedList<TaskExercise>(task.getTaskExerciseList()));
+        Collections.shuffle(taskExercises);
         for (TaskExercise taskExercise : getTaskExercises()) {
-            exersices.add(taskExercise.getIdExcersice());
+            exercises.add(taskExercise.getExercise());
         }
-        //randomizamos
-        Collections.shuffle(exersices);
-        setCurrentExcersice(exersices.get(0));
-        setCurrentTaskExcersice(taskExercises.get(0));
-        ExerciseStimulusMap exerciseStimulusMap = exersices.get(0).getExerciseStimulusMapCollection().iterator().next();
-        setCurrentStimulus(exerciseStimulusMap.getIdStimulus());
-        List<PossibleSolution> possibleSolutions = new LinkedList<PossibleSolution>(exersices.get(0).getPossibleSolutionCollection());
+        setCurrentExercise(exercises.get(0));
+        setCurrentTaskExercise(taskExercises.get(0));
+        ExerciseStimulusMap exerciseStimulusMap = exercises.get(0).getExerciseStimulusMapList().iterator().next();
+        setCurrentStimulus(exerciseStimulusMap.getStimulus());
+        List<PossibleSolution> possibleSolutions = new LinkedList<PossibleSolution>(exercises.get(0).getPossibleSolutionList());
         //Hack orden respuestas
         /*
          * List<Answer> answers = new LinkedList<Answer>();
@@ -124,21 +123,19 @@ public class ExerciseIdentificationController implements Serializable {
         this.task = task;
     }
 
-    
-    
-    public Excersice getCurrentExcersice() {
-        if (currentExcersice == null) {
+    public Exercise getCurrentExercise() {
+        if (currentExercise == null) {
             init();
         }
-        return currentExcersice;
+        return currentExercise;
     }
 
-    public void setCurrentExcersice(Excersice currentExcersice) {
-        this.currentExcersice = currentExcersice;
+    public void setCurrentExercise(Exercise currentExercise) {
+        this.currentExercise = currentExercise;
     }
 
     public List<Answer> getCurrentAnswers() {
-        if (currentExcersice == null) {
+        if (currentExercise == null) {
             init();
         }
         return currentAnswers;
@@ -156,12 +153,12 @@ public class ExerciseIdentificationController implements Serializable {
         this.currentStimulus = currentStimulus;
     }
 
-    public TaskExercise getCurrentTaskExcersice() {
-        return currentTaskExcersice;
+    public TaskExercise getCurrentTaskExercise() {
+        return currentTaskExercise;
     }
 
-    public void setCurrentTaskExcersice(TaskExercise currentTaskExcersice) {
-        this.currentTaskExcersice = currentTaskExcersice;
+    public void setCurrentTaskExercise(TaskExercise currentTaskExercise) {
+        this.currentTaskExercise = currentTaskExercise;
     }
 
     public List<TaskExercise> getTaskExercises() {
@@ -180,12 +177,12 @@ public class ExerciseIdentificationController implements Serializable {
         this.end = end;
     }
 
-    public List<Excersice> getExersices() {
-        return exersices;
+    public List<Exercise> getExercises() {
+        return exercises;
     }
 
-    public void setExersices(List<Excersice> exersices) {
-        this.exersices = exersices;
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
     }
 
     public int getSelectedIdAnswers() {
@@ -220,7 +217,7 @@ public class ExerciseIdentificationController implements Serializable {
     
     public Integer getProgress() {  
         int internalProgress;
-        internalProgress = (position*100)/getExersices().size();  
+        internalProgress = (position*100)/getExercises().size();  
         if(internalProgress > 100) { 
             internalProgress = 100;  
         }  
@@ -229,18 +226,6 @@ public class ExerciseIdentificationController implements Serializable {
 
     public void setProgress(Integer progress) {
         this.progress = progress;
-    }
-    
-    public String getFirst() {
-        if(position==0){
-            return "";
-        }else{
-            return "autoplay";
-        }
-    }
-
-    public void setFirst(String first) {
-        this.first = first;
     }
 
     public boolean isDisabled() {
@@ -251,9 +236,6 @@ public class ExerciseIdentificationController implements Serializable {
         this.disabled = disabled;
     }
     
-    
-    
-
     public String doNext() {
         setPlayed(true);
         if(getSelectedIdAnswers()==-1){
@@ -264,28 +246,28 @@ public class ExerciseIdentificationController implements Serializable {
         AnswerController.AnswerControllerConverter answerControllerConverter = new AnswerController.AnswerControllerConverter();
         Answer answer = (Answer) answerControllerConverter.getAsObject(FacesContext.getCurrentInstance(), null, "" + getSelectedIdAnswers());
         taskDoneActual.setAnswer(answer);
-        taskDoneActual.setExcersice(currentExcersice);
-        taskDoneActual.setTaskExercise(getCurrentTaskExcersice());
+        taskDoneActual.setExercise(currentExercise);
+        taskDoneActual.setTaskExercise(getCurrentTaskExercise());
         taskDones.add(taskDoneActual);
-        for (PossibleSolution possibleSolution : currentExcersice.getPossibleSolutionCollection()) {
-            if (possibleSolution.getCorrect() == 1 && possibleSolution.getIdAnswer().getIdAnswer() == getSelectedIdAnswers()) {
-                FacesMessage msg = new FacesMessage("Correcto");
+        for (PossibleSolution possibleSolution : currentExercise.getPossibleSolutionList()) {
+            if (possibleSolution.getCorrect() && possibleSolution.getAnswer().getIdAnswer() == getSelectedIdAnswers()) {
+                FacesMessage msg = new FacesMessage("Respuesta","Correcta");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 break;
             } else {
-                FacesMessage msg = new FacesMessage("Incorrecto");
+                FacesMessage msg = new FacesMessage("Respuesta","Incorrecta");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 break;
             }
         }
         setSelectedIdAnswers(-1);
-        if (exersices.size() > position + 1) {
+        if (exercises.size() > position + 1) {
             position++;
-            setCurrentExcersice(exersices.get(position));
-            setCurrentTaskExcersice(getTaskExercises().get(position));
-            ExerciseStimulusMap exerciseStimulusMap = exersices.get(position).getExerciseStimulusMapCollection().iterator().next();
-            setCurrentStimulus(exerciseStimulusMap.getIdStimulus());
-            List<PossibleSolution> possibleSolutions = new LinkedList<PossibleSolution>(exersices.get(position).getPossibleSolutionCollection());
+            setCurrentExercise(exercises.get(position));
+            setCurrentTaskExercise(getTaskExercises().get(position));
+            ExerciseStimulusMap exerciseStimulusMap = exercises.get(position).getExerciseStimulusMapList().iterator().next();
+            setCurrentStimulus(exerciseStimulusMap.getStimulus());
+            List<PossibleSolution> possibleSolutions = new LinkedList<PossibleSolution>(exercises.get(position).getPossibleSolutionList());
             
            
             //Hack orden respuestas
@@ -300,7 +282,7 @@ public class ExerciseIdentificationController implements Serializable {
 
 
             setCurrentAnswers(answers);
-            if (exersices.size() < position) {
+            if (exercises.size() < position) {
                 end = true;
             }
             RequestContext context = RequestContext.getCurrentInstance(); 
@@ -312,15 +294,15 @@ public class ExerciseIdentificationController implements Serializable {
                 User user = (User) session.getAttribute("user");
                 for (TaskDone taskDone : taskDones) {
                     Result result = new Result();
-                    result.setIdUser(user);
-                    result.setIdTaskExercise(taskDone.getTaskExercise());
-                    result.setIdAnswer(taskDone.getAnswer());
+                    result.setUserTask(userTask);
+                    result.setTaskExercise(taskDone.getTaskExercise());
+                    result.setAnswer(taskDone.getAnswer());
                     ejbResultFacade.create(result);
                 }
-                List<UserTask> userTasks = new LinkedList<UserTask>(user.getUserTaskCollection());
+                List<UserTask> userTasks = new LinkedList<UserTask>(user.getUserTaskList());
                 for (UserTask userTask : userTasks) {
-                    if (userTask.getIdTask().getIdTask() == task.getIdTask() && userTask.getComplete() == 0) {
-                        userTask.setComplete(1);
+                    if (userTask.getTask().getIdTask() == task.getIdTask() && !userTask.getComplete()) {
+                        userTask.setComplete(true);
                         ejbUserTaskFacade.edit(userTask);
                         break;
                     }
@@ -337,9 +319,6 @@ public class ExerciseIdentificationController implements Serializable {
         
     }
 
-    public void setNext(String next) {
-        this.next = next;
-    }
 
     
     
@@ -382,7 +361,7 @@ public class ExerciseIdentificationController implements Serializable {
 
     private class TaskDone {
 
-        private Excersice excersice;
+        private Exercise exercise;
         private Answer answer;
         private TaskExercise taskExercise;
 
@@ -394,12 +373,12 @@ public class ExerciseIdentificationController implements Serializable {
             this.answer = answer;
         }
 
-        public Excersice getExcersice() {
-            return excersice;
+        public Exercise getExercise() {
+            return exercise;
         }
 
-        public void setExcersice(Excersice excersice) {
-            this.excersice = excersice;
+        public void setExercise(Exercise exercise) {
+            this.exercise = exercise;
         }
 
         public TaskExercise getTaskExercise() {

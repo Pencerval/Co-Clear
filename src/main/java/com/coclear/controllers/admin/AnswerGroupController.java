@@ -1,10 +1,9 @@
 package com.coclear.controllers.admin;
 
-import com.coclear.entitys.AnswerGroup;
 import com.coclear.controllers.util.JsfUtil;
 import com.coclear.controllers.util.PaginationHelper;
+import com.coclear.entitys.AnswerGroup;
 import com.coclear.sessionbeans.AnswerGroupFacade;
-
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -111,6 +110,7 @@ public class AnswerGroupController implements Serializable {
         current = (AnswerGroup) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
+        recreatePagination();
         recreateModel();
         return "List";
     }
@@ -161,6 +161,10 @@ public class AnswerGroupController implements Serializable {
 
     private void recreateModel() {
         items = null;
+    }
+
+    private void recreatePagination() {
+        pagination = null;
     }
 
     public String next() {
