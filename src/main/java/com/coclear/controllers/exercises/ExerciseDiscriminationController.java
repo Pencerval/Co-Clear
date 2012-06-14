@@ -49,6 +49,7 @@ public class ExerciseDiscriminationController implements Serializable {
     private boolean played = true;
     private Integer progress;
     private boolean disabled = true;
+    private Boolean correct = null;
 
     /*
      *
@@ -182,12 +183,45 @@ public class ExerciseDiscriminationController implements Serializable {
         return selectedIdStimulus;
     }
 
+    public Boolean getCorrect() {
+        return correct;
+    }
+
+    public void setCorrect(Boolean correct) {
+        this.correct = correct;
+    }
+    
+    
+
     public void setSelectedIdStimulus(int selectedIdAnswers) {
-        if (this.selectedIdStimulus == selectedIdAnswers) {
-            this.selectedIdStimulus = -1;
-            setPlayed(true);
-        } else {
+        if(isPlayed()){
             this.selectedIdStimulus = selectedIdAnswers;
+            TaskDone taskDoneActual = new TaskDone();
+            Answer answer;
+            if(getSelectedIdStimulus()==currentExercise.getExerciseStimulusMapList().get(2).getStimulus().getIdStimulus()){
+                answer=answerFacade.getSameAnswer();
+            }else{
+                answer=answerFacade.getDifferentAnswer();
+            }
+            taskDoneActual.setAnswer(answer);
+            taskDoneActual.setExercise(currentExercise);
+            taskDoneActual.setTaskExercise(getCurrentTaskExercise());
+            taskDones.add(taskDoneActual);
+            for (PossibleSolution possibleSolution : currentExercise.getPossibleSolutionList()) {
+                if (possibleSolution.getCorrect()){
+                    if(possibleSolution.getAnswer().getIdAnswer() == answerFacade.getSameAnswer().getIdAnswer() && getSelectedIdStimulus() == currentExercise.getExerciseStimulusMapList().get(2).getStimulus().getIdStimulus() || possibleSolution.getAnswer().getIdAnswer() == answerFacade.getDifferentAnswer().getIdAnswer() && getSelectedIdStimulus() == currentExercise.getExerciseStimulusMapList().get(3).getStimulus().getIdStimulus()){
+                        //FacesMessage msg = new FacesMessage("Respuesta", "Correcta");
+                        //FacesContext.getCurrentInstance().addMessage(null, msg);
+                        setCorrect(true);
+                        break;
+                    }else{
+                        //FacesMessage msg = new FacesMessage("Respuesta", "Incorrecta");
+                        //FacesContext.getCurrentInstance().addMessage(null, msg);
+                        setCorrect(false);
+                        break;
+                    }
+                }
+            }
             setPlayed(false);
         }
     }
@@ -230,78 +264,48 @@ public class ExerciseDiscriminationController implements Serializable {
     }
 
     public String doNext() {
-        setPlayed(true);
-        if (getSelectedIdStimulus() == -1) {
-            //entendemos que es la primera
+        this.selectedIdStimulus = -1;
+        if (exercises.size() > position + 1) {
+            position++;
+            setCurrentExercise(exercises.get(position));
+            setCurrentTaskExercise(getTaskExercises().get(position));
+            setCurrentStimulusSound1(exercises.get(position).getExerciseStimulusMapList().get(0).getStimulus());
+            setCurrentStimulusSound2(exercises.get(position).getExerciseStimulusMapList().get(1).getStimulus());
+            setCurrentStimulusImage1(exercises.get(position).getExerciseStimulusMapList().get(2).getStimulus());
+            setCurrentStimulusImage2(exercises.get(position).getExerciseStimulusMapList().get(3).getStimulus());
+
+            if (exercises.size() < position) {
+                end = true;
+            }
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.update("form1");
+            setCorrect(null);
+            setPlayed(true);
         } else {
-            TaskDone taskDoneActual = new TaskDone();
-            AnswerController.AnswerControllerConverter answerControllerConverter = new AnswerController.AnswerControllerConverter();
-            Answer answer;
-            if(getSelectedIdStimulus()==currentExercise.getExerciseStimulusMapList().get(2).getStimulus().getIdStimulus()){
-                answer=answerFacade.getSameAnswer();
-            }else{
-                answer=answerFacade.getDifferentAnswer();
-            }
-            taskDoneActual.setAnswer(answer);
-            taskDoneActual.setExercise(currentExercise);
-            taskDoneActual.setTaskExercise(getCurrentTaskExercise());
-            taskDones.add(taskDoneActual);
-            for (PossibleSolution possibleSolution : currentExercise.getPossibleSolutionList()) {
-                if (possibleSolution.getCorrect()){
-                    if(possibleSolution.getAnswer().getIdAnswer() == answerFacade.getSameAnswer().getIdAnswer() && getSelectedIdStimulus() == currentExercise.getExerciseStimulusMapList().get(2).getStimulus().getIdStimulus() || possibleSolution.getAnswer().getIdAnswer() == answerFacade.getDifferentAnswer().getIdAnswer() && getSelectedIdStimulus() == currentExercise.getExerciseStimulusMapList().get(3).getStimulus().getIdStimulus()){
-                        FacesMessage msg = new FacesMessage("Respuesta", "Correcta");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-                        break;
-                    }else{
-                        FacesMessage msg = new FacesMessage("Respuesta", "Incorrecta");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
+            try {
+                HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                User user = (User) session.getAttribute("user");
+                for (TaskDone taskDone : taskDones) {
+                    Result result = new Result();
+                    result.setUserTask(userTask);
+                    result.setTaskExercise(taskDone.getTaskExercise());
+                    result.setAnswer(taskDone.getAnswer());
+                    ejbResultFacade.create(result);
+                }
+                List<UserTask> userTasks = new LinkedList<UserTask>(user.getUserTaskList());
+                for (UserTask userTask : userTasks) {
+                    if (userTask.getTask().getIdTask() == task.getIdTask() && !userTask.getComplete()) {
+                        userTask.setComplete(true);
+                        ejbUserTaskFacade.edit(userTask);
                         break;
                     }
                 }
+                FacesContext.getCurrentInstance().getExternalContext().redirect("../public/index.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(ExerciseDiscriminationController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            setSelectedIdStimulus(-1);
-            if (exercises.size() > position + 1) {
-                position++;
-                setCurrentExercise(exercises.get(position));
-                setCurrentTaskExercise(getTaskExercises().get(position));
-                setCurrentStimulusSound1(exercises.get(position).getExerciseStimulusMapList().get(0).getStimulus());
-                setCurrentStimulusSound2(exercises.get(position).getExerciseStimulusMapList().get(1).getStimulus());
-                setCurrentStimulusImage1(exercises.get(position).getExerciseStimulusMapList().get(2).getStimulus());
-                setCurrentStimulusImage2(exercises.get(position).getExerciseStimulusMapList().get(3).getStimulus());
 
-                if (exercises.size() < position) {
-                    end = true;
-                }
-                RequestContext context = RequestContext.getCurrentInstance();
-                context.update("form1");
-                setPlayed(true);
-            } else {
-                try {
-                    HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-                    User user = (User) session.getAttribute("user");
-                    for (TaskDone taskDone : taskDones) {
-                        Result result = new Result();
-                        result.setUserTask(userTask);
-                        result.setTaskExercise(taskDone.getTaskExercise());
-                        result.setAnswer(taskDone.getAnswer());
-                        ejbResultFacade.create(result);
-                    }
-                    List<UserTask> userTasks = new LinkedList<UserTask>(user.getUserTaskList());
-                    for (UserTask userTask : userTasks) {
-                        if (userTask.getTask().getIdTask() == task.getIdTask() && !userTask.getComplete()) {
-                            userTask.setComplete(true);
-                            ejbUserTaskFacade.edit(userTask);
-                            break;
-                        }
-                    }
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("../public/index.xhtml");
-                } catch (IOException ex) {
-                    Logger.getLogger(ExerciseDiscriminationController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            }
         }
-
         return null;
 
     }

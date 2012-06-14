@@ -160,8 +160,8 @@ public class BriefingsController implements Serializable {
 
                 filas.add(new String[]{""});
                 filas.add(new String[]{"Matriz de confusión"});
-                filas.add(new String[]{"", "Respuesta Correcta", "b", "k", "ch", "d", "f", "g/gu", "j", "l", "ll", "m", "n", "ñ", "p", "r", "s", "t", "z"});
-                filas.add(new String[]{"Respuesta seleccionada"});
+                filas.add(new String[]{"", "Respuesta seleccionada", "b", "k", "ch", "d", "f", "g/gu", "j", "l", "ll", "m", "n", "ñ", "p", "r", "s", "t", "z"});
+                filas.add(new String[]{"Respuesta Correcta"});
                 filas.add(new String[]{"b", "", "" + getNumberAnswer("b", "b", userTask), "" + getNumberAnswer("b", "k", userTask), "" + getNumberAnswer("b", "ch", userTask), "" + getNumberAnswer("b", "d", userTask), "" + getNumberAnswer("b", "f", userTask), "" + getNumberAnswer("b", "g/gu", userTask), "" + getNumberAnswer("b", "j", userTask), "" + getNumberAnswer("b", "l", userTask), "" + getNumberAnswer("b", "ll", userTask), "" + getNumberAnswer("b", "m", userTask), "" + getNumberAnswer("b", "n", userTask), "" + getNumberAnswer("b", "ñ", userTask), "" + getNumberAnswer("b", "p", userTask), "" + getNumberAnswer("b", "r", userTask), "" + getNumberAnswer("b", "s", userTask), "" + getNumberAnswer("b", "t", userTask), "" + getNumberAnswer("b", "z", userTask)});
                 filas.add(new String[]{"k", "", "" + getNumberAnswer("k", "b", userTask), "" + getNumberAnswer("k", "k", userTask), "" + getNumberAnswer("k", "ch", userTask), "" + getNumberAnswer("k", "d", userTask), "" + getNumberAnswer("k", "f", userTask), "" + getNumberAnswer("k", "g/gu", userTask), "" + getNumberAnswer("k", "j", userTask), "" + getNumberAnswer("k", "l", userTask), "" + getNumberAnswer("k", "ll", userTask), "" + getNumberAnswer("k", "m", userTask), "" + getNumberAnswer("k", "n", userTask), "" + getNumberAnswer("k", "ñ", userTask), "" + getNumberAnswer("k", "p", userTask), "" + getNumberAnswer("k", "r", userTask), "" + getNumberAnswer("k", "s", userTask), "" + getNumberAnswer("k", "t", userTask), "" + getNumberAnswer("k", "z", userTask)});
                 filas.add(new String[]{"ch", "", "" + getNumberAnswer("ch", "b", userTask), "" + getNumberAnswer("ch", "k", userTask), "" + getNumberAnswer("ch", "ch", userTask), "" + getNumberAnswer("ch", "d", userTask), "" + getNumberAnswer("ch", "f", userTask), "" + getNumberAnswer("ch", "g/gu", userTask), "" + getNumberAnswer("ch", "j", userTask), "" + getNumberAnswer("ch", "l", userTask), "" + getNumberAnswer("ch", "ll", userTask), "" + getNumberAnswer("ch", "m", userTask), "" + getNumberAnswer("ch", "n", userTask), "" + getNumberAnswer("ch", "ñ", userTask), "" + getNumberAnswer("ch", "p", userTask), "" + getNumberAnswer("ch", "r", userTask), "" + getNumberAnswer("ch", "s", userTask), "" + getNumberAnswer("ch", "t", userTask), "" + getNumberAnswer("ch", "z", userTask)});
@@ -182,8 +182,8 @@ public class BriefingsController implements Serializable {
 
                 filas.add(new String[]{""});
                 filas.add(new String[]{"Matriz de confusión porcentaje"});
-                filas.add(new String[]{"", "Respuesta Correcta", "b", "k", "ch", "d", "f", "g/gu", "j", "l", "ll", "m", "n", "ñ", "p", "r", "s", "t", "z"});
-                filas.add(new String[]{"Respuesta seleccionada"});
+                filas.add(new String[]{"", "Respuesta seleccionada", "b", "k", "ch", "d", "f", "g/gu", "j", "l", "ll", "m", "n", "ñ", "p", "r", "s", "t", "z"});
+                filas.add(new String[]{"Respuesta Correcta"});
                 filas.add(new String[]{"b", "", "" + getNumberAnswerPercent("b", "b", userTask) + "%", "" + getNumberAnswerPercent("b", "k", userTask) + "%", "" + getNumberAnswerPercent("b", "ch", userTask) + "%", "" + getNumberAnswerPercent("b", "d", userTask) + "%", "" + getNumberAnswerPercent("b", "f", userTask) + "%", "" + getNumberAnswerPercent("b", "g/gu", userTask) + "%", "" + getNumberAnswerPercent("b", "j", userTask) + "%", "" + getNumberAnswerPercent("b", "l", userTask) + "%", "" + getNumberAnswerPercent("b", "ll", userTask) + "%", "" + getNumberAnswerPercent("b", "m", userTask) + "%", "" + getNumberAnswerPercent("b", "n", userTask) + "%", "" + getNumberAnswerPercent("b", "ñ", userTask) + "%", "" + getNumberAnswerPercent("b", "p", userTask) + "%", "" + getNumberAnswerPercent("b", "r", userTask) + "%", "" + getNumberAnswerPercent("b", "s", userTask) + "%", "" + getNumberAnswerPercent("b", "t", userTask) + "%", "" + getNumberAnswerPercent("b", "z", userTask) + "%"});
                 filas.add(new String[]{"k", "", "" + getNumberAnswerPercent("k", "b", userTask) + "%", "" + getNumberAnswerPercent("k", "k", userTask) + "%", "" + getNumberAnswerPercent("k", "ch", userTask) + "%", "" + getNumberAnswerPercent("k", "d", userTask) + "%", "" + getNumberAnswerPercent("k", "f", userTask) + "%", "" + getNumberAnswerPercent("k", "g/gu", userTask) + "%", "" + getNumberAnswerPercent("k", "j", userTask) + "%", "" + getNumberAnswerPercent("k", "l", userTask) + "%", "" + getNumberAnswerPercent("k", "ll", userTask) + "%", "" + getNumberAnswerPercent("k", "m", userTask) + "%", "" + getNumberAnswerPercent("k", "n", userTask) + "%", "" + getNumberAnswerPercent("k", "ñ", userTask) + "%", "" + getNumberAnswerPercent("k", "p", userTask) + "%", "" + getNumberAnswerPercent("k", "r", userTask) + "%", "" + getNumberAnswerPercent("k", "s", userTask) + "%", "" + getNumberAnswerPercent("k", "t", userTask) + "%", "" + getNumberAnswerPercent("k", "z", userTask) + "%"});
                 filas.add(new String[]{"ch", "", "" + getNumberAnswerPercent("ch", "b", userTask) + "%", "" + getNumberAnswerPercent("ch", "k", userTask) + "%", "" + getNumberAnswerPercent("ch", "ch", userTask) + "%", "" + getNumberAnswerPercent("ch", "d", userTask) + "%", "" + getNumberAnswerPercent("ch", "f", userTask) + "%", "" + getNumberAnswerPercent("ch", "g/gu", userTask) + "%", "" + getNumberAnswerPercent("ch", "j", userTask) + "%", "" + getNumberAnswerPercent("ch", "l", userTask) + "%", "" + getNumberAnswerPercent("ch", "ll", userTask) + "%", "" + getNumberAnswerPercent("ch", "m", userTask) + "%", "" + getNumberAnswerPercent("ch", "n", userTask) + "%", "" + getNumberAnswerPercent("ch", "ñ", userTask) + "%", "" + getNumberAnswerPercent("ch", "p", userTask) + "%", "" + getNumberAnswerPercent("ch", "r", userTask) + "%", "" + getNumberAnswerPercent("ch", "s", userTask) + "%", "" + getNumberAnswerPercent("ch", "t", userTask) + "%", "" + getNumberAnswerPercent("ch", "z", userTask) + "%"});
@@ -255,15 +255,15 @@ public class BriefingsController implements Serializable {
 
                 filas.add(new String[]{""});
                 filas.add(new String[]{"Matriz de confusión"});
-                filas.add(new String[]{"", "Respuesta Correcta", "Iguales", "Diferentes"});
-                filas.add(new String[]{"Respuesta seleccionada"});
+                filas.add(new String[]{"", "Respuesta seleccionada", "Iguales", "Diferentes"});
+                filas.add(new String[]{"Respuesta Correcta"});
                 filas.add(new String[]{"Iguales", "", getSameDifferent(true, true, userTask), getSameDifferent(false, true, userTask)});
                 filas.add(new String[]{"Diferentes", "", getSameDifferent(true, false, userTask), getSameDifferent(false, false, userTask)});
 
                 filas.add(new String[]{""});
                 filas.add(new String[]{"Matriz de confusión porcentaje"});
-                filas.add(new String[]{"", "Respuesta Correcta", "Iguales", "Diferentes"});
-                filas.add(new String[]{"Respuesta seleccionada"});
+                filas.add(new String[]{"", "Respuesta seleccionada", "Iguales", "Diferentes"});
+                filas.add(new String[]{"Respuesta Correcta"});
                 filas.add(new String[]{"Iguales", "", getSameDifferentByPercent(true, true, userTask), getSameDifferentByPercent(false, true, userTask)});
                 filas.add(new String[]{"Diferentes", "", getSameDifferentByPercent(true, false, userTask), getSameDifferentByPercent(false, false, userTask)});
 
@@ -273,9 +273,11 @@ public class BriefingsController implements Serializable {
                 Exercise exercise;
                 PossibleSolution possibleSolutionCorrect = null;
                 Result resultSelected = null;
-                Stimulus stimulus = null;
+                Stimulus stimulus1 = null;
+                Stimulus stimulus2 = null;
                 for (TaskExercise taskExercise : userTask.getTask().getTaskExerciseList()) {
                     exercise = taskExercise.getExercise();
+                    filas.add(new String[]{"ID Ejercicio", "Nombre Ejercicio","Primer estimulo","Grupo primer estimulo","Segundo estimulo","Grupo segundo estimulo", "Respuesta selecionada","Respuesta correcta"});
                     for (PossibleSolution possibleSolution : exercise.getPossibleSolutionList()) {
                         if (possibleSolution.getCorrect()) {
                             possibleSolutionCorrect = possibleSolution;
@@ -288,9 +290,10 @@ public class BriefingsController implements Serializable {
                             break;
                         }
                     }
-                    filas.add(new String[]{"" + exercise.getIdExercise(), exercise.getName(), possibleSolutionCorrect.getAnswer().getName(), resultSelected.getAnswer().getName()});
-                    stimulus = exercise.getExerciseStimulusMapList().get(0).getStimulus();
-                    filas.add(new String[]{"", "Estimulo:", "" + stimulus.getIdStimulus(), stimulus.getName()});
+                    stimulus1 = exercise.getExerciseStimulusMapList().get(0).getStimulus();
+                    stimulus2 = exercise.getExerciseStimulusMapList().get(1).getStimulus();
+                    filas.add(new String[]{"" + exercise.getIdExercise(), exercise.getName(),stimulus1.getName(),stimulus1.getStimulusGroup().getName(),stimulus2.getName(),stimulus2.getStimulusGroup().getName(), resultSelected.getAnswer().getName(),possibleSolutionCorrect.getAnswer().getName()});
+                    //filas.add(new String[]{"", "Estimulo:", "" + stimulus.getIdStimulus(), stimulus.getName()});
                 }
 
 
@@ -319,7 +322,7 @@ public class BriefingsController implements Serializable {
      *
      */
 
-    private int getNumberAnswer(String insert, String correct, UserTask userTask) {
+    private int getNumberAnswer(String correct, String insert, UserTask userTask) {
         int responses = 0;
         for (Result result : userTask.getResultList()) {
             if (result.getAnswer().getValueName().equals(insert)) {
@@ -334,7 +337,7 @@ public class BriefingsController implements Serializable {
         return responses;
     }
 
-    private int getNumberAnswerPercent(String insert, String correct, UserTask userTask) {
+    private int getNumberAnswerPercent(String correct, String insert, UserTask userTask) {
         int responses = 0;
         for (Result result : userTask.getResultList()) {
             if (result.getAnswer().getValueName().equals(insert)) {
@@ -393,8 +396,8 @@ public class BriefingsController implements Serializable {
         return fail;
     }
 
-    private String getSameDifferent(boolean isSame, boolean doSame, UserTask userTask) {
-        int sum = 0;
+    private String getSameDifferent(boolean doSame, boolean  isSame, UserTask userTask) {
+        int sum = 0; 
         for (Result result : userTask.getResultList()) {
             if (doSame && isSame) {
                 if (result.getAnswer().getIdAnswer() == answerFacade.getSameAnswer().getIdAnswer() && result.getTaskExercise().getExercise().getPossibleSolutionList().get(0).getCorrect()) {
@@ -416,7 +419,7 @@ public class BriefingsController implements Serializable {
         }
         return ""+sum;
     }
-    private String getSameDifferentByPercent(boolean isSame, boolean doSame, UserTask userTask) {
+    private String getSameDifferentByPercent(boolean  doSame, boolean isSame, UserTask userTask) {
         int sum = 0;
         for (Result result : userTask.getResultList()) {
             if (doSame && isSame) {
@@ -462,8 +465,8 @@ public class BriefingsController implements Serializable {
 
             filas.add(new String[]{""});
             filas.add(new String[]{"Matriz de confusión"});
-            filas.add(new String[]{"", "Respuesta Correcta", "b", "k", "ch", "d", "f", "g/gu", "j", "l", "ll", "m", "n", "ñ", "p", "r", "s", "t", "z"});
-            filas.add(new String[]{"Respuesta seleccionada"});
+            filas.add(new String[]{"", "Respuesta seleccionada", "b", "k", "ch", "d", "f", "g/gu", "j", "l", "ll", "m", "n", "ñ", "p", "r", "s", "t", "z"});
+            filas.add(new String[]{"Respuesta Correcta"});
             filas.add(new String[]{"b", "", "" + getNumberAnswerByTask("b", "b", task), "" + getNumberAnswerByTask("b", "k", task), "" + getNumberAnswerByTask("b", "ch", task), "" + getNumberAnswerByTask("b", "d", task), "" + getNumberAnswerByTask("b", "f", task), "" + getNumberAnswerByTask("b", "g/gu", task), "" + getNumberAnswerByTask("b", "j", task), "" + getNumberAnswerByTask("b", "l", task), "" + getNumberAnswerByTask("b", "ll", task), "" + getNumberAnswerByTask("b", "m", task), "" + getNumberAnswerByTask("b", "n", task), "" + getNumberAnswerByTask("b", "ñ", task), "" + getNumberAnswerByTask("b", "p", task), "" + getNumberAnswerByTask("b", "r", task), "" + getNumberAnswerByTask("b", "s", task), "" + getNumberAnswerByTask("b", "t", task), "" + getNumberAnswerByTask("b", "z", task)});
             filas.add(new String[]{"k", "", "" + getNumberAnswerByTask("k", "b", task), "" + getNumberAnswerByTask("k", "k", task), "" + getNumberAnswerByTask("k", "ch", task), "" + getNumberAnswerByTask("k", "d", task), "" + getNumberAnswerByTask("k", "f", task), "" + getNumberAnswerByTask("k", "g/gu", task), "" + getNumberAnswerByTask("k", "j", task), "" + getNumberAnswerByTask("k", "l", task), "" + getNumberAnswerByTask("k", "ll", task), "" + getNumberAnswerByTask("k", "m", task), "" + getNumberAnswerByTask("k", "n", task), "" + getNumberAnswerByTask("k", "ñ", task), "" + getNumberAnswerByTask("k", "p", task), "" + getNumberAnswerByTask("k", "r", task), "" + getNumberAnswerByTask("k", "s", task), "" + getNumberAnswerByTask("k", "t", task), "" + getNumberAnswerByTask("k", "z", task)});
             filas.add(new String[]{"ch", "", "" + getNumberAnswerByTask("ch", "b", task), "" + getNumberAnswerByTask("ch", "k", task), "" + getNumberAnswerByTask("ch", "ch", task), "" + getNumberAnswerByTask("ch", "d", task), "" + getNumberAnswerByTask("ch", "f", task), "" + getNumberAnswerByTask("ch", "g/gu", task), "" + getNumberAnswerByTask("ch", "j", task), "" + getNumberAnswerByTask("ch", "l", task), "" + getNumberAnswerByTask("ch", "ll", task), "" + getNumberAnswerByTask("ch", "m", task), "" + getNumberAnswerByTask("ch", "n", task), "" + getNumberAnswerByTask("ch", "ñ", task), "" + getNumberAnswerByTask("ch", "p", task), "" + getNumberAnswerByTask("ch", "r", task), "" + getNumberAnswerByTask("ch", "s", task), "" + getNumberAnswerByTask("ch", "t", task), "" + getNumberAnswerByTask("ch", "z", task)});
@@ -484,8 +487,8 @@ public class BriefingsController implements Serializable {
 
             filas.add(new String[]{""});
             filas.add(new String[]{"Matriz de confusión porcentaje"});
-            filas.add(new String[]{"", "Respuesta Correcta", "b", "k", "ch", "d", "f", "g/gu", "j", "l", "ll", "m", "n", "ñ", "p", "r", "s", "t", "z"});
-            filas.add(new String[]{"Respuesta seleccionada"});
+            filas.add(new String[]{"", "Respuesta seleccionada", "b", "k", "ch", "d", "f", "g/gu", "j", "l", "ll", "m", "n", "ñ", "p", "r", "s", "t", "z"});
+            filas.add(new String[]{"Respuesta Correcta"});
             filas.add(new String[]{"b", "", "" + getNumberAnswerPercentByTask("b", "b", task) + "%", "" + getNumberAnswerPercentByTask("b", "k", task) + "%", "" + getNumberAnswerPercentByTask("b", "ch", task) + "%", "" + getNumberAnswerPercentByTask("b", "d", task) + "%", "" + getNumberAnswerPercentByTask("b", "f", task) + "%", "" + getNumberAnswerPercentByTask("b", "g/gu", task) + "%", "" + getNumberAnswerPercentByTask("b", "j", task) + "%", "" + getNumberAnswerPercentByTask("b", "l", task) + "%", "" + getNumberAnswerPercentByTask("b", "ll", task) + "%", "" + getNumberAnswerPercentByTask("b", "m", task) + "%", "" + getNumberAnswerPercentByTask("b", "n", task) + "%", "" + getNumberAnswerPercentByTask("b", "ñ", task) + "%", "" + getNumberAnswerPercentByTask("b", "p", task) + "%", "" + getNumberAnswerPercentByTask("b", "r", task) + "%", "" + getNumberAnswerPercentByTask("b", "s", task) + "%", "" + getNumberAnswerPercentByTask("b", "t", task) + "%", "" + getNumberAnswerPercentByTask("b", "z", task) + "%"});
             filas.add(new String[]{"k", "", "" + getNumberAnswerPercentByTask("k", "b", task) + "%", "" + getNumberAnswerPercentByTask("k", "k", task) + "%", "" + getNumberAnswerPercentByTask("k", "ch", task) + "%", "" + getNumberAnswerPercentByTask("k", "d", task) + "%", "" + getNumberAnswerPercentByTask("k", "f", task) + "%", "" + getNumberAnswerPercentByTask("k", "g/gu", task) + "%", "" + getNumberAnswerPercentByTask("k", "j", task) + "%", "" + getNumberAnswerPercentByTask("k", "l", task) + "%", "" + getNumberAnswerPercentByTask("k", "ll", task) + "%", "" + getNumberAnswerPercentByTask("k", "m", task) + "%", "" + getNumberAnswerPercentByTask("k", "n", task) + "%", "" + getNumberAnswerPercentByTask("k", "ñ", task) + "%", "" + getNumberAnswerPercentByTask("k", "p", task) + "%", "" + getNumberAnswerPercentByTask("k", "r", task) + "%", "" + getNumberAnswerPercentByTask("k", "s", task) + "%", "" + getNumberAnswerPercentByTask("k", "t", task) + "%", "" + getNumberAnswerPercentByTask("k", "z", task) + "%"});
             filas.add(new String[]{"ch", "", "" + getNumberAnswerPercentByTask("ch", "b", task) + "%", "" + getNumberAnswerPercentByTask("ch", "k", task) + "%", "" + getNumberAnswerPercentByTask("ch", "ch", task) + "%", "" + getNumberAnswerPercentByTask("ch", "d", task) + "%", "" + getNumberAnswerPercentByTask("ch", "f", task) + "%", "" + getNumberAnswerPercentByTask("ch", "g/gu", task) + "%", "" + getNumberAnswerPercentByTask("ch", "j", task) + "%", "" + getNumberAnswerPercentByTask("ch", "l", task) + "%", "" + getNumberAnswerPercentByTask("ch", "ll", task) + "%", "" + getNumberAnswerPercentByTask("ch", "m", task) + "%", "" + getNumberAnswerPercentByTask("ch", "n", task) + "%", "" + getNumberAnswerPercentByTask("ch", "ñ", task) + "%", "" + getNumberAnswerPercentByTask("ch", "p", task) + "%", "" + getNumberAnswerPercentByTask("ch", "r", task) + "%", "" + getNumberAnswerPercentByTask("ch", "s", task) + "%", "" + getNumberAnswerPercentByTask("ch", "t", task) + "%", "" + getNumberAnswerPercentByTask("ch", "z", task) + "%"});
@@ -552,7 +555,7 @@ public class BriefingsController implements Serializable {
         return number;
     }
 
-    private int getNumberAnswerByTask(String b, String b0, Task task) {
+    private int getNumberAnswerByTask(String b0, String b, Task task) {
         int responses = 0;
         for (UserTask userTask : task.getUserTaskList()) {
             if (userTask.getComplete()) {
@@ -562,7 +565,7 @@ public class BriefingsController implements Serializable {
         return responses;
     }
 
-    private int getNumberAnswerPercentByTask(String b, String b0, Task task) {
+    private int getNumberAnswerPercentByTask(String b0, String b, Task task) {
         int responses = 0;
         int cont = 0;
         for (UserTask userTask : task.getUserTaskList()) {

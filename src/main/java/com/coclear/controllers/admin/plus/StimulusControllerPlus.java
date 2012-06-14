@@ -15,7 +15,7 @@ import javax.faces.bean.ViewScoped;
  *
  * @author Pencerval
  */
-@ManagedBean(name = "stimulusControllerPlus")
+@ManagedBean(name = "stimulusGroupControllerPlus")
 @ViewScoped
 public class StimulusControllerPlus {
 

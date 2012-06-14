@@ -17,57 +17,72 @@
 
 
                 <h:form id="form1">
-                    <p:growl id="growlexercise" showDetail="true"/>
+
 
                     <audio id="sound1" autoplay="autoplay" onended="setTimeout(function() {document.getElementById('sound2').play();},500);">
                         <source src="../stimulussound?id=#{playExerciseDiscriminationController.currentStimulusSound1.idStimulus}" type="audio/wav"/>
                         Your browser does not support the audio tag.
                     </audio>
-                    
+
                     <audio id="sound2">
                         <source src="../stimulussound?id=#{playExerciseDiscriminationController.currentStimulusSound2.idStimulus}" type="audio/wav"/>
                         Your browser does not support the audio tag.
                     </audio>
-                    
-                    
-                    <p:panel style="margin-bottom: 20px;" id="pnl" header="Ayuda" toggleable="true" toggleSpeed="500"  >
-                        <h:outputText value="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />  
-                    </p:panel>
-                    <p:panel id="exercise" style="margin-top: 4px;margin-bottom: 5px;" header="Ejer 1">
 
+                    <!-- 
+                                        <p:panel style="margin-bottom: 20px;" id="pnl" header="Ayuda" toggleable="true" toggleSpeed="500"  >
+                                            <h:outputText value="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />  
+                                        </p:panel>
+                    -->
+                    <p:panel id="exercise" style="margin-top: 4px;margin-bottom: 5px;" header="Ejer 1">
+                        <p:growl id="growlexercise" showDetail="true"/>
                         <h:panelGrid columns="2"  id="grid" style="width: 100%" styleClass="tablegrid" >
-                           
-                                <p:panel id="panelanswer" >
-                                    <f:facet name="header">
-                                        <h:outputText value="¿Iguales o diferentes?" style="text-align: center;display: block;"/>
-                                    </f:facet>
-                                    <div align="center">
-                                        <h:panelGrid columns="3"  id="grid2" style="text-align: center;">
-                                            <p:commandButton rendered="${playExerciseDiscriminationController.selectedIdStimulus == playExerciseDiscriminationController.currentStimulusImage1.idStimulus}" actionListener="#{playExerciseDiscriminationController.setSelectedIdStimulus(playExerciseDiscriminationController.currentStimulusImage1.idStimulus)}" update="exercise" style="width: 200px;height: 200px;background-image: url(../resources/images/check.png) !important;background-size:contain;background-repeat:no-repeat;"  value=""/>
-                                            <p:commandButton rendered="${playExerciseDiscriminationController.selectedIdStimulus != playExerciseDiscriminationController.currentStimulusImage1.idStimulus}" actionListener="#{playExerciseDiscriminationController.setSelectedIdStimulus(playExerciseDiscriminationController.currentStimulusImage1.idStimulus)}" update="exercise" style="width: 200px;height: 200px;background-image: url(../stimulusimage?id=#{playExerciseDiscriminationController.currentStimulusImage1.idStimulus}) !important;background-size:contain;background-repeat:no-repeat;"  value=""/>
-                                            <p:spacer width="100"/>
-                                            <p:commandButton rendered="${playExerciseDiscriminationController.selectedIdStimulus == playExerciseDiscriminationController.currentStimulusImage2.idStimulus}" actionListener="#{playExerciseDiscriminationController.setSelectedIdStimulus(playExerciseDiscriminationController.currentStimulusImage2.idStimulus)}" update="exercise" style="width: 200px;height: 200px;background-image: url(../resources/images/check.png) !important;background-size:contain;background-repeat:no-repeat;"  value=""/>
-                                            <p:commandButton rendered="${playExerciseDiscriminationController.selectedIdStimulus != playExerciseDiscriminationController.currentStimulusImage2.idStimulus}" actionListener="#{playExerciseDiscriminationController.setSelectedIdStimulus(playExerciseDiscriminationController.currentStimulusImage2.idStimulus)}" update="exercise" style="width: 200px;height: 200px;background-image: url(../stimulusimage?id=#{playExerciseDiscriminationController.currentStimulusImage2.idStimulus}) !important;background-size:contain;background-repeat:no-repeat;"  value=""/>
-                                            <h:outputText value="Iguales" style="font-size:150%;"/>
-                                            <p:spacer/>
-                                            <h:outputText value="Diferentes" style="font-size:150%;"/>
-                                        </h:panelGrid>    
-                                    </div>
-                                </p:panel>
-                                <p:panel>
+
+                            <p:panel id="panelanswer" >
+                                <f:facet name="header">
+                                    <h:outputText value="¿Iguales o diferentes?" style="text-align: center;display: block;"/>
+                                </f:facet>
+                                <div align="center">
+                                    <h:panelGrid columns="3"  id="grid2" style="text-align: center;">
+                                        <p:commandButton rendered="${playExerciseDiscriminationController.selectedIdStimulus == -1 or playExerciseDiscriminationController.selectedIdStimulus == playExerciseDiscriminationController.currentStimulusImage1.idStimulus}" actionListener="#{playExerciseDiscriminationController.setSelectedIdStimulus(playExerciseDiscriminationController.currentStimulusImage1.idStimulus)}" update="exercise" style="width: 200px;height: 200px;background-image: url(../stimulusimage?id=#{playExerciseDiscriminationController.currentStimulusImage1.idStimulus}) !important;background-size:contain;background-repeat:no-repeat; "  value=""/>
+                                        <p:commandButton rendered="${playExerciseDiscriminationController.selectedIdStimulus != -1 and playExerciseDiscriminationController.selectedIdStimulus != playExerciseDiscriminationController.currentStimulusImage1.idStimulus}" disabled="true" actionListener="#{playExerciseDiscriminationController.setSelectedIdStimulus(playExerciseDiscriminationController.currentStimulusImage1.idStimulus)}" update="exercise" style="width: 200px;height: 200px;background-image: url(../stimulusimage?id=#{playExerciseDiscriminationController.currentStimulusImage1.idStimulus}) !important;background-size:contain;background-repeat:no-repeat; "  value=""/>
+                                        <p:spacer width="100"/>
+                                        <p:commandButton rendered="${playExerciseDiscriminationController.selectedIdStimulus == -1 or playExerciseDiscriminationController.selectedIdStimulus == playExerciseDiscriminationController.currentStimulusImage2.idStimulus}" actionListener="#{playExerciseDiscriminationController.setSelectedIdStimulus(playExerciseDiscriminationController.currentStimulusImage2.idStimulus)}" update="exercise" style="width: 200px;height: 200px;background-image: url(../stimulusimage?id=#{playExerciseDiscriminationController.currentStimulusImage2.idStimulus}) !important;background-size:contain;background-repeat:no-repeat;"  value=""/>
+                                        <p:commandButton rendered="${playExerciseDiscriminationController.selectedIdStimulus != -1 and playExerciseDiscriminationController.selectedIdStimulus != playExerciseDiscriminationController.currentStimulusImage2.idStimulus}" disabled="true" actionListener="#{playExerciseDiscriminationController.setSelectedIdStimulus(playExerciseDiscriminationController.currentStimulusImage2.idStimulus)}" update="exercise" style="width: 200px;height: 200px;background-image: url(../stimulusimage?id=#{playExerciseDiscriminationController.currentStimulusImage2.idStimulus}) !important;background-size:contain;background-repeat:no-repeat;"  value=""/>
+                                        <h:outputText value="Iguales" style="font-size:150%;"/>
+                                        <p:spacer/>
+                                        <h:outputText value="Diferentes" style="font-size:150%;"/>
+                                    </h:panelGrid>    
+                                </div>
+                            </p:panel>
+                            <h:panelGroup>
+                                <p:panel style="margin-bottom: 50px;">
                                     <f:facet name="header">
                                         <h:outputText value="Restantes" style="text-align: center;display: block;"/>
                                     </f:facet>
                                     <div align="center">
                                         <h:outputText value="#{playExerciseDiscriminationController.position + 1} / #{playExerciseDiscriminationController.exercises.size()}" style="font-size:250%;"/>
                                     </div>
+
                                 </p:panel>
+                                <div align="center" style="float: ">
+                                    <h:panelGrid columns="1"> 
+                                        <p:graphicImage rendered="${playExerciseDiscriminationController.correct!=null and playExerciseDiscriminationController.correct}" value="../resources/images/check.png"/>
+                                        <!-- <h:outputText rendered="${playExerciseDiscriminationController.correct!=null and playExerciseDiscriminationController.correct}" value="Correcto!" style="font-size:150%;"/>-->
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="1"> 
+                                        <p:graphicImage rendered="${playExerciseDiscriminationController.correct!=null and not playExerciseDiscriminationController.correct}" value="../resources/images/fail.png"/>
+                                        <!--<h:outputText rendered="${playExerciseDiscriminationController.correct!=null and not playExerciseDiscriminationController.correct}" value="Incorrecto!" style="font-size:150%;"/>-->
+                                    </h:panelGrid>
+                                </div>
+                            </h:panelGroup>
 
                             <p:panel id="panelplay" style="margin-top: 10px">
                                 <f:facet name="header">
                                     <h:outputText value="Pulsa para avanzar a la siguiente prueba" style="text-align: center;display: block;"/>
                                 </f:facet>
-                                <div id="playbutton" align="center">
+
+                                <div id="playbutton" align="center" style="vertical-align: botton;">
                                     <p:commandButton disabled="#{playExerciseDiscriminationController.played}" actionListener="#{playExerciseDiscriminationController.doNext}" icon="play" alt="play" style="width: 70px;height: 68px;" />
                                 </div>
                             </p:panel>
