@@ -4,10 +4,13 @@
  */
 package com.coclear.sessionbeans;
 
+import com.coclear.entitys.User;
 import com.coclear.entitys.UserTask;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -25,6 +28,14 @@ public class UserTaskFacade extends AbstractFacade<UserTask> {
 
     public UserTaskFacade() {
         super(UserTask.class);
+    }
+    
+    public List<UserTask> findAllByUserIDAndComplete(User user,boolean complete){
+        Query query = em.createNamedQuery("UserTask.findByIdUserTaskAndComplete");
+        query.setParameter("user", user);
+        query.setParameter("complete", complete);
+        return query.getResultList();
+        
     }
     
 }

@@ -13,7 +13,8 @@
 
             <title>Co-Clear</title>
         </h:head>
-        <h:body>
+        <h:body >
+            <div id="body">
             <div id="top">
                 <ui:insert name="top">
                     <div class="ui-widget ui-widget-header">
@@ -28,6 +29,12 @@
                             </p:menuButton>
                         </h:form>
                     </h:panelGroup>
+                    <p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>  
+
+                    <p:dialog modal="true" widgetVar="statusDialog" header="Cargando"   
+                              draggable="false" closable="false">  
+                        <!--<p:graphicImage value="/design/ajaxloadingbar.gif" />  -->
+                    </p:dialog>  
                 </ui:insert>
             </div>
             <div id="wrapper">
@@ -41,6 +48,7 @@
             <div style="height: 100%" />
             <div id="footer" class="ui-widget ui-widget-header ui-corner-all">
                 <ui:insert name="bottom"><p class="copyright">©&nbsp;&nbsp;2011 &nbsp;•&nbsp;</p></ui:insert>
+            </div>
             </div>
         </h:body>
     </f:view>

@@ -41,7 +41,7 @@ public class Stimulus implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "type")
     private String type;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stimulus", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "stimulus", fetch = FetchType.LAZY)
     private List<ExerciseStimulusMap> exerciseStimulusMapList;
     @JoinColumn(name = "id_stimulus_group", referencedColumnName = "id_stimulus_group")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

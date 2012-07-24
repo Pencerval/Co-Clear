@@ -12,32 +12,123 @@
         <ui:composition template="/resources/templates/template.xhtml">
             <ui:define name="body">
                 <h1 class="title ui-widget-header ui-corner-all">Asignación de tareas</h1>
-                <h:form>  
-                    <p:panel id="panel" header="Asignar tareas a un usuario" style="margin-bottom:10px;"> 
-                        <p:dataTable var="user" value="#{taskGroupUserController.users}" rowKey="#{user.idUser}" paginator="true" rows="10"  
-                                     selection="#{taskGroupUserController.selectedUser}" selectionMode="single" id="usersTable">  
-                            <f:facet name="header">  
-                                Selecciona el usuario:
-                            </f:facet>  
-                            <p:column headerText="ID" sortBy="#{user.idUser}" filterBy="#{user.idUser}" id="ID">  
-                                #{user.idUser} 
-                            </p:column>  
-                            <p:column headerText="Login" sortBy="#{user.login}" filterBy="#{user.login}" id="login">  
-                                #{user.login}
-                            </p:column>  
-                            <p:column headerText="Nombre" sortBy="#{user.name}" filterBy="#{user.name}" id="name">  
-                                #{user.name}  
-                            </p:column>  
-                        </p:dataTable> 
+                <h:form id="form">  
+                    <p:panel id="panel" header="Asignar tareas a un usuario o grupo" style="margin-bottom:10px;" > 
+                        <h:panelGrid id="tablegrid" columns="2" class="tablegrid" cellspacing="5">
+                            <p:dataTable var="user" value="#{userTaskControllerPlus.users}" rowKey="#{user.idUser}" paginator="true" rows="10"  
+                                         selection="#{userTaskControllerPlus.userSelected}" selectionMode="single" id="usersTable">  
+                                <f:facet name="header">  
+                                    Selecciona el usuario:
+                                </f:facet>  
+                                <p:ajax event="rowSelect" update=":form:panel"/>  
+                                <p:ajax event="rowUnselect" update=":form:panel"/>
+                                <p:column headerText="ID" sortBy="#{user.idUser}" filterBy="#{user.idUser}" id="userId">  
+                                    #{user.idUser} 
+                                </p:column>  
+                                <p:column headerText="Login" sortBy="#{user.login}" filterBy="#{user.login}" id="login">  
+                                    #{user.login}
+                                </p:column>  
+                                <p:column headerText="Nombre" sortBy="#{user.name}" filterBy="#{user.name}" id="userName">  
+                                    #{user.name}  
+                                </p:column>  
+                            </p:dataTable> 
+                            <p:dataTable var="group" value="#{userTaskControllerPlus.userGroups}" rowKey="#{group.idUserGroup}" paginator="true" rows="10"  
+                                         selection="#{userTaskControllerPlus.userGroupSelected}" selectionMode="single" id="userGroupsTable">  
+                                <f:facet name="header">  
+                                    Selecciona el grupo:
+                                </f:facet>  
+                                <p:ajax event="rowSelect"/>  
+                                <p:ajax event="rowUnselect"/>
+                                <p:column headerText="ID" sortBy="#{group.idUserGroup}" filterBy="#{group.idUserGroup}" id="userGroupId">  
+                                    #{group.idUserGroup} 
+                                </p:column>  
+                                <p:column headerText="Nombre" sortBy="#{group.name}" filterBy="#{group.name}" id="userGroupName">  
+                                    #{group.name}
+                                </p:column>  
+                            </p:dataTable> 
+
+                        </h:panelGrid>
                         <p:panel id="panel2" header="Selecciona las tareas: " style="margin-bottom:10px;margin-top:10px;"> 
-                            <p:pickList value="#{taskGroupUserController.task}" var="task" 
-                                        itemLabel="#{task.name}" itemValue="#{task}" converter="taskUserConverter">
-                                <f:facet name="sourceCaption">Posibles</f:facet> 
-                                <f:facet name="targetCaption">Añadidas</f:facet> 
-                            </p:pickList>
+                            <h:panelGrid id="tablegrid2" columns="2" class="tablegrid" cellspacing="5">
+                                <p:dataTable id="table3" var="task" value="#{userTaskControllerPlus.taskAvalibles}" rowKey="#{task.idTask}" paginator="true" rows="10"  
+                                             selection="#{userTaskControllerPlus.taskAvaliblesSelected}" selectionMode="multiple" >  
+                                    <f:facet name="header">  
+                                        Lista de tareas disponibles 
+                                    </f:facet>  
+                                    <p:ajax event="rowSelect"/>  
+                                    <p:ajax event="rowUnselect"/>
+                                    <p:column headerText="ID" sortBy="#{task.idTask}" id="ID1">  
+                                        <div style="text-align: center;">
+                                            #{task.idTask} 
+                                        </div>
+                                    </p:column>
+
+                                    <p:column headerText="Nombre" sortBy="#{task.name}" filterBy="#{task.name}" id="name1">  
+                                        <div style="text-align: center;">
+                                            #{task.name}  
+                                        </div>
+                                    </p:column>  
+                                    <p:column headerText="Tipo" sortBy="#{task.typeName}" filterBy="#{task.typeName}" id="type1">  
+                                        <div style="text-align: center;">
+                                            #{task.typeName}
+                                        </div>
+                                    </p:column>  
+
+                                    <p:column headerText="Acciones" id="actions" > 
+                                        <div style="text-align: center;">
+                                            <p:commandButton title="Añadir" icon="ui-icon-circle-plus" process=":form:panel" actionListener="#{userTaskControllerPlus.addSelected(task)}" update=":form:panel">
+                                            </p:commandButton>
+                                        </div>
+                                    </p:column>  
+                                    <f:facet name="footer">  
+                                        <div style="float: right;">
+                                            <p:commandButton value="Añadir seleccionados" icon="ui-icon-circle-plus" actionListener="#{userTaskControllerPlus.addAllSelected()}" update=":form:panel">
+                                            </p:commandButton>
+                                        </div>
+                                    </f:facet>  
+                                </p:dataTable> 
+
+                                <p:dataTable id="table4" var="task" value="#{userTaskControllerPlus.taskAdded}" rowKey="#{task.idTask}" paginator="true" rows="10"
+                                             selection="#{userTaskControllerPlus.taskAddedSelected}" selectionMode="multiple" >  
+                                    <f:facet name="header">  
+                                        Lista de tareas añadidas 
+                                    </f:facet>  
+                                    <p:column headerText="ID" sortBy="#{task.idTask}" id="ID2">  
+                                        <div style="text-align: center;">
+                                            #{task.idTask} 
+                                        </div>
+                                    </p:column>  
+                                    <p:ajax event="rowSelect"/>  
+                                    <p:ajax event="rowUnselect"/>  
+                                    <p:column headerText="Nombre" sortBy="#{task.name}" filterBy="#{task.name}" id="name2">  
+                                        <div style="text-align: center;">
+                                            #{task.name}  
+                                        </div>
+                                    </p:column>  
+
+                                    <p:column headerText="Tipo" sortBy="#{task.typeName}" filterBy="#{task.typeName}" id="type1">  
+                                        <div style="text-align: center;">
+                                            #{task.typeName}
+                                        </div>
+                                    </p:column>  
+                                    <p:column headerText="Acciones" id="actions2" > 
+                                        <div style="text-align: center;">
+                                            <p:commandButton process=":form:panel" title="Quitar" icon="ui-icon-circle-minus" actionListener="#{userTaskControllerPlus.removeSelected(task)}" update=":form:panel" >
+                                            </p:commandButton>
+                                        </div>
+                                    </p:column>  
+
+                                    <f:facet name="footer">  
+                                        <div style="float: right;">
+                                            <p:commandButton value="Quitar seleccionados" icon="ui-icon-circle-minus" actionListener="#{userTaskControllerPlus.removeAllSelected}" update=":form:panel">
+                                            </p:commandButton>
+                                        </div>
+                                    </f:facet>  
+                                </p:dataTable> 
+                            </h:panelGrid>
                         </p:panel>
                     </p:panel>
-                    <p:commandButton value="Guardar" update="messages" ajax="true" actionListener="#{taskGroupUserController.saveTaskUser}" style="margin-top:10px;"/>
+                    <p:commandButton value="Guardar" update="messages" ajax="true" actionListener="#{userTaskControllerPlus.saveUserTask}" style="margin-top:10px;"/>
                     <p:growl id="messages" showDetail="true"/>
                 </h:form>  
             </ui:define>

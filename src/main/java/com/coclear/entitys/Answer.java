@@ -45,12 +45,12 @@ public class Answer implements Serializable {
     @Size(max = 255)
     @Column(name = "example")
     private String example;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "answer", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "answer", fetch = FetchType.LAZY)
     private List<Result> resultList;
     @JoinColumn(name = "id_answer_group", referencedColumnName = "id_answer_group")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private AnswerGroup answerGroup;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "answer", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "answer", fetch = FetchType.LAZY)
     private List<PossibleSolution> possibleSolutionList;
 
     public Answer() {

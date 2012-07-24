@@ -11,9 +11,9 @@
     <h:body>
         <ui:composition template="/resources/templates/template.xhtml">
             <ui:define name="body">
-                <h1 class="title ui-widget-header ui-corner-all">Listado de tareas</h1>
+                <h1 class="title ui-widget-header ui-corner-all" >Listado de tareas</h1>
                 <p:growl id="msgs"/> 
-                <h:form id="form" enctype="multipart/form-data">  
+                <h:form id="form">  
                     
                     <p:dataTable id="table" var="task" value="#{taskControllerPlus.taskList}" rowKey="#{task.idTask}" paginator="true" rows="10"  
                                  selection="#{taskControllerPlus.taskSelected}" selectionMode="multiple">  

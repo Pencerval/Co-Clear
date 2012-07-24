@@ -33,7 +33,7 @@ public class TaskExercise implements Serializable {
     @NotNull
     @Column(name = "exercise_order")
     private int exerciseOrder;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskExercise", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "taskExercise", fetch = FetchType.LAZY)
     private List<Result> resultList;
     @JoinColumn(name = "id_task", referencedColumnName = "id_task")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

@@ -4,82 +4,107 @@
  */
 package com.coclear.controllers.admin.advanced;
 
-import com.coclear.entitys.Task;
-import com.coclear.entitys.User;
-import com.coclear.entitys.UserTask;
+import com.coclear.entitys.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIComponent;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
-import javax.faces.event.ActionEvent;
-import org.primefaces.model.DualListModel;
 
 /**
  *
  * @author Pencerval
  */
-@ManagedBean(name = "taskGroupUserController")
-@ViewScoped
+@ManagedBean(name = "userTaskControllerPlus")
+@SessionScoped
 public class TaskGroupUserController implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EJB
-    private com.coclear.sessionbeans.TaskFacade ejbTaskFacade;
+    private com.coclear.sessionbeans.TaskFacade taskFacade;
     @EJB
-    private com.coclear.sessionbeans.UserFacade ejbUserFacade;
+    private com.coclear.sessionbeans.UserFacade userFacade;
     @EJB
-    private com.coclear.sessionbeans.UserGroupFacade ejbUserGroupFacade;
+    private com.coclear.sessionbeans.UserTaskFacade userTaskFacade;
     @EJB
-    private com.coclear.sessionbeans.UserTaskFacade ejbUserTaskFacade;
-    List<User> users;
-    User selectedUser;
-    private DualListModel<Task> task;
-    private List<Task> source;
-    private List<Task> target = new ArrayList<Task>();
+    private com.coclear.sessionbeans.UserGroupFacade userGroupFacade;
+    private List<User> users;
+    private User userSelected;
+    private List<UserGroup> userGroups;
+    private UserGroup userGroupSelected;
+    private List<Task> taskAvalibles;
+    private List<Task> taskAdded;
+    private Task[] taskAvaliblesSelected;
+    private Task[] taskAddedSelected;
 
     public TaskGroupUserController() {
     }
 
-    public List<Task> getSource() {
-        if (source == null) {
-            source = ejbTaskFacade.findAll();
+    public void preEdit() {
+        userSelected = null;
+        userGroupSelected = null;
+        taskAvalibles = null;
+        taskAdded = null;
+        taskAddedSelected = null;
+        taskAvaliblesSelected = null;
+
+    }
+
+    public List<Task> getTaskAdded() {
+        if (taskAdded == null) {
+            taskAdded = Collections.synchronizedList(new LinkedList<Task>());
         }
-        return source;
+        return taskAdded;
     }
 
-    public void setSource(List<Task> source) {
-        this.source = source;
+    public void setTaskAdded(List<Task> taskAdded) {
+        this.taskAdded = taskAdded;
     }
 
-    public List<Task> getTarget() {
-        return target;
+    public Task[] getTaskAddedSelected() {
+        return taskAddedSelected;
     }
 
-    public void setTarget(List<Task> target) {
-        this.target = target;
+    public void setTaskAddedSelected(Task[] taskAddedSelected) {
+        this.taskAddedSelected = taskAddedSelected;
     }
 
-    public DualListModel<Task> getTask() {
-        if (task == null) {
-            task = new DualListModel<Task>(getSource(), getTarget());
+    public Task[] getTaskAvaliblesSelected() {
+        return taskAvaliblesSelected;
+    }
+
+    public void setTaskAvaliblesSelected(Task[] taskAvaliblesSelected) {
+        this.taskAvaliblesSelected = taskAvaliblesSelected;
+    }
+
+    public List<Task> getTaskAvalibles() {
+        if (taskAvalibles == null) {
+            taskAvalibles = Collections.synchronizedList(new LinkedList<Task>());
         }
-        return task;
+        return taskAvalibles;
     }
 
-    public void setTask(DualListModel<Task> task) {
-        this.task = task;
+    public void setTaskAvalibles(List<Task> tasksAvalibles) {
+        this.taskAvalibles = tasksAvalibles;
+    }
+
+    public List<UserGroup> getUserGroups() {
+        if (userGroups == null) {
+            userGroups = userGroupFacade.findAll();
+        }
+        return userGroups;
+    }
+
+    public void setUserGroups(List<UserGroup> userGroups) {
+        this.userGroups = userGroups;
     }
 
     public List<User> getUsers() {
         if (users == null) {
-            users = ejbUserFacade.getUserbyAdmin(false);
+            users = userFacade.getUserbyAdmin(false);
         }
         return users;
     }
@@ -88,70 +113,111 @@ public class TaskGroupUserController implements Serializable {
         this.users = users;
     }
 
-    public User getSelectedUser() {
-        return selectedUser;
+    public User getUserSelected() {
+        return userSelected;
     }
 
-    public void setSelectedUser(User selectedUser) {
-        this.selectedUser = selectedUser;
+    public void setUserSelected(User selectedUser) {
+        if (selectedUser != null && selectedUser!=userSelected) {
+            this.userSelected = selectedUser;
+            taskAvalibles = Collections.synchronizedList(new LinkedList<Task>());
+            taskAdded = Collections.synchronizedList(new LinkedList<Task>());
+            List<UserTask> userTasks = userTaskFacade.findAllByUserIDAndComplete(userSelected, false);
+            for (UserTask userTask : userTasks) {
+                taskAdded.add(userTask.getTask());
+            }
+            taskAvalibles = taskFacade.findAll();
+            taskAvalibles.removeAll(getTaskAdded());
+        }
+        
     }
 
-    public void saveTaskUser(ActionEvent event) {
+    public UserGroup getUserGroupSelected() {
+        return userGroupSelected;
+    }
+
+    public void setUserGroupSelected(UserGroup userGroupSelected) {
+        if (userGroupSelected != null && this.userGroupSelected!=userGroupSelected) {
+            this.userGroupSelected = userGroupSelected;
+            taskAvalibles = Collections.synchronizedList(new LinkedList<Task>());
+            taskAdded = Collections.synchronizedList(new LinkedList<Task>());
+            for (UserGroupMap userGroupMap : userGroupSelected.getUserGroupMapList()) {
+                Map<Task, Integer> userTaskNumber = new ConcurrentHashMap<Task, Integer>();
+                for (UserTask userTask : userGroupMap.getUser().getUserTaskList()) {
+                    if (userTaskNumber.containsKey(userTask.getTask())) {
+                        userTaskNumber.put(userTask.getTask(), userTaskNumber.get(userTask.getTask()) + 1);
+                    } else {
+                        userTaskNumber.put(userTask.getTask(), 1);
+                    }
+                }
+                for (Map.Entry<Task, Integer> entry : userTaskNumber.entrySet()) {
+                    if (entry.getValue() == userGroupMap.getUserGroup().getUserGroupMapList().size()) {
+                        taskAdded.add(entry.getKey());
+                    }
+                }
+            }
+            taskAvalibles = taskFacade.findAll();
+            taskAvalibles.removeAll(getTaskAdded());
+        }
+    }
+
+    public void addSelected(Task task) {
+        getTaskAdded().add(task);
+        setTaskAdded(getTaskAdded());
+        getTaskAvalibles().remove(task);
+        setTaskAvalibles(getTaskAvalibles());
+    }
+
+    public void addAllSelected() {
+        getTaskAdded().addAll(Arrays.asList(getTaskAvaliblesSelected()));
+        setTaskAdded(getTaskAdded());
+        getTaskAvalibles().removeAll(Arrays.asList(getTaskAvaliblesSelected()));
+        setTaskAvalibles(getTaskAvalibles());
+    }
+
+    public void removeSelected(Task task) {
+        getTaskAdded().remove(task);
+        setTaskAdded(getTaskAdded());
+        getTaskAvalibles().add(task);
+        setTaskAvalibles(getTaskAvalibles());
+    }
+
+    public void removeAllSelected() {
+        getTaskAdded().removeAll(Arrays.asList(getTaskAddedSelected()));
+        setTaskAdded(getTaskAdded());
+        getTaskAvalibles().addAll(Arrays.asList(getTaskAddedSelected()));
+        setTaskAvalibles(getTaskAvalibles());
+    }
+
+    public void saveUserTask() {
+
         try {
-            if (selectedUser == null) {
-                FacesMessage msg = new FacesMessage("Warning", "Necesita seleccionar un usuario");
+            if (userSelected == null && userGroupSelected == null) {
+                FacesMessage msg = new FacesMessage("Warning", "Necesita seleccionar un usuario o un grupo");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } else {
-                for (Task task : getTask().getTarget()) {
-                    UserTask userTask = new UserTask();
-                    userTask.setTask(task);
-                    userTask.setUser(selectedUser);
-                    userTask.setComplete(false);
-                    ejbUserTaskFacade.create(userTask);
+                if (userSelected != null) {
+                    List<UserTask> userTasks=userTaskFacade.findAllByUserIDAndComplete(userSelected, false);
+                    for(UserTask userTask:userTasks){
+                        userTaskFacade.remove(userTask);
+                    }
+                    for (Task task : getTaskAdded()) {
+                        UserTask userTask = new UserTask();
+                        userTask.setTask(task);
+                        userTask.setUser(userSelected);
+                        userTask.setComplete(false);
+                        userTaskFacade.create(userTask);
+                    }
+                    FacesMessage msg = new FacesMessage("Succesful", "Tareas asignadas correctamente al usuario " + userSelected.getLogin());
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                } else if (userGroupSelected != null) {
+                    //TODO
                 }
-                FacesMessage msg = new FacesMessage("Succesful", "Tareas asignadas correctamente al usuario "+selectedUser.getLogin());
-                FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    
-    
-    @FacesConverter( value="taskUserConverter")
-    public static class taskGroupUserControllerConverter implements Converter {
 
-        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
-            if (value == null || value.length() == 0) {
-                return null;
-            }
-            TaskGroupUserController controller = (TaskGroupUserController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "taskGroupUserController");
-            return controller.ejbTaskFacade.find(getKey(value));
-       }
 
-        java.lang.Integer getKey(String value) {
-            java.lang.Integer key;
-            key = Integer.valueOf(value);
-            return key;
-        }
-
-        String getStringKey(java.lang.Integer value) {
-            StringBuffer sb = new StringBuffer();
-            sb.append(value);
-            return sb.toString();
-        }
-        
-        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-            if (object == null) {
-                return null;
-            }
-            if (object instanceof Task) {
-                Task o = (Task) object;
-                return getStringKey(o.getIdTask());
-            } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + TaskGroupUserController.class.getName());
-            }
-        }
     }
 }

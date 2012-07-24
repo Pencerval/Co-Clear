@@ -40,9 +40,9 @@ public class UserGroup implements Serializable {
     @NotNull
     @Column(name = "is_default")
     private boolean isDefault;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userGroup", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "userGroup", fetch = FetchType.LAZY)
     private List<UserGroupMap> userGroupMapList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userGroup", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "userGroup", fetch = FetchType.LAZY)
     private List<DefaultGroupTask> defaultGroupTaskList;
 
     public UserGroup() {

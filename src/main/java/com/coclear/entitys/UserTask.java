@@ -20,7 +20,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "UserTask.findAll", query = "SELECT u FROM UserTask u"),
     @NamedQuery(name = "UserTask.findByIdUserTask", query = "SELECT u FROM UserTask u WHERE u.idUserTask = :idUserTask"),
-    @NamedQuery(name = "UserTask.findByComplete", query = "SELECT u FROM UserTask u WHERE u.complete = :complete")})
+    @NamedQuery(name = "UserTask.findByComplete", query = "SELECT u FROM UserTask u WHERE u.complete = :complete"),
+    @NamedQuery(name = "UserTask.findByIdUserTaskAndComplete", query = "SELECT u FROM UserTask u WHERE u.complete = :complete and u.user = :user")})
 public class UserTask implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

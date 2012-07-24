@@ -54,16 +54,16 @@ public class PublicCreateUserController implements Serializable {
     }
 
      
-     public String getBoolean(int value){
-         if(value == 1){
+     public String getBoolean(Boolean value){
+         if(value){
              return "Yes";
          }else{
              return "No";
          }
      }
      
-     public String getBooleanGender(int value){
-         if(value == 1){
+     public String getBooleanGender(Boolean value){
+         if(value){
              return "Male";
          }else{
              return "Female";

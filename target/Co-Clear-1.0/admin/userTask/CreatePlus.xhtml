@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body">
+                <h1 class="title ui-widget-header ui-corner-all">Alta de tareas</h1>
+
+
+                <h:form id="form">  
+                    <p:panel id="panel" header="Crear tarea" style="margin-bottom:10px;"> 
+                        <h:panelGrid id="namegrid" columns="1" > 
+                            <h:outputLabel value="Nombre de la tarea: "/>
+                            
+                            <p:inputText id="nombre" value="#{taskControllerPlus.task.name}" required="true" label="Nombre" size="65" widgetVar="nombre"/> 
+                            <p:messages id="message"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" > 
+                            <h:outputLabel value="Descripción de la tarea: "/>
+                            <p:inputTextarea id="description" value="#{taskControllerPlus.task.description}" rows="6" cols="50" maxlength="255" required="false" label="Descripción"/> 
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" > 
+                            <h:outputLabel value="Ayuda de la tarea: "/>
+                            <p:inputTextarea id="help" rows="6" cols="50" maxlength="255" value="#{taskControllerPlus.task.help}" required="false" label="Ayuda"/> 
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" > 
+                            <h:outputText value="Filtrar por tipo de ejercicio:" />  
+                            <p:selectOneMenu value="#{taskControllerPlus.filterType}" effect="fade" disabled="#{taskControllerPlus.exercisesAddedSize()!=0?true:false}">  
+                                <p:ajax listener="#{taskControllerPlus.filterTypeChange}" update=":form:panel"/>
+                                <f:selectItem itemLabel="Identificación" itemValue="0" />  
+                                <f:selectItem itemLabel="Discriminación" itemValue="1" />  
+                                <f:selectItem itemLabel="Identificación de entonación" itemValue="2" />  
+                            </p:selectOneMenu> 
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" > 
+                            <h:outputLabel value="Selecciona los ejercicios: " />
+                        </h:panelGrid>
+
+                        <h:panelGrid id="tablegrid" columns="3" class="tablegrid">
+                            <p:dataTable id="table1" var="exercise" value="#{taskControllerPlus.exercisesAvalibles}" rowKey="#{exercise.idExercise}" paginator="true" rows="10"  
+                                         selection="#{taskControllerPlus.exerciseAvaliblesSelected}" selectionMode="multiple" >  
+                                <f:facet name="header">  
+                                    Lista de ejercicios disponibles 
+                                </f:facet>  
+                                <p:ajax event="rowSelect"/>  
+                                <p:ajax event="rowUnselect"/>
+                                <p:column headerText="ID" sortBy="#{exercise.idExercise}" filterBy="#{exercise.idExercise}" id="ID1">  
+                                    <div style="text-align: center;">
+                                        #{exercise.idExercise} 
+                                    </div>
+                                </p:column>
+
+                                <p:column headerText="Nombre" sortBy="#{exercise.name}" filterBy="#{exercise.name}" id="name1">  
+                                    <div style="text-align: center;">
+                                        #{exercise.name}  
+                                    </div>
+                                </p:column>  
+                                <p:column headerText="Estimulos" id="stimulus1">  
+
+
+                                    <ul>
+                                        <ui:repeat value="#{exercise.exerciseStimulusMapList}" var="exerciseStimulusMap">
+                                            <li>
+                                                ID: #{exerciseStimulusMap.stimulus.idStimulus} <br/>Nombre: #{exerciseStimulusMap.stimulus.name} <br/>Grupo: #{exerciseStimulusMap.stimulus.stimulusGroup.name} 
+                                            </li>
+                                        </ui:repeat>
+                                    </ul>
+
+
+                                </p:column> 
+                                <p:column headerText="Acciones" id="actions" > 
+                                    <div style="text-align: center;">
+                                        <p:commandButton title="Añadir" icon="ui-icon-circle-plus" actionListener="#{taskControllerPlus.addSelected(exercise)}" update=":form:panel" oncomplete="if($('#form\\:nombre')[0].value==''){PrimeFaces.scrollTo('top');}">
+                                        </p:commandButton>
+                                    </div>
+                                </p:column>  
+                                <f:facet name="footer">  
+                                    <div style="float: right;">
+                                        <p:commandButton value="Añadir seleccionados" icon="ui-icon-circle-plus" actionListener="#{taskControllerPlus.addAllSelected()}" update=":form:panel" oncomplete="if($('#form\\:nombre')[0].value==''){PrimeFaces.scrollTo('top');}">
+                                        </p:commandButton>
+                                    </div>
+                                </f:facet>  
+                            </p:dataTable> 
+
+                            <p:spacer width="5" height="5" />
+
+                            <p:dataTable id="table2" var="exercise" value="#{taskControllerPlus.exercisesAdded}" rowKey="#{exercise.idExercise}" paginator="true" rows="10"
+                                         selection="#{taskControllerPlus.exerciseAddedSelected}" selectionMode="multiple" >  
+                                <f:facet name="header">  
+                                    Lista de ejercicios añadidos 
+                                </f:facet>  
+                                <p:column headerText="ID" sortBy="#{exercise.idExercise}" filterBy="#{exercise.idExercise}" id="ID2">  
+                                    <div style="text-align: center;">
+                                        #{exercise.idExercise} 
+                                    </div>
+                                </p:column>  
+                                <p:ajax event="rowSelect"/>  
+                                <p:ajax event="rowUnselect"/>  
+                                <p:column headerText="Nombre" sortBy="#{exercise.name}" filterBy="#{exercise.name}" id="name2">  
+                                    <div style="text-align: center;">
+                                        #{exercise.name}  
+                                    </div>
+                                </p:column>  
+
+                                <p:column headerText="Estimulos" id="stimulus2">  
+
+
+                                    <ul>
+                                        <ui:repeat value="#{exercise.exerciseStimulusMapList}" var="exerciseStimulusMap">
+                                            <li>
+                                                ID: #{exerciseStimulusMap.stimulus.idStimulus} <br/>Nombre: #{exerciseStimulusMap.stimulus.name} <br/>Grupo: #{exerciseStimulusMap.stimulus.stimulusGroup.name} 
+                                            </li>
+                                        </ui:repeat>
+                                    </ul>
+
+
+                                </p:column> 
+                                <p:column headerText="Acciones" id="actions2" > 
+                                    <div style="text-align: center;">
+                                        <p:commandButton title="Quitar" icon="ui-icon-circle-minus" actionListener="#{taskControllerPlus.removeSelected(exercise)}" update=":form:panel" oncomplete="if($('#form\\:nombre')[0].value==''){PrimeFaces.scrollTo('top');}">
+                                        </p:commandButton>
+                                    </div>
+                                </p:column>  
+
+                                <f:facet name="footer">  
+                                    <div style="float: right;">
+                                        <p:commandButton value="Quitar seleccionados" icon="ui-icon-circle-minus" actionListener="#{taskControllerPlus.removeAllSelected}" update=":form:panel" oncomplete="if($('#form\\:nombre')[0].value==''){PrimeFaces.scrollTo('top');}">
+                                        </p:commandButton>
+                                    </div>
+                                </f:facet>  
+                            </p:dataTable> 
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:commandButton value="Guardar" ajax="true" actionListener="#{taskControllerPlus.saveTask}" style="margin-top:10px;" update=":form:panel">
+                    </p:commandButton>
+                    <p:growl id="messages" showDetail="true"/>
+                </h:form>  
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

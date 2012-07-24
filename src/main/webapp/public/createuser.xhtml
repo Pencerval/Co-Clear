@@ -39,8 +39,8 @@
                                     <p:calendar value="#{publicCreateUserController.user.birthdate}" required="false" navigator="true" label="Birthdate" yearRange="c-150:c+0"/>   
                                     <h:outputText value="Gender: " />
                                     <h:selectOneRadio id="gender" value="#{publicCreateUserController.user.gender}">
-                                        <f:selectItem id="item1" itemLabel="Male" itemValue="1" />
-                                        <f:selectItem id="item2" itemLabel="Female" itemValue="0" />
+                                        <f:selectItem id="item1" itemLabel="Male" itemValue="true" />
+                                        <f:selectItem id="item2" itemLabel="Female" itemValue="false" />
                                     </h:selectOneRadio>
                                 </h:panelGrid>
                             </p:panel>
@@ -82,28 +82,28 @@
                                 <h:panelGrid columns="2" columnClasses="label, value">
                                     <h:outputText value="Sign language: " />
                                     <h:selectOneRadio id="sign_lenguage" value="#{publicCreateUserController.user.signLanguage}">
-                                        <f:selectItem id="item3" itemLabel="Yes" itemValue="1" />
-                                        <f:selectItem id="item4" itemLabel="No" itemValue="0" />
+                                        <f:selectItem id="item3" itemLabel="Yes" itemValue="true" />
+                                        <f:selectItem id="item4" itemLabel="No" itemValue="false" />
                                     </h:selectOneRadio>
                                     <h:outputText value="Speech reading: " />
                                     <h:selectOneRadio id="speech_reading" value="#{publicCreateUserController.user.speechReading}">
-                                        <f:selectItem id="item5" itemLabel="Yes" itemValue="1" />
-                                        <f:selectItem id="item6" itemLabel="No" itemValue="0" />
+                                        <f:selectItem id="item5" itemLabel="Yes" itemValue="true" />
+                                        <f:selectItem id="item6" itemLabel="No" itemValue="false" />
                                     </h:selectOneRadio>
                                     <h:outputText value="Speech therapy: " />
                                     <h:selectOneRadio id="speech_therapy" value="#{publicCreateUserController.user.speechTherapy}">
-                                        <f:selectItem id="item7" itemLabel="Yes" itemValue="1" />
-                                        <f:selectItem id="item8" itemLabel="No" itemValue="0" />
+                                        <f:selectItem id="item7" itemLabel="Yes" itemValue="true" />
+                                        <f:selectItem id="item8" itemLabel="No" itemValue="false" />
                                     </h:selectOneRadio>
                                     <h:outputText value="Educational orientation: " />
                                     <h:selectOneRadio id="educational_orientation" value="#{publicCreateUserController.user.educationalOrientation}">
-                                        <f:selectItem id="item9" itemLabel="Yes" itemValue="1" />
-                                        <f:selectItem id="item10" itemLabel="No" itemValue="0" />
+                                        <f:selectItem id="item9" itemLabel="Yes" itemValue="true" />
+                                        <f:selectItem id="item10" itemLabel="No" itemValue="false" />
                                     </h:selectOneRadio>
                                     <h:outputText value="bilingual: " />
                                     <h:selectOneRadio id="bilingual" value="#{publicCreateUserController.user.bilingual}">
-                                        <f:selectItem id="item11" itemLabel="Yes" itemValue="1"/>
-                                        <f:selectItem id="item12" itemLabel="No" itemValue="0" />
+                                        <f:selectItem id="item11" itemLabel="Yes" itemValue="true"/>
+                                        <f:selectItem id="item12" itemLabel="No" itemValue="false" />
                                     </h:selectOneRadio>
                                     <h:outputText value="Comments: " />
                                     <h:inputTextarea id="comments" value="#{publicCreateUserController.user.comments}" />

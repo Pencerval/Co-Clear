@@ -83,7 +83,7 @@
                                 </f:facet>
 
                                 <div id="playbutton" align="center" style="vertical-align: botton;">
-                                    <p:commandButton disabled="#{playExerciseDiscriminationController.played}" actionListener="#{playExerciseDiscriminationController.doNext}" icon="play" alt="play" style="width: 70px;height: 68px;" />
+                                    <p:commandButton widgetVar="nextButton" onclick="nextButton.disable()" disabled="#{playExerciseDiscriminationController.played}" actionListener="#{playExerciseDiscriminationController.doNext}" icon="play" alt="play" style="width: 70px;height: 68px;" />
                                 </div>
                             </p:panel>
 

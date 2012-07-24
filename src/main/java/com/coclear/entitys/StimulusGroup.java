@@ -39,7 +39,7 @@ public class StimulusGroup implements Serializable {
     @Size(max = 255)
     @Column(name = "description")
     private String description;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stimulusGroup", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "stimulusGroup", fetch = FetchType.LAZY)
     private List<Stimulus> stimulusList;
 
     public StimulusGroup() {

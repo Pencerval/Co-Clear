@@ -1,6 +1,5 @@
 package com.coclear.controllers.exercises;
 
-import com.coclear.controllers.admin.AnswerController;
 import com.coclear.controllers.admin.UserTaskController;
 import com.coclear.entitys.*;
 import java.io.IOException;
@@ -11,7 +10,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;

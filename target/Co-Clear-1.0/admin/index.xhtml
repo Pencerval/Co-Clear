@@ -14,32 +14,30 @@
                 <h1 class="title ui-widget-header ui-corner-all">Administración</h1>
                 <p:accordionPanel>
                     <p:tab title="Administración normal">
-                        <h:panelGrid columns="6">
+                        <h:panelGrid columns="6" cellpadding="10" >
                             <h:form>
-                                <p:commandButton value="Subida de estímulos" ajax="false" action="advanced/stimulusupload" /> 
+                                <p:commandButton value="Administrar estímulos" ajax="false" action="stimulusGroup/ListPlus" /> 
                             </h:form>
                             <h:form>
                                 <p:commandButton value="Alta de respuestas" ajax="false" action="advanced/answers" /> 
                             </h:form>
                             <h:form>
-                                <p:menuButton value="Administración de ejercicios">  
+                                <p:menuButton value="Administrar ejercicios">  
                                     <p:menuitem value="Identificación" action="advanced/exerciseidentification" ajax="false"/>  
+                                    <p:menuitem value="Identificación de entonación" action="exerciseDiscriminationOneStimulus/ListPlus" ajax="false"/>  
                                     <p:menuitem value="Discriminación" action="exerciseDiscrimination/ListPlus" ajax="false"/>  
                                     <p:menuitem value="ABX" action="advanced/exerciseabx" ajax="false"/>  
                                 </p:menuButton> 
                             </h:form>
 
                             <h:form>
-                                <p:commandButton value="Administración de tareas" ajax="false" action="task/ListPlus" /> 
+                                <p:commandButton value="Administrar tareas" ajax="false" action="task/ListPlus" /> 
                             </h:form>
                             <h:form>
-                                <p:commandButton value="Asignación de tareas" ajax="false" action="advanced/taskgroupuser" /> 
+                                <p:commandButton value="Asignación de tareas" ajax="false" action="advanced/taskgroupuser" actionListener="#{userTaskControllerPlus.preEdit}"/> 
                             </h:form>
                             <h:form>
                                 <p:commandButton value="Salida de resultados" ajax="false" action="advanced/briefings" /> 
-                            </h:form>
-                            <h:form>
-                                <p:commandButton value="Listado de estimulos" ajax="false" action="stimulus/ListPlus" /> 
                             </h:form>
                         </h:panelGrid>    
                     </p:tab>

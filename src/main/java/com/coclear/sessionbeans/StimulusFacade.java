@@ -34,5 +34,4 @@ public class StimulusFacade extends AbstractFacade<Stimulus> {
         query.setParameter("type", type);
         return query.getResultList();
     }
-    
 }

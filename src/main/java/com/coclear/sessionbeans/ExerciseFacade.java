@@ -13,6 +13,9 @@ import javax.persistence.Query;
 
 /**
  *
+ * 0 identificacion
+ * 1 discriminacion
+ * 2 identificacion entonacion
  * @author Pencerval
  */
 @Stateless

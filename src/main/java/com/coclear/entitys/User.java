@@ -156,9 +156,9 @@ public class User implements Serializable {
     @Size(max = 255)
     @Column(name = "admin_comments")
     private String adminComments;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "user", fetch = FetchType.LAZY)
     private List<UserGroupMap> userGroupMapList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "user", fetch = FetchType.LAZY)
     private List<UserTask> userTaskList;
 
     public User() {

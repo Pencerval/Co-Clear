@@ -35,7 +35,7 @@ public class AnswerGroup implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "answerGroup", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "answerGroup", fetch = FetchType.LAZY)
     private List<Answer> answerList;
 
     public AnswerGroup() {

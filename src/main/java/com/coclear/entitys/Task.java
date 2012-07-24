@@ -58,13 +58,15 @@ public class Task implements Serializable {
     @Size(max = 255)
     @Column(name = "help")
     private String help;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "task", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "task", fetch = FetchType.LAZY)
     private List<TaskExercise> taskExerciseList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "task", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "task", fetch = FetchType.LAZY)
     private List<DefaultGroupTask> defaultGroupTaskList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "task", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "task", fetch = FetchType.LAZY)
     private List<UserTask> userTaskList;
-
+    
+    
+    
     public Task() {
     }
 
@@ -162,6 +164,22 @@ public class Task implements Serializable {
     public void setUserTaskList(List<UserTask> userTaskList) {
         this.userTaskList = userTaskList;
     }
+
+    public String getTypeName() {
+        if(type==1){
+            return "Discriminación";
+        }else if(type==2){
+            return "Identificación de entonación";
+        }else{
+            return "Identificación";
+        }
+        
+    }
+
+    public void setTypeName(String typeName) {
+    }
+    
+    
 
     @Override
     public int hashCode() {

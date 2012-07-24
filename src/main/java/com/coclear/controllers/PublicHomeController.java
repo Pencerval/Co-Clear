@@ -61,6 +61,8 @@ public class PublicHomeController implements Serializable {
             return "exercises/exerciseIdentification";
         }else if(task.getTask().getType()==1){
             return "exercises/exerciseDiscrimination";
+        }else if(task.getTask().getType()==2){
+            return "exercises/exerciseDiscriminationOneStimulus";
         }else{
             return "";
         }

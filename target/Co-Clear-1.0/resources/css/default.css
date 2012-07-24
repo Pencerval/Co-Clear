@@ -565,4 +565,9 @@ img.right {
 
 .tablegrid tbody tr td {
     vertical-align: top;
+    width: 50%;
+    
+}
+.tablegrid {
+    width: 100%;
 }

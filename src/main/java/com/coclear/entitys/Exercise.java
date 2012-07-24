@@ -38,11 +38,11 @@ public class Exercise implements Serializable {
     @NotNull
     @Column(name = "type")
     private int type;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exercise", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "exercise", fetch = FetchType.LAZY)
     private List<TaskExercise> taskExerciseList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exercise", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "exercise", fetch = FetchType.LAZY)
     private List<ExerciseStimulusMap> exerciseStimulusMapList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exercise", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "exercise", fetch = FetchType.LAZY)
     private List<PossibleSolution> possibleSolutionList;
 
     public Exercise() {

@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body">
+                <h1 class="title ui-widget-header ui-corner-all">Administración de ejercicios de identificación de entonación</h1>
+                <p:growl id="msgs"/> 
+                <h:form id="form" enctype="multipart/form-data">  
+                    
+                    <p:dataTable id="table" var="exercise" value="#{exerciseDiscriminationOneStimulusControllerPlus.exerciseList}" rowKey="#{exercise.idExercise}" paginator="true" rows="10"  
+                                 selection="#{exerciseDiscriminationOneStimulusControllerPlus.exerciseSelected}" selectionMode="multiple">  
+                        <f:facet name="header">  
+                            Listado de ejercicios de identificación de entonación
+                        </f:facet>  
+                        
+                        <p:column headerText="ID" sortBy="#{exercise.idExercise}" filterBy="#{exercise.idExercise}" id="ID">  
+                            <div style="text-align: center;">
+                                #{exercise.idExercise}  
+                            </div>
+                        </p:column>  
+                        <p:column headerText="Nombre" sortBy="#{exercise.name}" filterBy="#{exercise.name}" id="name">  
+                            <div style="text-align: center;">
+                                #{exercise.name}  
+                            </div>
+                        </p:column>  
+                        <p:column headerText="Acciones" id="actions" > 
+                            <div style="text-align: center;">
+                                <p:commandButton title="Editar" icon="ui-icon-circle-zoomin" action="/admin/exerciseDiscrimination/CreatePlus" actionListener="#{exerciseDiscriminationOneStimulusControllerPlus.preEdit(exercise)}"/>  
+                                <p:commandButton title="Borrar" id="delete" onclick="confirmation#{exercise.idExercise}.show()" icon="ui-icon-trash" />
+                            </div>
+                            <p:confirmDialog style="left: 40% !important;top: 40% !important;" id="confirmDialog" message="¿Esta seguro de eliminar el elemento?" header="Eliminar elemento" severity="alert" widgetVar="confirmation#{exercise.idExercise}">  
+                                <div style="text-align: center;">
+                                    <p:commandButton id="confirm#{exercise.idExercise}" value="Si" update=":form" oncomplete="confirmation#{exercise.idExercise}.hide()"  
+                                                     actionListener="#{exerciseDiscriminationOneStimulusControllerPlus.delete(exercise)}" />  
+                                    <p:commandButton id="decline" value="No" onclick="confirmation#{exercise.idExercise}.hide()" type="button" />   
+                                </div>
+                            </p:confirmDialog> 
+                        </p:column>  
+
+                        <f:facet name="footer">  
+                            <div style="float: left;">
+                                Existen #{exerciseDiscriminationOneStimulusControllerPlus.exerciseList.size()} ejercicios.  
+                            </div>
+                            <div style="float: right;">
+                                <p:commandButton value="Borrar Seleccionados" icon="ui-icon-trash"/>
+                                <p:commandButton value="Añadir" icon="ui-icon-circle-plus" action="/admin/exerciseDiscriminationOneStimulus/CreatePlus" actionListener="#{exerciseDiscriminationOneStimulusControllerPlus.preEdit(null)}" ajax="false"/>
+                            </div>
+                        </f:facet>  
+                    </p:dataTable> 
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

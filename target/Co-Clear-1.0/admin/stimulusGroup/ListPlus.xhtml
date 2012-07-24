@@ -11,52 +11,138 @@
     <h:body>
         <ui:composition template="/resources/templates/template.xhtml">
             <ui:define name="body">
-                <h1 class="title ui-widget-header ui-corner-all">Listado de grupos de estímulos</h1>
-                <p:growl id="msgs"/> 
-                <h:form id="form" enctype="multipart/form-data">  
-                    
-                    <p:dataTable id="table" var="stimulusGroup" value="#{stimulusGroupControllerPlus.stimulusGroups}" rowKey="#{stimulusGroup.idStimulusGroup}" paginator="true" rows="10"  
-                                 selectionMode="single">  
-                        <f:facet name="header">  
-                            Lista de grupos de estímulos
-                        </f:facet>  
-                        
-                        <p:column headerText="ID" sortBy="#{stimulusGroup.idStimulusGroup}" filterBy="#{stimulusGroup.idStimulusGroup}" id="ID">  
-                            <div style="text-align: center;">
-                                #{stimulusGroup.idStimulusGroup}  
-                            </div>
-                        </p:column>  
-                        <p:column headerText="Nombre" sortBy="#{stimulusGroup.name}" filterBy="#{stimulusGroup.name}" id="name">  
-                            <div style="text-align: center;">
-                                #{stimulusGroup.name}  
-                            </div>
-                        </p:column>  
-                        <p:column headerText="Acciones" id="actions" > 
-                            <div style="text-align: center;">
-                                <p:commandButton title="Editar" icon="ui-icon-circle-zoomin" action="/admin/stimulusGroup/CreatePlus" actionListener="#{stimulusGroupControllerPlus.preEdit(stimulusGroup)}"/>  
-                                <p:commandButton title="Borrar" id="delete" onclick="confirmation#{exercise.idExercise}.show()" icon="ui-icon-trash" />
-                            </div>
-                            <p:confirmDialog style="left: 40% !important;top: 40% !important;" id="confirmDialog" message="¿Esta seguro de eliminar el elemento?" header="Eliminar elemento" severity="alert" widgetVar="confirmation#{stimulusGroup.idStimulusGroup}">  
+                <h1 class="title ui-widget-header ui-corner-all" >Administración de estimulos</h1>
+                <h:form id="form" > 
+                    <p:messages id="messages" showDetail="true" autoUpdate="true"/>  
+                    <p:panel  id="panel" header="Administrar grupos de estimulos" style="margin-bottom:10px;">
+                        <p:dataTable id="tablegroups" var="groups" value="#{stimulusGroupControllerPlus.stimulusGroups}" rowKey="#{groups.idStimulusGroup}" paginator="true" rows="10"  
+                                     selection="#{stimulusGroupControllerPlus.stimulusGroupSelected}" selectionMode="single">  
+                            <f:facet name="header">  
+                                Lista de grupos de estimulos 
+                            </f:facet>  
+                            <p:ajax event="rowSelect" update=":form:stimuluspanel"/>  
+                            <p:ajax event="rowUnselect" update=":form:stimuluspanel"/>
+                            <p:column headerText="ID" sortBy="#{groups.idStimulusGroup}" filterBy="#{groups.idStimulusGroup}" id="idgroups">  
                                 <div style="text-align: center;">
-                                    <p:commandButton id="confirm#{stimulusGroup.idStimulusGroup}" value="Si" update=":form" oncomplete="confirmation#{stimulusGroup.idStimulusGroup}.hide()"  
-                                                     actionListener="#{stimulusGroupControllerPlus.deleteStimulusGroup(stimulusGroup)}" />  
-                                    <p:commandButton id="decline" value="No" onclick="confirmation#{stimulusGroup.idStimulusGroup}.hide()" type="button" />   
+                                    #{groups.idStimulusGroup}  
                                 </div>
-                            </p:confirmDialog> 
-                        </p:column>  
+                            </p:column>  
+                            <p:column headerText="Nombre" sortBy="#{groups.name}" filterBy="#{groups.name}" id="name">  
+                                <div style="text-align: center;">
+                                    #{groups.name}  
+                                </div>
+                            </p:column>  
+                            <p:column headerText="Descripción" sortBy="#{groups.description}" filterBy="#{groups.description}" id="description">  
+                                <div style="text-align: center;">
+                                    #{groups.description}  
+                                </div>
+                            </p:column> 
+                            <p:column headerText="Acciones" id="actions" > 
+                                <div style="text-align: center;">
+                                    <p:commandButton title="Editar" id="editGroup" icon="ui-icon-circle-zoomin" actionListener="#{stimulusGroupControllerPlus.setStimulusGroupSelected(groups)}" oncomplete="groupEditDialog.show()" update=":form2"/>  
+                                    <p:commandButton title="Borrar" id="deleteGroup" icon="ui-icon-trash" oncomplete="groupDeleteDialog#{groups.idStimulusGroup}.show()" />
+                                </div>
+                                <p:confirmDialog style="left: 35% !important;top: 40% !important;width: 30% !important;" id="groupDeleteDialog" message="¿Esta seguro de eliminar el elemento? Esto borrara todos los estimulos del grupo y los ejercicios que contengan tales estimulos." header="Eliminar elemento" severity="alert" widgetVar="groupDeleteDialog#{groups.idStimulusGroup}">  
+                                    <div style="text-align: center;">
+                                        <p:commandButton id="confirm#{groups.idStimulusGroup}" value="Si" update=":form" oncomplete="groupDeleteDialog#{groups.idStimulusGroup}.hide()"  
+                                                         actionListener="#{stimulusGroupControllerPlus.deleteGroup(groups)}" />  
+                                        <p:commandButton id="decline" value="No" oncomplete="groupDeleteDialog#{groups.idStimulusGroup}.hide()" type="button" />   
+                                    </div>
+                                </p:confirmDialog> 
 
-                        <f:facet name="footer">  
-                            <div style="float: left;">
-                                Existen #{exerciseDiscriminationControllerPlus.exerciseList.size()} ejercicios.  
-                            </div>
-                            <div style="float: right;">
-                                <p:commandButton value="Borrar Seleccionados" icon="ui-icon-trash"/>
-                                <p:commandButton value="Añadir" icon="ui-icon-circle-plus" action="/admin/exerciseDiscrimination/CreatePlus" actionListener="#{exerciseDiscriminationControllerPlus.preEdit(null)}" ajax="false"/>
-                            </div>
-                        </f:facet>  
-                    </p:dataTable> 
+                            </p:column>  
+
+                            <f:facet name="footer">  
+                                <div style="float: left;">
+                                    Existen #{stimulusGroupControllerPlus.stimulusGroups.size()} grupos.  
+                                </div>
+                                <div style="float: right;">
+                                    <p:commandButton value="Añadir" id="addGroup" icon="ui-icon-circle-plus" onclick="addGroupDialog.show()"/>
+                                </div>
+                            </f:facet>  
+                        </p:dataTable> 
+                        <p:panel id="stimuluspanel" header="Estimulos por grupo" style="margin-bottom:10px;margin-top: 10px;">
+                            <p:dataTable id="tablestimulus" var="stimulus" value="#{stimulusGroupControllerPlus.stimulusList}" rowKey="#{stimulus.idStimulus}" paginator="true" rows="10">  
+                                <f:facet name="header">  
+                                    Lista de estimulos por grupo
+                                </f:facet>  
+                                <p:column headerText="ID" sortBy="#{stimulus.idStimulus}" filterBy="#{stimulus.idStimulus}" id="idstimulus">  
+                                    <div style="text-align: center;">
+                                        #{stimulus.idStimulus}  
+                                    </div>
+                                </p:column>  
+                                <p:column headerText="Nombre" sortBy="#{stimulus.name}" filterBy="#{stimulus.name}" id="namestimulus">  
+                                    <div style="text-align: center;">
+                                        #{stimulus.name}  
+                                    </div>
+                                </p:column>  
+                                <p:column headerText="Previsualizar" id="playback">  
+                                    <div style="text-align: center;">
+                                    </div>
+                                </p:column> 
+                                <p:column headerText="Acciones" id="actionsstimulus" > 
+                                    <div style="text-align: center;">
+                                        <p:commandButton title="Borrar" id="delete" oncomplete="confirmationStimulus#{stimulus.idStimulus}.show()" icon="ui-icon-trash" />
+                                    </div>
+                                    <p:confirmDialog style="left: 32% !important;top: 40% !important;" id="confirmDialogStimulus" message="¿Esta seguro de eliminar el elemento? Esto borrara todos los ejercicios que contengan este estimulo." header="Eliminar elemento" severity="alert" widgetVar="confirmationStimulus#{stimulus.idStimulus}">  
+                                        <div style="text-align: center;">
+                                            <p:commandButton id="confirmStimulus" value="Si" update=":form:panel" oncomplete="confirmationStimulus#{stimulus.idStimulus}.hide()" actionListener="#{stimulusGroupControllerPlus.deleteStimulus(stimulus)}"/>  
+                                            <p:commandButton id="declineStimulus" value="No" oncomplete="confirmationStimulus#{stimulus.idStimulus}.hide()"/>   
+                                        </div>
+                                    </p:confirmDialog> 
+                                </p:column>  
+
+                                <f:facet name="footer">  
+                                    <div style="float: left;">
+                                        Existen #{stimulusGroupControllerPlus.stimulusList.size()} estimulus.  
+                                    </div>
+                                    <div style="float: right;">
+                                        <p:commandButton value="Añadir" id="addStimulus" icon="ui-icon-circle-plus" onclick="addStimulusDialog.show()" disabled="#{empty stimulusGroupControllerPlus.stimulusGroupSelected}"/>
+                                    </div>
+                                </f:facet>  
+                            </p:dataTable> 
+                        </p:panel>
+                    </p:panel>
+                </h:form>
+                <h:form id="form2">
+                    <p:dialog style="left: 43% !important;top: 40% !important;width: 20% !important;" id="groupEditDialog" header="Editar grupo" widgetVar="groupEditDialog" resizable="false">  
+                        <h:outputLabel for="groupname" value="Nombre:" />    <br/>
+                        <p:inputText id="groupname" value="#{stimulusGroupControllerPlus.stimulusGroupSelected.name}" size="30" style="margin-bottom:10px;"/>  <br/>
+                        <h:outputLabel for="groupdescription" value="Descripción:" />    <br/>
+                        <p:inputText id="groupdescription" value="#{stimulusGroupControllerPlus.stimulusGroupSelected.description}" size="30" style="margin-bottom:10px;" />  <br/>
+                        <p:commandButton id="submitEditGroup" actionListener="#{stimulusGroupControllerPlus.editGroup(stimulusGroupControllerPlus.stimulusGroupSelected)}" value="Editar" update=":form" oncomplete="groupEditDialog.hide();"/> 
+                    </p:dialog> 
+                </h:form>
+                <h:form id="form3">
+                    <p:dialog style="left: 43% !important;top: 40% !important;width: 20% !important;" id="addGroupDialog" header="Añadir grupo" widgetVar="addGroupDialog" resizable="false">  
+                        <h:outputLabel for="addgroupname" value="Nombre:" />    <br/>
+                        <p:inputText id="addgroupname" value="#{stimulusGroupControllerPlus.stimulusGroupCreate.name}" size="30" style="margin-bottom:10px;"/>  <br/>
+                        <h:outputLabel for="addgroupdescription" value="Descripción:" />    <br/>
+                        <p:inputText id="addgroupdescription" value="#{stimulusGroupControllerPlus.stimulusGroupCreate.description}" size="30" style="margin-bottom:10px;" />  <br/>
+                        <p:commandButton id="submitAddGroup" actionListener="#{stimulusGroupControllerPlus.createGroup(actionEvent)}" value="Añadir" update=":form" oncomplete="addGroupDialog.hide();"/> 
+                    </p:dialog> 
 
                 </h:form>
+
+                <h:form id="form4">
+                    <p:dialog style="left: 30% !important;top: 40% !important;width: 40% !important;" id="addStimulusDialog" header="Añadir estimulos" widgetVar="addStimulusDialog" resizable="false">  
+                        <p:fileUpload fileUploadListener="#{stimulusGroupControllerPlus.uploadStimulus}"  
+                                      mode="advanced"  
+                                      multiple="true"  
+                                      sizeLimit="1000000"   
+                                      update=":form"
+                                      oncomplete="addStimulusDialog.hide();"
+                                      allowTypes="/(\.|\/)(wav|png)$/"
+                                      /> 
+
+                    </p:dialog> 
+
+                </h:form>
+
+
+
+
+
             </ui:define>
         </ui:composition>
     </h:body>

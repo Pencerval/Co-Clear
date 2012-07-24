@@ -98,5 +98,6 @@ public class AnswersController implements Serializable {
     }    
     
     public void answerSelectedChanged(){
+        
     }
 }
