@@ -34,7 +34,7 @@
                                 #{user.name}  
                             </p:column>  
                         </p:dataTable> 
-                        <p:dataTable var="usertask" value="#{briefingsController.userTasks}" rowKey="#{usertask.idUserTask}" paginator="true" rows="10"  
+                        <p:dataTable var="usertask" value="#{briefingsController.userTasks}" rowKey="#{usertask.resultList.get(0).end}" paginator="true" rows="10"  
                                      id="userTaskTable">  
 
                             <f:facet name="header">  
@@ -45,7 +45,12 @@
                             </p:column>  
                             <p:column headerText="Tarea" sortBy="#{usertask.task.name}" filterBy="#{usertask.task.name}" id="name">  
                                 #{usertask.task.name}
-                            </p:column>  
+                            </p:column>
+                            <p:column headerText="Fecha" sortBy="#{usertask.resultList.get(0).end}" id="date">  
+                                <h:outputText value="#{usertask.resultList.get(0).end}" >
+                                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+                                </h:outputText>
+                            </p:column> 
                             <p:column headerText="Generar" id="actions" > 
                                 <div style="text-align: center;">
                                     <p:commandButton title="Generar" icon="ui-icon-gear" ajax="false" actionListener="#{briefingsController.getCsvFromUserTask(usertask)}">
@@ -56,7 +61,7 @@
 
                         </p:dataTable> 
                     </p:panel>
-                    <p:panel id="panel2" header="Obtener resultados por usuario" style="margin-bottom:10px;"> 
+                    <p:panel id="panel2" header="Obtener resultados por tarea" style="margin-bottom:10px;"> 
                         <p:dataTable var="task" value="#{briefingsController.tasks}" rowKey="#{task.idTask}" paginator="true" rows="10"  
                                      id="taskTable">  
 

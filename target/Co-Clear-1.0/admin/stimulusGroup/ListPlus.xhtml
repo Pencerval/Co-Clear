@@ -15,7 +15,7 @@
                 <h:form id="form" > 
                     <p:messages id="messages" showDetail="true" autoUpdate="true"/>  
                     <p:panel  id="panel" header="Administrar grupos de estimulos" style="margin-bottom:10px;">
-                        <p:dataTable id="tablegroups" var="groups" value="#{stimulusGroupControllerPlus.stimulusGroups}" rowKey="#{groups.idStimulusGroup}" paginator="true" rows="10"  
+                        <p:dataTable id="tablegroups" widgetVar="tablegroups" var="groups" value="#{stimulusGroupControllerPlus.stimulusGroups}" rowKey="#{groups.idStimulusGroup}" paginator="true" rows="10"  
                                      selection="#{stimulusGroupControllerPlus.stimulusGroupSelected}" selectionMode="single">  
                             <f:facet name="header">  
                                 Lista de grupos de estimulos 
@@ -44,7 +44,7 @@
                                 </div>
                                 <p:confirmDialog style="left: 35% !important;top: 40% !important;width: 30% !important;" id="groupDeleteDialog" message="¿Esta seguro de eliminar el elemento? Esto borrara todos los estimulos del grupo y los ejercicios que contengan tales estimulos." header="Eliminar elemento" severity="alert" widgetVar="groupDeleteDialog#{groups.idStimulusGroup}">  
                                     <div style="text-align: center;">
-                                        <p:commandButton id="confirm#{groups.idStimulusGroup}" value="Si" update=":form" oncomplete="groupDeleteDialog#{groups.idStimulusGroup}.hide()"  
+                                        <p:commandButton id="confirm#{groups.idStimulusGroup}" value="Si" update=":form" oncomplete="tablegroups.filter();groupDeleteDialog#{groups.idStimulusGroup}.hide();"  
                                                          actionListener="#{stimulusGroupControllerPlus.deleteGroup(groups)}" />  
                                         <p:commandButton id="decline" value="No" oncomplete="groupDeleteDialog#{groups.idStimulusGroup}.hide()" type="button" />   
                                     </div>
@@ -62,7 +62,7 @@
                             </f:facet>  
                         </p:dataTable> 
                         <p:panel id="stimuluspanel" header="Estimulos por grupo" style="margin-bottom:10px;margin-top: 10px;">
-                            <p:dataTable id="tablestimulus" var="stimulus" value="#{stimulusGroupControllerPlus.stimulusList}" rowKey="#{stimulus.idStimulus}" paginator="true" rows="10">  
+                            <p:dataTable id="tablestimulus" widgetVar="tablestimulus" var="stimulus" value="#{stimulusGroupControllerPlus.stimulusList}" rowKey="#{stimulus.idStimulus}" paginator="true" rows="10">  
                                 <f:facet name="header">  
                                     Lista de estimulos por grupo
                                 </f:facet>  
@@ -86,7 +86,7 @@
                                     </div>
                                     <p:confirmDialog style="left: 32% !important;top: 40% !important;" id="confirmDialogStimulus" message="¿Esta seguro de eliminar el elemento? Esto borrara todos los ejercicios que contengan este estimulo." header="Eliminar elemento" severity="alert" widgetVar="confirmationStimulus#{stimulus.idStimulus}">  
                                         <div style="text-align: center;">
-                                            <p:commandButton id="confirmStimulus" value="Si" update=":form:panel" oncomplete="confirmationStimulus#{stimulus.idStimulus}.hide()" actionListener="#{stimulusGroupControllerPlus.deleteStimulus(stimulus)}"/>  
+                                            <p:commandButton id="confirmStimulus" value="Si" update=":form:panel" oncomplete="tablestimulus.filter();confirmationStimulus#{stimulus.idStimulus}.hide();" actionListener="#{stimulusGroupControllerPlus.deleteStimulus(stimulus)}"/>  
                                             <p:commandButton id="declineStimulus" value="No" oncomplete="confirmationStimulus#{stimulus.idStimulus}.hide()"/>   
                                         </div>
                                     </p:confirmDialog> 
@@ -132,7 +132,7 @@
                                       sizeLimit="1000000"   
                                       update=":form"
                                       oncomplete="addStimulusDialog.hide();"
-                                      allowTypes="/(\.|\/)(wav|png)$/"
+                                      allowTypes="/(\.|\/)(wav|png|jpg)$/"
                                       /> 
 
                     </p:dialog> 

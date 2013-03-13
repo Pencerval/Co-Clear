@@ -34,10 +34,10 @@
                                 </f:facet>
                                 <div align="center">
                                     <h:panelGrid columns="3"  id="grid2" style="text-align: center;">
-                                        <p:commandButton rendered="${playExerciseDiscriminationOneStimulusController.selectedIdStimulus == -1 or playExerciseDiscriminationOneStimulusController.selectedIdStimulus == playExerciseDiscriminationOneStimulusController.currentStimulusImage1.idStimulus}" actionListener="#{playExerciseDiscriminationOneStimulusController.setSelectedIdStimulus(playExerciseDiscriminationOneStimulusController.currentStimulusImage1.idStimulus)}" update="exercise" style="width: 200px;height: 200px;background-image: url(../stimulusimage?id=#{playExerciseDiscriminationOneStimulusController.currentStimulusImage1.idStimulus}) !important;background-size:contain;background-repeat:no-repeat; "  value=""/>
+                                        <p:commandButton rendered="${playExerciseDiscriminationOneStimulusController.selectedIdStimulus == -1 or playExerciseDiscriminationOneStimulusController.selectedIdStimulus == playExerciseDiscriminationOneStimulusController.currentStimulusImage1.idStimulus}" actionListener="#{playExerciseDiscriminationOneStimulusController.setSelectedIdStimulus(playExerciseDiscriminationOneStimulusController.currentStimulusImage1.idStimulus)}" update="exercise" style="width: 200px;height: 200px;background-image: url(../stimulusimage?id=#{playExerciseDiscriminationOneStimulusController.currentStimulusImage1.idStimulus}) !important;background-size:contain;background-repeat:no-repeat; "  value="" oncomplete="jQuery('#feedback').effect('pulsate', {times:3}, 1500)"/>
                                         <p:commandButton rendered="${playExerciseDiscriminationOneStimulusController.selectedIdStimulus != -1 and playExerciseDiscriminationOneStimulusController.selectedIdStimulus != playExerciseDiscriminationOneStimulusController.currentStimulusImage1.idStimulus}" disabled="true" actionListener="#{playExerciseDiscriminationOneStimulusController.setSelectedIdStimulus(playExerciseDiscriminationOneStimulusController.currentStimulusImage1.idStimulus)}" update="exercise" style="width: 200px;height: 200px;background-image: url(../stimulusimage?id=#{playExerciseDiscriminationOneStimulusController.currentStimulusImage1.idStimulus}) !important;background-size:contain;background-repeat:no-repeat; "  value=""/>
                                         <p:spacer width="100"/>
-                                        <p:commandButton rendered="${playExerciseDiscriminationOneStimulusController.selectedIdStimulus == -1 or playExerciseDiscriminationOneStimulusController.selectedIdStimulus == playExerciseDiscriminationOneStimulusController.currentStimulusImage2.idStimulus}" actionListener="#{playExerciseDiscriminationOneStimulusController.setSelectedIdStimulus(playExerciseDiscriminationOneStimulusController.currentStimulusImage2.idStimulus)}" update="exercise" style="width: 200px;height: 200px;background-image: url(../stimulusimage?id=#{playExerciseDiscriminationOneStimulusController.currentStimulusImage2.idStimulus}) !important;background-size:contain;background-repeat:no-repeat;"  value=""/>
+                                        <p:commandButton rendered="${playExerciseDiscriminationOneStimulusController.selectedIdStimulus == -1 or playExerciseDiscriminationOneStimulusController.selectedIdStimulus == playExerciseDiscriminationOneStimulusController.currentStimulusImage2.idStimulus}" actionListener="#{playExerciseDiscriminationOneStimulusController.setSelectedIdStimulus(playExerciseDiscriminationOneStimulusController.currentStimulusImage2.idStimulus)}" update="exercise" style="width: 200px;height: 200px;background-image: url(../stimulusimage?id=#{playExerciseDiscriminationOneStimulusController.currentStimulusImage2.idStimulus}) !important;background-size:contain;background-repeat:no-repeat;"  value="" oncomplete="jQuery('#feedback').effect('pulsate', {times:3}, 1500)"/>
                                         <p:commandButton rendered="${playExerciseDiscriminationOneStimulusController.selectedIdStimulus != -1 and playExerciseDiscriminationOneStimulusController.selectedIdStimulus != playExerciseDiscriminationOneStimulusController.currentStimulusImage2.idStimulus}" disabled="true" actionListener="#{playExerciseDiscriminationOneStimulusController.setSelectedIdStimulus(playExerciseDiscriminationOneStimulusController.currentStimulusImage2.idStimulus)}" update="exercise" style="width: 200px;height: 200px;background-image: url(../stimulusimage?id=#{playExerciseDiscriminationOneStimulusController.currentStimulusImage2.idStimulus}) !important;background-size:contain;background-repeat:no-repeat;"  value=""/>
                                         <h:outputText value="A&#62;a" style="font-size:150%;"/>
                                         <p:spacer/>
@@ -55,7 +55,7 @@
                                     </div>
 
                                 </p:panel>
-                                <div align="center" style="float: ">
+                                <div align="center" style="float: " id="feedback">
                                     <h:panelGrid columns="1"> 
                                         <p:graphicImage rendered="${playExerciseDiscriminationOneStimulusController.correct!=null and playExerciseDiscriminationOneStimulusController.correct}" value="../resources/images/check.png"/>
                                         <!-- <h:outputText rendered="${playExerciseDiscriminationOneStimulusController.correct!=null and playExerciseDiscriminationOneStimulusController.correct}" value="Correcto!" style="font-size:150%;"/>-->
@@ -79,11 +79,14 @@
 
                         </h:panelGrid>
                     </p:panel>
+                <p:dialog id="completedialog" modal="true" header="Tarea completada" widgetVar="completedialog" showEffect="explode" style="left: 40% !important;top: 40% !important;">  
+                    <h:outputText value="¡Buen trabajo!" />  
+                    <p:commandButton value="Volver" action="/public/index.xhtml" ajax="false" />
+                </p:dialog> 
 
 
                 </h:form>
-
-
+               
             </ui:define>
         </ui:composition>
 

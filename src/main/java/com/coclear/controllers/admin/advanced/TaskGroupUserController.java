@@ -50,6 +50,7 @@ public class TaskGroupUserController implements Serializable {
         taskAdded = null;
         taskAddedSelected = null;
         taskAvaliblesSelected = null;
+        users=null;
 
     }
 
@@ -104,7 +105,7 @@ public class TaskGroupUserController implements Serializable {
 
     public List<User> getUsers() {
         if (users == null) {
-            users = userFacade.getUserbyAdmin(false);
+            users = userFacade.getUserbyAdmin(0);
         }
         return users;
     }
@@ -190,9 +191,7 @@ public class TaskGroupUserController implements Serializable {
     }
 
     public void saveUserTask() {
-
-        try {
-            if (userSelected == null && userGroupSelected == null) {
+        if (userSelected == null && userGroupSelected == null) {
                 FacesMessage msg = new FacesMessage("Warning", "Necesita seleccionar un usuario o un grupo");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } else {
@@ -214,10 +213,5 @@ public class TaskGroupUserController implements Serializable {
                     //TODO
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
     }
 }

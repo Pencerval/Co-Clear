@@ -57,9 +57,8 @@ public class LoginController implements Serializable {
         Object session = externalContext.getSession(true);
         HttpSession httpSession = (HttpSession) session;
         httpSession.setAttribute("user", user);
-        if (user.getIsAdmin()) {
+        if (user.getIsAdmin()>=1) {
             return "/admin/index";
-
         } else {
             return "/public/index";
         }

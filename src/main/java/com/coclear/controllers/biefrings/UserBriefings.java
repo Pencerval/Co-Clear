@@ -47,7 +47,7 @@ public class UserBriefings implements Serializable {
 
     public List<User> getUsers() {
         if (users == null) {
-            users = ejbUserFacade.getUserbyAdmin(false);
+            users = ejbUserFacade.getUserbyAdmin(0);
         }
         return users;
     }

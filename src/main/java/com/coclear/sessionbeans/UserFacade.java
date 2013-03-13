@@ -36,7 +36,7 @@ public class UserFacade extends AbstractFacade<User> {
         return (User) resultList.get(0);
     }
     
-     public List<User> getUserbyAdmin (boolean isAdmin){
+     public List<User> getUserbyAdmin (int isAdmin){
         Query query = em.createNamedQuery("User.findByIsAdmin");
         query.setParameter("isAdmin", isAdmin);
         return query.getResultList();

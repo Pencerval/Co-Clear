@@ -7,7 +7,6 @@ package com.coclear.filters;
 import com.coclear.entitys.User;
 import java.io.IOException;
 import javax.faces.context.FacesContext;
-import javax.faces.view.facelets.FaceletContext;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +32,7 @@ public class LoginFilter implements Filter{
         FacesContext fc=FacesContext.getCurrentInstance();
         if (session.getAttribute("user") != null && (req.getRequestURI() == null ? req.getContextPath() == null : req.getRequestURI().equals(req.getContextPath()+"/"))) {
             User user=(User) session.getAttribute("user");
-            if(user.getIsAdmin()){
+            if(user.getIsAdmin()==1 || user.getIsAdmin()==2){
                 res.sendRedirect(req.getContextPath() +"/admin/index.xhtml");
             }else{
                 res.sendRedirect(req.getContextPath() +"/public/index.xhtml");

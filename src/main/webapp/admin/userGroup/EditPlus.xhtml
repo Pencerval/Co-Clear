@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+
+            <ui:define name="body">
+                <h1 class="title ui-widget-header ui-corner-all">Alta de usuario</h1>
+                <h:outputScript library="js" name="calendar_es.js" />
+
+                <h:form id="form">  
+                    <p:panel id="panel" header="Crear usuario" style="margin-bottom:10px;"> 
+                        <p:messages id="message"/>
+                        <!-- <h:outputLabel value="Email:"/>
+                            <p:inputText value="#{userGroupControllerPlus.user.email}" label="Email" size="65"/> 
+                        -->
+                        <h:panelGrid id="namegrid" columns="2" > 
+                            <h:outputLabel value="Login:" rendered="#{sessionScope['fast'] == false}"/>
+                            <p:inputText id="Login" value="#{userGroupControllerPlus.user.login}" label="Login" size="50" maxlength="100" widgetVar="Login" rendered="#{sessionScope['fast'] == false}"/> 
+                            <h:outputLabel value="Password" rendered="#{sessionScope['fast'] == false}"/>
+                            <p:inputText id="Password" value="#{userGroupControllerPlus.user.password}" label="Password" size="50" maxlength="100" widgetVar="Password" rendered="#{sessionScope['fast'] == false}"/> 
+                            <h:outputText value="Rol: " rendered="#{sessionScope['user'].isAdmin == 1 and not sessionScope['fast']}"/>  
+                                <p:selectOneRadio id="Rol" value="#{userGroupControllerPlus.user.isAdmin}" label="Rol" rendered="#{sessionScope['user'].isAdmin == 1 and not sessionScope['fast']}">  
+                                    <f:selectItem itemLabel="Admin" itemValue="1" />  
+                                    <f:selectItem itemLabel="Manager" itemValue="2" />
+                                    <f:selectItem itemLabel="User" itemValue="0" /> 
+                                    <p:ajax event="change" update="@form"/>
+                                </p:selectOneRadio>
+                            <h:outputText value="Tipo de usuario:" rendered="#{userGroupControllerPlus.user.isAdmin == 0}"/>
+                            <p:selectOneRadio value="#{userGroupControllerPlus.isImplanted}" rendered="#{userGroupControllerPlus.user.isAdmin == 0}">  
+                                <f:selectItem itemLabel="Implantado" itemValue="True" />  
+                                <f:selectItem itemLabel="Normoyente" itemValue="False" /> 
+                                <p:ajax event="change" update="@form"/>
+                            </p:selectOneRadio>
+                        </h:panelGrid>
+                        <h:panelGroup rendered="#{userGroupControllerPlus.isImplanted and userGroupControllerPlus.user.isAdmin == 0}">
+                            <h:panelGrid id="namegrid2" columns="2" > 
+                                <h:outputLabel value="Nombre:"/>
+                                <p:inputText id="Name" value="#{userGroupControllerPlus.user.name}" label="Nombre" size="50" maxlength="100"/> 
+                                <h:outputLabel value="Fecha de nacimiento*:"/>
+                                <p:calendar id="BirthDate" value="#{userGroupControllerPlus.user.birthdate}" showOn="button" locale="es" required="true" pattern="dd/MM/yyyy" navigator="true" yearRange="c-100:c+0"/>
+                                <h:outputText value="Marca implante*:" />  
+                                <p:selectOneMenu id="CochlearImplantBrand" value="#{userGroupControllerPlus.user.cochlearImplantType}" required="true">  
+                                    <f:selectItem itemLabel="Cochlear" itemValue="Cochlear" />  
+                                    <f:selectItem itemLabel="Med-El" itemValue="Med-El" />  
+                                </p:selectOneMenu> 
+                                <h:outputLabel value="Modelo del implante:"/>
+                                <p:inputText value="#{userGroupControllerPlus.user.cochlearImplantModel}" label="Modelo del implante" size="50" maxlength="100"/> 
+                                <h:outputLabel value="Fecha del implante*"/>
+                                <p:calendar id="ImplantDate" value="#{userGroupControllerPlus.user.implantationDate}" showOn="button" locale="es" required="true" pattern="dd/MM/yyyy" navigator="true"/>
+                                <h:outputText value="Hipoacusia/lenguaje*:" />  
+                                <p:selectOneMenu id="DeafnessDegree" value="#{userGroupControllerPlus.user.degreeDeafness}" required="true">  
+                                    <f:selectItem itemLabel="Prelocutiva" itemValue="Prelocutiva" />  
+                                    <f:selectItem itemLabel="Perilocutiva" itemValue="Perilocutiva" />  
+                                    <f:selectItem itemLabel="Postlocutiva" itemValue="Postlocutiva" />  
+                                </p:selectOneMenu>
+                                <h:outputText value="Lenguaje de signos*:"/>  
+                                <p:selectOneRadio id="SignLanguage" value="#{userGroupControllerPlus.user.signLanguage}" label="Lenguaje de signos" required="true">  
+                                    <f:selectItem itemLabel="Si" itemValue="true" />  
+                                    <f:selectItem itemLabel="No" itemValue="false" />
+                                </p:selectOneRadio>
+                            </h:panelGrid> 
+                        </h:panelGroup>
+                    </p:panel>
+                    <p:commandButton value="Volver" ajax="false" immediate="true" action="#{userGroupControllerPlus.back}" style="margin-top:10px;" icon="ui-icon-arrowreturnthick-1-w" rendered="#{sessionScope['fast'] == false}"/>
+                    <p:commandButton value="Guardar y crear otro" ajax="true" actionListener="#{userGroupControllerPlus.saveUser}" action="#{userGroupControllerPlus.preEdit(null)}" style="margin-top:10px;float: right;" update="messages panel" icon="ui-icon-plusthick" rendered="#{sessionScope['fast'] == false}"/>
+                    <p:commandButton value="Guardar" ajax="true" actionListener="#{userGroupControllerPlus.saveUser}"  style="margin-top:10px;float: right;" update="@form" icon="ui-icon-disk" rendered="#{sessionScope['fast'] == false}"/>
+                    <p:commandButton value="Comenzar" ajax="false" action="#{userGroupControllerPlus.saveUser}"  style="margin-top:10px;" update="@form" icon="ui-icon-disk" rendered="#{sessionScope['fast'] == true}"/>
+
+                    <p:growl id="messages" showDetail="true"/>
+                </h:form>  
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

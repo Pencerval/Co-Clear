@@ -5,6 +5,7 @@ import com.coclear.entitys.*;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -269,7 +270,7 @@ public class ExerciseDiscriminationOneStimulusController implements Serializable
             setCorrect(null);
             setPlayed(true);
         } else {
-            try {
+            //try {
                 HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 User user = (User) session.getAttribute("user");
                 for (TaskDone taskDone : taskDones) {
@@ -277,6 +278,7 @@ public class ExerciseDiscriminationOneStimulusController implements Serializable
                     result.setUserTask(userTask);
                     result.setTaskExercise(taskDone.getTaskExercise());
                     result.setAnswer(taskDone.getAnswer());
+                    result.setEnd(new Date());
                     ejbResultFacade.create(result);
                 }
                 List<UserTask> userTasks = new LinkedList<UserTask>(user.getUserTaskList());
@@ -287,10 +289,12 @@ public class ExerciseDiscriminationOneStimulusController implements Serializable
                         break;
                     }
                 }
-                FacesContext.getCurrentInstance().getExternalContext().redirect("../public/index.xhtml");
-            } catch (IOException ex) {
-                Logger.getLogger(ExerciseDiscriminationOneStimulusController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("completedialog.show()");
+                //FacesContext.getCurrentInstance().getExternalContext().redirect("../public/index.xhtml");
+            //} catch (IOException ex) {
+            //    Logger.getLogger(ExerciseDiscriminationOneStimulusController.class.getName()).log(Level.SEVERE, null, ex);
+            //}
 
         }
         return null;

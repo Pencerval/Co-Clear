@@ -23,88 +23,85 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class StimulusImageServlet extends HttpServlet {
 
-    
     /*
-    public void doService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id=request.getParameter("id");
-        response.setContentType("audio/x-wav");
-        File file=new File(getServletContext().getInitParameter("stimulusstore")+File.separator+"audio"+File.separator+id+".wav");
-        response.getOutputStream().write(FileUtils.readFileToByteArray(file));
-        response.getOutputStream().flush();
-    }
-
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doService(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doService(request, response);
-    }
-    * 
-    */
-    
-        // Constants ----------------------------------------------------------------------------------
-
+     * public void doService(HttpServletRequest request, HttpServletResponse
+     * response) throws ServletException, IOException { String
+     * id=request.getParameter("id"); response.setContentType("audio/x-wav");
+     * File file=new
+     * File(getServletContext().getInitParameter("stimulusstore")+File.separator+"audio"+File.separator+id+".wav");
+     * response.getOutputStream().write(FileUtils.readFileToByteArray(file));
+     * response.getOutputStream().flush(); }
+     *
+     * @Override public void doGet(HttpServletRequest request,
+     * HttpServletResponse response) throws ServletException, IOException {
+     * doService(request, response); }
+     *
+     * @Override protected void doPost(HttpServletRequest request,
+     * HttpServletResponse response) throws ServletException, IOException {
+     * doService(request, response); }
+     *
+     */
+    // Constants ----------------------------------------------------------------------------------
     private static final int DEFAULT_BUFFER_SIZE = 10240; // ..bytes = 10KB.
     private static final long DEFAULT_EXPIRE_TIME = 604800000L; // ..ms = 1 week.
     private static final String MULTIPART_BOUNDARY = "MULTIPART_BYTERANGES";
-
     // Properties ---------------------------------------------------------------------------------
-
     private String basePath;
 
     // Actions ------------------------------------------------------------------------------------
-
     /**
-     * Process HEAD request. This returns the same headers as GET request, but without content.
+     * Process HEAD request. This returns the same headers as GET request, but
+     * without content.
+     *
      * @see HttpServlet#doHead(HttpServletRequest, HttpServletResponse).
      */
     @Override
     protected void doHead(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         // Process request without content.
         processRequest(request, response, false);
     }
 
     /**
      * Process GET request.
+     *
      * @see HttpServlet#doGet(HttpServletRequest, HttpServletResponse).
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         // Process request with content.
         processRequest(request, response, true);
     }
 
     /**
      * Process the actual request.
+     *
      * @param request The request to be processed.
      * @param response The response to be created.
-     * @param content Whether the request body should be written (GET) or not (HEAD).
+     * @param content Whether the request body should be written (GET) or not
+     * (HEAD).
      * @throws IOException If something fails at I/O level.
      */
-    private void processRequest
-        (HttpServletRequest request, HttpServletResponse response, boolean content)
-            throws IOException
-    {
+    private void processRequest(HttpServletRequest request, HttpServletResponse response, boolean content)
+            throws IOException {
         // Validate the requested file ------------------------------------------------------------
 
-        String id=request.getParameter("id");
+        String id = request.getParameter("id");
         response.setContentType("image/png");
-        File file=new File(getServletContext().getInitParameter("stimulusstore")+File.separator+"image"+File.separator+id+".png");
+        File file = new File(getServletContext().getInitParameter("stimulusstore") + File.separator + "image" + File.separator + id + ".png");
 
         // Check if file actually exists in filesystem.
         if (!file.exists()) {
+            response.setContentType("image/jpg");
+            file = new File(getServletContext().getInitParameter("stimulusstore") + File.separator + "image" + File.separator + id + ".jpg");
             // Do your thing if the file appears to be non-existing.
             // Throw an exception, or send 404, or show default/warning page, or just ignore it.
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            Logger.getLogger(StimulusImageServlet.class.getName()).log(Level.SEVERE, "File dosent exist in "+file.getAbsolutePath());
-            return;
+            if (!file.exists()) {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                Logger.getLogger(StimulusImageServlet.class.getName()).log(Level.SEVERE, "File dosent exist in " + file.getAbsolutePath());
+                return;
+            }
         }
 
         // Prepare some variables. The ETag is an unique identifier of the file.
@@ -155,7 +152,7 @@ public class StimulusImageServlet extends HttpServlet {
 
         // Prepare some variables. The full Range represents the complete file.
         Range full = new Range(0, length - 1, length);
-        List<Range> ranges = new ArrayList<Range> ();
+        List<Range> ranges = new ArrayList<Range>();
 
         // Validate and process Range and If-Range headers.
         String range = request.getHeader("Range");
@@ -231,9 +228,7 @@ public class StimulusImageServlet extends HttpServlet {
             String acceptEncoding = request.getHeader("Accept-Encoding");
             acceptsGzip = acceptEncoding != null && accepts(acceptEncoding, "gzip");
             contentType += ";charset=UTF-8";
-        } 
-
-        // Else, expect for images, determine content disposition. If content type is supported by
+        } // Else, expect for images, determine content disposition. If content type is supported by
         // the browser, then set to inline, else attachment which will pop a 'save as' dialogue.
         else if (!contentType.startsWith("image")) {
             String accept = request.getHeader("Accept");
@@ -332,9 +327,9 @@ public class StimulusImageServlet extends HttpServlet {
     }
 
     // Helpers (can be refactored to public utility class) ----------------------------------------
-
     /**
      * Returns true if the given accept header accepts the given value.
+     *
      * @param acceptHeader The accept header.
      * @param toAccept The value to be accepted.
      * @return True if the given accept header accepts the given value.
@@ -343,12 +338,13 @@ public class StimulusImageServlet extends HttpServlet {
         String[] acceptValues = acceptHeader.split("\\s*(,|;)\\s*");
         Arrays.sort(acceptValues);
         return Arrays.binarySearch(acceptValues, toAccept) > -1
-            || Arrays.binarySearch(acceptValues, toAccept.replaceAll("/.*$", "/*")) > -1
-            || Arrays.binarySearch(acceptValues, "*/*") > -1;
+                || Arrays.binarySearch(acceptValues, toAccept.replaceAll("/.*$", "/*")) > -1
+                || Arrays.binarySearch(acceptValues, "*/*") > -1;
     }
 
     /**
      * Returns true if the given match header matches the given value.
+     *
      * @param matchHeader The match header.
      * @param toMatch The value to be matched.
      * @return True if the given match header matches the given value.
@@ -357,16 +353,20 @@ public class StimulusImageServlet extends HttpServlet {
         String[] matchValues = matchHeader.split("\\s*,\\s*");
         Arrays.sort(matchValues);
         return Arrays.binarySearch(matchValues, toMatch) > -1
-            || Arrays.binarySearch(matchValues, "*") > -1;
+                || Arrays.binarySearch(matchValues, "*") > -1;
     }
 
     /**
-     * Returns a substring of the given string value from the given begin index to the given end
-     * index as a long. If the substring is empty, then -1 will be returned
+     * Returns a substring of the given string value from the given begin index
+     * to the given end index as a long. If the substring is empty, then -1 will
+     * be returned
+     *
      * @param value The string value to return a substring as long for.
-     * @param beginIndex The begin index of the substring to be returned as long.
+     * @param beginIndex The begin index of the substring to be returned as
+     * long.
      * @param endIndex The end index of the substring to be returned as long.
-     * @return A substring of the given string value as long or -1 if substring is empty.
+     * @return A substring of the given string value as long or -1 if substring
+     * is empty.
      */
     private static long sublong(String value, int beginIndex, int endIndex) {
         String substring = value.substring(beginIndex, endIndex);
@@ -375,15 +375,16 @@ public class StimulusImageServlet extends HttpServlet {
 
     /**
      * Copy the given byte range of the given input to the given output.
+     *
      * @param input The input to copy the given range to the given output for.
-     * @param output The output to copy the given range from the given input for.
+     * @param output The output to copy the given range from the given input
+     * for.
      * @param start Start of the byte range.
      * @param length Length of the byte range.
      * @throws IOException If something fails at I/O level.
      */
     private static void copy(RandomAccessFile input, OutputStream output, long start, long length)
-        throws IOException
-    {
+            throws IOException {
         byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
         int read;
 
@@ -410,6 +411,7 @@ public class StimulusImageServlet extends HttpServlet {
 
     /**
      * Close the given resource.
+     *
      * @param resource The resource to be closed.
      */
     private static void close(Closeable resource) {
@@ -424,11 +426,11 @@ public class StimulusImageServlet extends HttpServlet {
     }
 
     // Inner classes ------------------------------------------------------------------------------
-
     /**
      * This class represents a byte range.
      */
     protected class Range {
+
         long start;
         long end;
         long length;
@@ -436,6 +438,7 @@ public class StimulusImageServlet extends HttpServlet {
 
         /**
          * Construct a byte range.
+         *
          * @param start Start of the byte range.
          * @param end End of the byte range.
          * @param total Total length of the byte source.
@@ -446,8 +449,5 @@ public class StimulusImageServlet extends HttpServlet {
             this.length = end - start + 1;
             this.total = total;
         }
-
     }
-
-
 }

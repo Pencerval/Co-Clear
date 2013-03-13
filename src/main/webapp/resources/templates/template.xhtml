@@ -10,45 +10,47 @@
         <h:head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
             <link href="#{request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css" />
-
+            
+            <ui:insert name="head" />
+            
             <title>Co-Clear</title>
         </h:head>
         <h:body >
             <div id="body">
-            <div id="top">
-                <ui:insert name="top">
-                    <div class="ui-widget ui-widget-header">
-                        <div id="logo">
-                            <h1><a class="mainlink" href="#{request.contextPath}"><h:outputText value="Co-Clear" /></a></h1>
+                <div id="top">
+                    <ui:insert name="top">
+                        <div class="ui-widget ui-widget-header">
+                            <div id="logo">
+                                <h1><a class="mainlink" href="#{request.contextPath}"><h:outputText value="Co-Clear" /></a></h1>
+                            </div>
                         </div>
-                    </div>
-                    <h:panelGroup rendered="#{navigationController.loged}" style="position: absolute;top: 73px;right: 80px;">
-                        <h:form >
-                            <p:menuButton value="Hi #{navigationController.name}" >  
-                                <p:menuitem value="Logout" icon="ui-icon-close" ajax="false" action="#{navigationController.logout}"/>  
-                            </p:menuButton>
-                        </h:form>
-                    </h:panelGroup>
-                    <p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>  
+                        <h:panelGroup rendered="#{navigationController.loged}" style="position: absolute;top: 73px;right: 80px;">
+                            <h:form >
+                                <p:menuButton value="Hi #{navigationController.name}" >  
+                                    <p:menuitem value="Logout" icon="ui-icon-close" ajax="false" action="#{navigationController.logout}"/>  
+                                </p:menuButton>
+                            </h:form>
+                        </h:panelGroup>
+                       <!-- <p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>  -->
 
-                    <p:dialog modal="true" widgetVar="statusDialog" header="Cargando"   
-                              draggable="false" closable="false">  
-                        <!--<p:graphicImage value="/design/ajaxloadingbar.gif" />  -->
-                    </p:dialog>  
-                </ui:insert>
-            </div>
-            <div id="wrapper">
-                <div id="page">
-                    <div id="content" class="ui-widget">
-                        <ui:insert name="body">Content</ui:insert>
-                    </div>
-                    <div style="clear: both;">&nbsp;</div>
+                        <!--<p:dialog modal="true" widgetVar="statusDialog" header="Cargando">  --> 
+                            <!-- <draggable="false" closable="false">  -->
+                            <!--<p:graphicImage value="/design/ajaxloadingbar.gif" />  -->
+                       <!-- </p:dialog>  -->
+                    </ui:insert>
                 </div>
-            </div>
-            <div style="height: 100%" />
-            <div id="footer" class="ui-widget ui-widget-header ui-corner-all">
-                <ui:insert name="bottom"><p class="copyright">©&nbsp;&nbsp;2011 &nbsp;•&nbsp;</p></ui:insert>
-            </div>
+                <div id="wrapper">
+                    <div id="page">
+                        <div id="content" class="ui-widget">
+                            <ui:insert name="body">Content</ui:insert>
+                        </div>
+                        <div style="clear: both;">&nbsp;</div>
+                    </div>
+                </div>
+                <div style="height: 100%" />
+                <div id="footer" class="ui-widget ui-widget-header ui-corner-all">
+                    <ui:insert name="bottom"><p class="copyright">©&nbsp;&nbsp;2012 &nbsp;•&nbsp;</p></ui:insert>
+                </div>
             </div>
         </h:body>
     </f:view>

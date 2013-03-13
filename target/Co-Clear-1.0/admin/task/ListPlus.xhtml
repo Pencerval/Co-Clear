@@ -15,7 +15,7 @@
                 <p:growl id="msgs"/> 
                 <h:form id="form">  
                     
-                    <p:dataTable id="table" var="task" value="#{taskControllerPlus.taskList}" rowKey="#{task.idTask}" paginator="true" rows="10"  
+                    <p:dataTable id="tabletask" widgetVar="tabletask" var="task" value="#{taskControllerPlus.taskList}" rowKey="#{task.idTask}" paginator="true" rows="10"  
                                  selection="#{taskControllerPlus.taskSelected}" selectionMode="multiple">  
                         <f:facet name="header">  
                             Lista de tareas 
@@ -40,7 +40,12 @@
                             <div style="text-align: center;">
                                 #{task.help}
                             </div>
-                        </p:column>  
+                        </p:column>
+                        <p:column headerText="FastTest" sortBy="#{task.isUserDefault}" filterBy="#{task.isUserDefault}" id="fastTest">  
+                            <div style="text-align: center;">
+                                #{task.isUserDefault}
+                            </div>
+                        </p:column>
                         <p:column headerText="Acciones" id="actions" > 
                             <div style="text-align: center;">
                                 <p:commandButton title="Editar" icon="ui-icon-circle-zoomin" action="/admin/task/CreatePlus" actionListener="#{taskControllerPlus.preEdit(task)}">  
@@ -50,7 +55,7 @@
                             </div>
                             <p:confirmDialog style="left: 40% !important;top: 40% !important;" id="confirmDialog" message="¿Esta seguro de eliminar el elemento?" header="Eliminar elemento" severity="alert" widgetVar="confirmation#{task.idTask}">  
                                 <div style="text-align: center;">
-                                    <p:commandButton id="confirm#{task.idTask}" value="Si" update=":form" oncomplete="confirmation#{task.idTask}.hide()"  
+                                    <p:commandButton id="confirm#{task.idTask}" value="Si" update=":form" oncomplete="tabletask.filter();confirmation#{task.idTask}.hide();"  
                                                      actionListener="#{taskControllerPlus.delete(task)}" />  
                                     <p:commandButton id="decline" value="No" onclick="confirmation#{task.idTask}.hide()" type="button" />   
                                 </div>
@@ -62,7 +67,7 @@
                                 Existen #{taskControllerPlus.taskList.size()} tareas.  
                             </div>
                             <div style="float: right;">
-                                <p:commandButton value="Borrar Seleccionados" icon="ui-icon-trash"/>
+                                <!-- <p:commandButton value="Borrar Seleccionados" icon="ui-icon-trash"/> --> 
                                 <p:commandButton value="Añadir" icon="ui-icon-circle-plus" action="/admin/task/CreatePlus" actionListener="#{taskControllerPlus.preEdit(null)}" ajax="false"/>
                             </div>
                         </f:facet>  

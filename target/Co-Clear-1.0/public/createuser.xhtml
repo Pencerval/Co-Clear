@@ -48,7 +48,7 @@
                         <p:tab id="medical" title="Medical">
                             <p:panel header="Medical history">
                                 <p:messages/>
-                                <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:panelGrid columns="2" columnClasses="label, value" >
                                     <h:outputText value="Hearing loss date " />
                                     <p:calendar value="#{publicCreateUserController.user.hearingLossDate}" required="false" navigator="true" label="hearingLossDate" yearRange="c-150:c+0"/>
                                     <h:outputText value="Cause Deafness: " />
@@ -113,7 +113,7 @@
                         <p:tab id="confirm" title="Confirm">
                             <p:panel header="Confirmation">
                                 <p:messages/>
-                                <h:panelGrid id="confirmation" columns="6">
+                                <h:panelGrid id="confirmation" columns="6" width="100%">
                                     <h:outputText value="Login: " />
                                     <h:outputText styleClass="outputLabel"
                                                   value="#{publicCreateUserController.user.login}" />

@@ -90,7 +90,7 @@ public class User implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "is_admin")
-    private boolean isAdmin;
+    private int isAdmin;
     @Column(name = "hearing_loss_date")
     @Temporal(TemporalType.DATE)
     private Date hearingLossDate;
@@ -168,7 +168,7 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
 
-    public User(Integer idUser, String login, String password, boolean isAdmin) {
+    public User(Integer idUser, String login, String password, int isAdmin) {
         this.idUser = idUser;
         this.login = login;
         this.password = password;
@@ -239,11 +239,11 @@ public class User implements Serializable {
         this.gender = gender;
     }
 
-    public boolean getIsAdmin() {
+    public int getIsAdmin() {
         return isAdmin;
     }
 
-    public void setIsAdmin(boolean isAdmin) {
+    public void setIsAdmin(int isAdmin) {
         this.isAdmin = isAdmin;
     }
 

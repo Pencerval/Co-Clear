@@ -66,7 +66,7 @@ public class BriefingsController implements Serializable {
     public List<User> getUsers() {
         if (users == null) {
             List<User> userWithEndedTask = new ArrayList<User>();
-            for (User user : userFacade.getUserbyAdmin(false)) {
+            for (User user : userFacade.getUserbyAdmin(0)) {
                 for (UserTask userTask : user.getUserTaskList()) {
                     if (userTask.getComplete()) {
                         userWithEndedTask.add(user);
@@ -106,6 +106,9 @@ public class BriefingsController implements Serializable {
         if (userTasks == null) {
             userTasks = new ArrayList<UserTask>();
         }
+        for(UserTask userTask:userTasks){
+            userTask.getResultList();
+        }
         return userTasks;
     }
 
@@ -133,7 +136,7 @@ public class BriefingsController implements Serializable {
             //}
 
             StringWriter stringWriter = new StringWriter();
-            CSVWriter cSVWriter = new CSVWriter(new BufferedWriter(stringWriter));
+            CSVWriter cSVWriter = new CSVWriter(new BufferedWriter(stringWriter),';');
             List<String[]> filas = new LinkedList<String[]>();
             if (userTask.getTask().getType() == 0) {
                 filas.add(new String[]{"Resultados"});
@@ -277,7 +280,7 @@ public class BriefingsController implements Serializable {
                 Stimulus stimulus2 = null;
                 for (TaskExercise taskExercise : userTask.getTask().getTaskExerciseList()) {
                     exercise = taskExercise.getExercise();
-                    filas.add(new String[]{"ID Ejercicio", "Nombre Ejercicio","Primer estimulo","Grupo primer estimulo","Segundo estimulo","Grupo segundo estimulo", "Respuesta selecionada","Respuesta correcta"});
+                    filas.add(new String[]{"ID Ejercicio", "Nombre Ejercicio", "Primer estimulo", "Grupo primer estimulo", "Segundo estimulo", "Grupo segundo estimulo", "Respuesta selecionada", "Respuesta correcta"});
                     for (PossibleSolution possibleSolution : exercise.getPossibleSolutionList()) {
                         if (possibleSolution.getCorrect()) {
                             possibleSolutionCorrect = possibleSolution;
@@ -292,12 +295,74 @@ public class BriefingsController implements Serializable {
                     }
                     stimulus1 = exercise.getExerciseStimulusMapList().get(0).getStimulus();
                     stimulus2 = exercise.getExerciseStimulusMapList().get(1).getStimulus();
-                    filas.add(new String[]{"" + exercise.getIdExercise(), exercise.getName(),stimulus1.getName(),stimulus1.getStimulusGroup().getName(),stimulus2.getName(),stimulus2.getStimulusGroup().getName(), resultSelected.getAnswer().getName(),possibleSolutionCorrect.getAnswer().getName()});
+                    filas.add(new String[]{"" + exercise.getIdExercise(), exercise.getName(), stimulus1.getName(), stimulus1.getStimulusGroup().getName(), stimulus2.getName(), stimulus2.getStimulusGroup().getName(), resultSelected.getAnswer().getName(), possibleSolutionCorrect.getAnswer().getName()});
                     //filas.add(new String[]{"", "Estimulo:", "" + stimulus.getIdStimulus(), stimulus.getName()});
                 }
 
 
 
+            } else if (userTask.getTask().getType() == 2) {
+                filas.add(new String[]{"Resultados"});
+                //User data
+                filas.add(new String[]{"Usuario", userTask.getUser().getLogin()});
+                filas.add(new String[]{"Nombre", userTask.getUser().getName()});
+                filas.add(new String[]{"Email", userTask.getUser().getEmail()});
+                filas.add(new String[]{"Fecha de nacimiento", "" + userTask.getUser().getBirthdate()});
+                filas.add(new String[]{"Telefono", "" + userTask.getUser().getPhone()});
+
+                filas.add(new String[]{"Fecha del informe", new Date().toString()});
+
+                filas.add(new String[]{"Tarea", userTask.getTask().getName()});
+                int numberExercise = userTask.getTask().getTaskExerciseList().size();
+                filas.add(new String[]{"Numero de ejercicios", "" + numberExercise});
+                int numberSuccess = getNumberSuccess(userTask);
+                int numberFail = getNumberFail(userTask);
+                filas.add(new String[]{"Numero de aciertos", "" + numberSuccess});
+                filas.add(new String[]{"Numero de errores", "" + numberFail});
+
+                filas.add(new String[]{"% de aciertos", "" + ((numberSuccess * 100) / numberExercise) + "%"});
+                filas.add(new String[]{"% de errores", "" + ((numberFail * 100) / numberExercise) + "%"});
+
+                filas.add(new String[]{""});
+                filas.add(new String[]{"Matriz de confusión"});
+                filas.add(new String[]{"", "Respuesta seleccionada", "Mayor>Menor", "Menor<Mayor"});
+                filas.add(new String[]{"Respuesta Correcta"});
+                filas.add(new String[]{"Mayor>Menor", "", getBigBig(true,true,userTask), getBigBig(false,true,userTask)});
+                filas.add(new String[]{"Menor<Mayor", "", getBigBig(true,false,userTask), getBigBig(false,false,userTask)});
+
+                filas.add(new String[]{""});
+                filas.add(new String[]{"Matriz de confusión porcentaje"});
+                filas.add(new String[]{"", "Respuesta seleccionada", "Mayor>Menor", "Menor<Mayor"});
+                filas.add(new String[]{"Respuesta Correcta"});
+                filas.add(new String[]{"Mayor>Menor", "", getBigBigAsPercentage(true,true,userTask), getBigBigAsPercentage(false,true,userTask)});
+                filas.add(new String[]{"Menor<Mayor", "", getBigBigAsPercentage(true,false,userTask), getBigBigAsPercentage(false,false,userTask)});
+
+                filas.add(new String[]{""});
+                filas.add(new String[]{"Ejercicios:"});
+                filas.add(new String[]{"Id", "Nombre", "Respuesta correcta", "Respuesta seleccionada"});
+                Exercise exercise;
+                PossibleSolution possibleSolutionCorrect = null;
+                Result resultSelected = null;
+                Stimulus stimulus1 = null;
+                for (TaskExercise taskExercise : userTask.getTask().getTaskExerciseList()) {
+                    exercise = taskExercise.getExercise();
+                    filas.add(new String[]{"ID Ejercicio", "Nombre Ejercicio", "Primer estimulo", "Grupo primer estimulo", "Respuesta selecionada", "Respuesta correcta"});
+                    for (PossibleSolution possibleSolution : exercise.getPossibleSolutionList()) {
+                        if (possibleSolution.getCorrect()) {
+                            possibleSolutionCorrect = possibleSolution;
+                            break;
+                        }
+                    }
+                    for (Result result : userTask.getResultList()) {
+                        if (result.getTaskExercise().getIdTaskExercise() == taskExercise.getIdTaskExercise()) {
+                            resultSelected = result;
+                            break;
+                        }
+                    }
+                    stimulus1 = exercise.getExerciseStimulusMapList().get(0).getStimulus();
+                    filas.add(new String[]{"" + exercise.getIdExercise(), exercise.getName(), stimulus1.getName(), stimulus1.getStimulusGroup().getName(), resultSelected.getAnswer().getName(), possibleSolutionCorrect.getAnswer().getName()});
+                    //filas.add(new String[]{"", "Estimulo:", "" + stimulus.getIdStimulus(), stimulus.getName()});
+                }
             }
             cSVWriter.writeAll(filas);
             cSVWriter.close();
@@ -396,30 +461,7 @@ public class BriefingsController implements Serializable {
         return fail;
     }
 
-    private String getSameDifferent(boolean doSame, boolean  isSame, UserTask userTask) {
-        int sum = 0; 
-        for (Result result : userTask.getResultList()) {
-            if (doSame && isSame) {
-                if (result.getAnswer().getIdAnswer() == answerFacade.getSameAnswer().getIdAnswer() && result.getTaskExercise().getExercise().getPossibleSolutionList().get(0).getCorrect()) {
-                    sum = sum + 1;
-                }
-            } else if (!doSame && isSame) {
-                if (result.getAnswer().getIdAnswer() == answerFacade.getDifferentAnswer().getIdAnswer() && result.getTaskExercise().getExercise().getPossibleSolutionList().get(0).getCorrect()) {
-                    sum = sum + 1;
-                }
-            } else if (doSame && !isSame) {
-                if (result.getAnswer().getIdAnswer() == answerFacade.getSameAnswer().getIdAnswer() && result.getTaskExercise().getExercise().getPossibleSolutionList().get(1).getCorrect()) {
-                    sum = sum + 1;
-                }
-            } else {
-                if (result.getAnswer().getIdAnswer() == answerFacade.getDifferentAnswer().getIdAnswer() && result.getTaskExercise().getExercise().getPossibleSolutionList().get(1).getCorrect()) {
-                    sum = sum + 1;
-                }
-            }
-        }
-        return ""+sum;
-    }
-    private String getSameDifferentByPercent(boolean  doSame, boolean isSame, UserTask userTask) {
+    private String getSameDifferent(boolean doSame, boolean isSame, UserTask userTask) {
         int sum = 0;
         for (Result result : userTask.getResultList()) {
             if (doSame && isSame) {
@@ -440,13 +482,85 @@ public class BriefingsController implements Serializable {
                 }
             }
         }
-        return ""+(sum * 100) / userTask.getTask().getTaskExerciseList().size();
+        return "" + sum;
+    }
+
+    private String getSameDifferentByPercent(boolean doSame, boolean isSame, UserTask userTask) {
+        int sum = 0;
+        for (Result result : userTask.getResultList()) {
+            if (doSame && isSame) {
+                if (result.getAnswer().getIdAnswer() == answerFacade.getSameAnswer().getIdAnswer() && result.getTaskExercise().getExercise().getPossibleSolutionList().get(0).getCorrect()) {
+                    sum = sum + 1;
+                }
+            } else if (!doSame && isSame) {
+                if (result.getAnswer().getIdAnswer() == answerFacade.getDifferentAnswer().getIdAnswer() && result.getTaskExercise().getExercise().getPossibleSolutionList().get(0).getCorrect()) {
+                    sum = sum + 1;
+                }
+            } else if (doSame && !isSame) {
+                if (result.getAnswer().getIdAnswer() == answerFacade.getSameAnswer().getIdAnswer() && result.getTaskExercise().getExercise().getPossibleSolutionList().get(1).getCorrect()) {
+                    sum = sum + 1;
+                }
+            } else {
+                if (result.getAnswer().getIdAnswer() == answerFacade.getDifferentAnswer().getIdAnswer() && result.getTaskExercise().getExercise().getPossibleSolutionList().get(1).getCorrect()) {
+                    sum = sum + 1;
+                }
+            }
+        }
+        return "" + (sum * 100) / userTask.getTask().getTaskExerciseList().size();
+    }
+
+    private String getBigBig(boolean userbig, boolean exercisebig, UserTask userTask) {
+        int sum = 0;
+        for (Result result : userTask.getResultList()) {
+            if (userbig && exercisebig) {
+                if (result.getAnswer().getIdAnswer() == answerFacade.getSameAnswer().getIdAnswer() && result.getTaskExercise().getExercise().getPossibleSolutionList().get(0).getCorrect()) {
+                    sum = sum + 1;
+                }
+            } else if (!userbig && exercisebig) {
+                if (result.getAnswer().getIdAnswer() == answerFacade.getSameAnswer().getIdAnswer() && result.getTaskExercise().getExercise().getPossibleSolutionList().get(1).getCorrect()) {
+                    sum = sum + 1;
+                }
+            } else if (userbig && !exercisebig) {
+                if (result.getAnswer().getIdAnswer() == answerFacade.getDifferentAnswer().getIdAnswer() && result.getTaskExercise().getExercise().getPossibleSolutionList().get(0).getCorrect()) {
+                    sum = sum + 1;
+                }
+            } else {
+                if (result.getAnswer().getIdAnswer() == answerFacade.getDifferentAnswer().getIdAnswer() && result.getTaskExercise().getExercise().getPossibleSolutionList().get(1).getCorrect()) {
+                    sum = sum + 1;
+                }
+            }
+        }
+        return "" + sum;
+    }
+
+    private String getBigBigAsPercentage(boolean userbig, boolean exercisebig, UserTask userTask) {
+        int sum = 0;
+        for (Result result : userTask.getResultList()) {
+            if (userbig && exercisebig) {
+                if (result.getAnswer().getIdAnswer() == answerFacade.getSameAnswer().getIdAnswer() && result.getTaskExercise().getExercise().getPossibleSolutionList().get(0).getCorrect()) {
+                    sum = sum + 1;
+                }
+            } else if (!userbig && exercisebig) {
+                if (result.getAnswer().getIdAnswer() == answerFacade.getSameAnswer().getIdAnswer() && result.getTaskExercise().getExercise().getPossibleSolutionList().get(1).getCorrect()) {
+                    sum = sum + 1;
+                }
+            } else if (userbig && !exercisebig) {
+                if (result.getAnswer().getIdAnswer() == answerFacade.getDifferentAnswer().getIdAnswer() && result.getTaskExercise().getExercise().getPossibleSolutionList().get(0).getCorrect()) {
+                    sum = sum + 1;
+                }
+            } else {
+                if (result.getAnswer().getIdAnswer() == answerFacade.getDifferentAnswer().getIdAnswer() && result.getTaskExercise().getExercise().getPossibleSolutionList().get(1).getCorrect()) {
+                    sum = sum + 1;
+                }
+            }
+        }
+        return "" + (sum * 100) / userTask.getTask().getTaskExerciseList().size();
     }
 
     public void getCsvFromTask(Task task) {
         try {
             StringWriter stringWriter = new StringWriter();
-            CSVWriter cSVWriter = new CSVWriter(new BufferedWriter(stringWriter));
+            CSVWriter cSVWriter = new CSVWriter(new BufferedWriter(stringWriter),';');
             List<String[]> filas = new LinkedList<String[]>();
             filas.add(new String[]{"Resultados"});
 
@@ -575,5 +689,9 @@ public class BriefingsController implements Serializable {
             }
         }
         return responses / cont;
+    }
+
+    private String getSmallBig(UserTask userTask) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

@@ -18,6 +18,7 @@ import com.coclear.entitys.*;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -61,8 +62,6 @@ public class ExerciseIdentificationController implements Serializable {
     private boolean played=true;
     private Integer progress;
     private boolean disabled=true;
-
-
 
     /*
      *
@@ -297,6 +296,7 @@ public class ExerciseIdentificationController implements Serializable {
                     result.setUserTask(userTask);
                     result.setTaskExercise(taskDone.getTaskExercise());
                     result.setAnswer(taskDone.getAnswer());
+                    result.setEnd(new Date());
                     ejbResultFacade.create(result);
                 }
                 List<UserTask> userTasks = new LinkedList<UserTask>(user.getUserTaskList());

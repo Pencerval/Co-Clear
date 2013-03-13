@@ -501,6 +501,7 @@ img.right {
     border: 1px solid #79b7e7 !important;
     color: #2e6e9e !important;
     background: #D0E5F5 url("/co-clear/javax.faces.resource/images/ui-bg_glass_85_d0e5f5_1x400.png.xhtml?ln=primefaces-redmond") 50% 50% repeat-x !important;
+    
 }
 
 
@@ -566,8 +567,35 @@ img.right {
 .tablegrid tbody tr td {
     vertical-align: top;
     width: 50%;
-    
 }
+
+.tablegridMemo tbody tr td {
+    vertical-align: top;
+    /*width: 80%;*/
+}
+
+.tablecards tbody tr td {
+    vertical-align: top;
+    width: 50%;
+}
+
 .tablegrid {
     width: 100%;
+}
+.tablegridShort {
+    width: 100%;
+    
+}
+.tablegridShort tbody tr td {
+    vertical-align: top;
+}
+
+.card {
+    width: 166px;
+    height: 200px;
+    background-image: url(../images/background.jpg);
+    border-width: 20px !important;
+    border-image: url(../images/border.jpg) 30 30 stretch !important; 
+    background-size:contain !important;
+    background-repeat:no-repeat !important; 
 }

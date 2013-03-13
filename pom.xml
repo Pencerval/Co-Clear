@@ -31,14 +31,19 @@
             <version>2.2.0</version>
         </dependency>
        
-
-        
-        
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>3.3.1</version>
+            <version>3.4.2</version>
         </dependency>
+        
+        <!-- 
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces-mobile</artifactId>
+            <version>0.9.3</version>
+        </dependency>
+        -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -74,12 +79,14 @@
             <artifactId>cupertino</artifactId>
             <version>1.0.1</version>
         </dependency>
-        -->
+         -->
         <dependency>
             <groupId>org.primefaces.themes</groupId>
             <artifactId>redmond</artifactId>
             <version>1.0.3</version>
         </dependency>
+       
+       
         
         
         <dependency>
@@ -175,8 +182,7 @@
         <repository>  
             <id>prime-repo</id>  
             <name>PrimeFaces Maven Repository</name>  
-            <url>http://repository.primefaces.org</url>  
-            <layout>default</layout>  
+            <url>http://repository.primefaces.org</url>
         </repository>  
         <repository>
             <url>http://ftp.ing.umu.se/mirror/eclipse/rt/eclipselink/maven.repo/</url>

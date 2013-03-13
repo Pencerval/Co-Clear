@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body">
+                <h1 class="title ui-widget-header ui-corner-all">Alta de juegos de display</h1>
+
+                <h:form id="form">  
+                    <p:panel id="panel" header="Crear ejercicio" > 
+                        <h:panelGrid columns="1" > 
+                            <h:outputLabel value="Nombre del ejercicio: " />
+                            <p:inputText id="titulo" value="#{exerciseGameDisplay.exercise.name}" required="false" label="Nombre" >  
+                            </p:inputText> 
+                            <p:tooltip for="titulo" showEvent="focus" hideEvent="blur" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" style="margin-top:10px;"> 
+                            <h:outputLabel value="Selecciona la imagen y el estimulo sonoro: " />
+                        </h:panelGrid>
+                        <h:panelGrid columns="3" width="100%" class="tablegridShort">
+                            <p:dataTable widgetVar="tableimages" id="tableimages" var="image" value="#{exerciseGameDisplay.images}" rowKey="#{image.idStimulus}" paginator="true" rows="10" 
+                                         selection="#{exerciseGameDisplay.imageSelected}" selectionMode="single" >  
+                                <f:facet name="header">  
+                                    Lista de imagenes 
+                                </f:facet>  
+                                <p:ajax event="rowSelect"/>  
+                                <p:ajax event="rowUnselect"/>
+                                <p:column headerText="ID" sortBy="#{image.idStimulus}" filterBy="#{image.idStimulus}" id="ID1">  
+                                    <div style="text-align: center;">
+                                        #{image.idStimulus} 
+                                    </div>
+                                </p:column>
+
+                                <p:column headerText="Nombre" sortBy="#{image.name}" filterBy="#{image.name}" id="name1">  
+                                    <div style="text-align: center;">
+                                        #{image.name}  
+                                    </div>
+                                </p:column>  
+                            </p:dataTable> 
+                            <p:spacer width="5" height="5" />
+                            <p:dataTable widgetVar="tablesound" id="tablesound" var="image" value="#{exerciseGameDisplay.sounds}" rowKey="#{image.idStimulus}" paginator="true" rows="10"
+                                         selection="#{exerciseGameDisplay.soundSelected}" selectionMode="single" >  
+                                <f:facet name="header">  
+                                    Lista de estimulos sonoros 
+                                </f:facet>  
+                                <p:column headerText="ID" sortBy="#{image.idStimulus}" filterBy="#{image.idStimulus}" id="ID2">  
+                                    <div style="text-align: center;">
+                                        #{image.idStimulus} 
+                                    </div>
+                                </p:column>  
+                                <p:ajax event="rowSelect"/>  
+                                <p:ajax event="rowUnselect"/>  
+                                <p:column headerText="Nombre" sortBy="#{image.name}" filterBy="#{image.name}" id="name2">  
+                                    <div style="text-align: center;">
+                                        #{image.name}  
+                                    </div>
+                                </p:column>  
+                                <p:column headerText="Grupo" sortBy="#{image.stimulusGroup.name}" filterBy="#{image.stimulusGroup.name}" id="group2">  
+                                    <div style="text-align: center;">
+                                        #{image.stimulusGroup.name} 
+                                    </div>
+                                </p:column>  
+                            </p:dataTable> 
+                        </h:panelGrid>
+                        <p:commandButton value="Añadir" ajax="true" actionListener="#{exerciseGameDisplay.addMap}"  style="margin-top:10px;float: right;" update="@form" icon="ui-icon-disk"/>
+                        <p:dataTable widgetVar="tablemap" id="tablemap" var="map" value="#{exerciseGameDisplay.imageSoundMap}" rowKey="#{map.image.name}" paginator="true" rows="10">  
+                                <f:facet name="header">  
+                                    Lista de añadidos 
+                                </f:facet>  
+                                <p:ajax event="rowSelect"/>  
+                                <p:ajax event="rowUnselect"/>
+                                <p:column headerText="Imagen" sortBy="#{map.image.name}" filterBy="#{map.image.name}" id="name3">  
+                                    <div style="text-align: center;">
+                                        #{map.image.name}  
+                                    </div>
+                                </p:column>  
+                                <p:column headerText="Sonido" sortBy="#{map.sound.name}" filterBy="#{map.sound.name}" id="name4">  
+                                    <div style="text-align: center;">
+                                        #{map.sound.name}
+                                    </div>
+                                </p:column>
+                            </p:dataTable> 
+                        <p:commandButton value="Volver" ajax="false" action="#{exerciseGameDisplay.back}" style="margin-top:10px;" icon="ui-icon-arrowreturnthick-1-w"/>
+                        <p:commandButton value="Guardar y crear otro" ajax="true" actionListener="#{exerciseGameDisplay.save}" action="#{exerciseGameDisplay.preEdit(null)}" style="margin-top:10px;float: right;" update="@form" icon="ui-icon-plusthick"/>
+                        <p:commandButton value="Guardar" ajax="true" actionListener="#{exerciseGameDisplay.save}"  style="margin-top:10px;float: right;" update="@form" icon="ui-icon-disk"/>
+                        <p:growl id="messages" showDetail="true"/>
+                    </p:panel>
+                </h:form>  
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

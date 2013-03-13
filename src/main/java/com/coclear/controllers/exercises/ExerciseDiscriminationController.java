@@ -5,6 +5,7 @@ import com.coclear.entitys.*;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -280,7 +281,6 @@ public class ExerciseDiscriminationController implements Serializable {
             setCorrect(null);
             setPlayed(true);
         } else {
-            try {
                 HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 User user = (User) session.getAttribute("user");
                 for (TaskDone taskDone : taskDones) {
@@ -288,6 +288,7 @@ public class ExerciseDiscriminationController implements Serializable {
                     result.setUserTask(userTask);
                     result.setTaskExercise(taskDone.getTaskExercise());
                     result.setAnswer(taskDone.getAnswer());
+                    result.setEnd(new Date());
                     ejbResultFacade.create(result);
                 }
                 List<UserTask> userTasks = new LinkedList<UserTask>(user.getUserTaskList());
@@ -298,11 +299,9 @@ public class ExerciseDiscriminationController implements Serializable {
                         break;
                     }
                 }
-                FacesContext.getCurrentInstance().getExternalContext().redirect("../public/index.xhtml");
-            } catch (IOException ex) {
-                Logger.getLogger(ExerciseDiscriminationController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
+                //FacesContext.getCurrentInstance().getExternalContext().redirect("../public/index.xhtml");
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("completedialog.show()");
         }
         return null;
 

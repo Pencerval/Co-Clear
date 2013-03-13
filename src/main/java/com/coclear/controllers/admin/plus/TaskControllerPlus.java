@@ -7,6 +7,7 @@ package com.coclear.controllers.admin.plus;
 import com.coclear.entitys.Exercise;
 import com.coclear.entitys.Task;
 import com.coclear.entitys.TaskExercise;
+import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +26,7 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean(name = "taskControllerPlus")
 @SessionScoped
-public class TaskControllerPlus {
+public class TaskControllerPlus implements Serializable{
 
     private static final long serialVersionUID = 1L;
     @EJB
@@ -37,7 +38,9 @@ public class TaskControllerPlus {
     private List<Task> taskList;
     private Task[] taskSelected;
     private List<Exercise> exercisesAvalibles;
+    private List<Exercise> exercisesAvaliblesFiltered;
     private List<Exercise> exercisesAdded = Collections.synchronizedList(new LinkedList<Exercise>());
+    private List<Exercise> exercisesAddedFiltered;
     private int filterType = 0;
     private Exercise[] exerciseAvaliblesSelected;
     private Exercise[] exerciseAddedSelected;
@@ -70,6 +73,13 @@ public class TaskControllerPlus {
 
     public List<Task> getTaskList() {
         taskList = taskFacade.findAll();
+        List <Task> removeTask=new LinkedList<Task>();
+        for(Task task:taskList){
+            if(task.getType()==3){
+                removeTask.add(task);
+            }
+        }
+        taskList.removeAll(removeTask);
         return taskList;
     }
 
@@ -87,7 +97,7 @@ public class TaskControllerPlus {
 
     public void delete(Task stimulus) {
         taskFacade.remove(stimulus);
-        setTaskList(taskFacade.findAll());
+        setTaskList(getTaskList());
     }
 
     public List<Exercise> getExercisesAdded() {
@@ -172,6 +182,24 @@ public class TaskControllerPlus {
         setExercisesAvalibles(getExercisesAvalibles());
     }
 
+    public List<Exercise> getExercisesAddedFiltered() {
+        return exercisesAddedFiltered;
+    }
+
+    public void setExercisesAddedFiltered(List<Exercise> exercisesAddedFiltered) {
+        this.exercisesAddedFiltered = exercisesAddedFiltered;
+    }
+
+    public List<Exercise> getExercisesAvaliblesFiltered() {
+        return exercisesAvaliblesFiltered;
+    }
+
+    public void setExercisesAvaliblesFiltered(List<Exercise> exercisesAvaliblesFiltered) {
+        this.exercisesAvaliblesFiltered = exercisesAvaliblesFiltered;
+    }
+    
+    
+
     public void saveTask() {
         if (getTask().getName() == null || "".equals(getTask().getName())) {
             if (RequestContext.getCurrentInstance() != null) {
@@ -226,11 +254,14 @@ public class TaskControllerPlus {
         return getExercisesAdded().size();
     }
 
-    public  synchronized  void goTop() {
+    
+    /*
+    public void goTop() {
         if (getTask().getName() == null || "".equals(getTask().getName())) {
             if (RequestContext.getCurrentInstance() != null) {
                 RequestContext.getCurrentInstance().scrollTo("top");
             }
         }
     }
+    */
 }

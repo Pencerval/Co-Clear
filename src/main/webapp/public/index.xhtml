@@ -48,6 +48,26 @@
                             </h:form>
                         </p:tab>
                         <p:tab title="Report">
+                            <p:panel id="panelReport" header="Porcentages totales" style="margin-bottom:10px;">
+                                <h:panelGrid columns="2" >
+                                    <p:pieChart id="pietotal" value="#{publicHomeController.pieTotalModel}" legendPosition="w" showDataLabels="true" title="Porcentage total" style="width:275px;height:275px;" diameter="150" sliceMargin="10" />  
+                                    <h:panelGrid columns="3">
+                                        <p:pieChart id="pietotalDiscriminacion" value="#{publicHomeController.pieTotalDiscrimination}" legendPosition="s" showDataLabels="true" title="Porcentage total de discriminación" style="width:175px;height:275px;" diameter="75" sliceMargin="7" />  
+                                        <p:pieChart id="pietotalEntonacion" value="#{publicHomeController.pieTotalEntonation}" legendPosition="s" showDataLabels="true" title="Porcentage total de entonación" style="width:175px;height:275px;" diameter="75" sliceMargin="7" />  
+                                        <p:pieChart id="pietotalIdentificacion" value="#{publicHomeController.pieTotalIdentification}" legendPosition="s" showDataLabels="true" title="Porcentage total de identificación" style="width:175px;height:275px;" diameter="75" sliceMargin="7" />  
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </p:panel>
+                            <p:panel id="panelDiscriminacion" header="Puntuacion discrimación" style="margin-bottom:10px;">
+                                <p:barChart value="#{publicHomeController.barDiscrimination}" legendPosition="ne" title="Ejercicios discrimación" min="0" max="100" style="width:400px" animate="true"/>  
+                            </p:panel>
+                            <p:panel id="panelEntonacion" header="Porcentages entonación" style="margin-bottom:10px;">
+                                <p:barChart value="#{publicHomeController.barEntonation}" legendPosition="ne" title="Ejercicios entonación" min="0" max="100" style="width:400px" animate="true"/>  
+                            </p:panel>
+                            <p:panel id="panelIdentificacion" header="Porcentages identificación" style="margin-bottom:10px;">
+                                <p:barChart value="#{publicHomeController.barIdentification}" legendPosition="ne" title="Ejercicios identificación" min="0" max="100" style="width:400px" animate="true"/>  
+                            </p:panel>
+
                         </p:tab>
                         <p:tab title="User">
                         </p:tab>

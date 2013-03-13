@@ -84,7 +84,7 @@ public class StimulusUploadController implements Serializable {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         Stimulus stimulus=null;
         File file=null;
-        if (FilenameUtils.getExtension(event.getFile().getFileName()).toLowerCase().equals("png")) {
+        if (FilenameUtils.getExtension(event.getFile().getFileName()).toLowerCase().equals("png") || FilenameUtils.getExtension(event.getFile().getFileName()).toLowerCase().equals("jpg")) {
             stimulus = new Stimulus(event.getFile().getFileName(), "image", stimulusGroupSelected);
             ejbFacadeStimulus.create(stimulus);
             file = new File(context.getInitParameter("stimulusstore") + "image" + File.separator + stimulus.getIdStimulus() + "." + FilenameUtils.getExtension(event.getFile().getFileName()));

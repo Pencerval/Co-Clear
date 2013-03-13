@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.coclear.controllers.admin.plus;
+package com.coclear.controllers.admin.exercises;
 
 import com.coclear.entitys.Exercise;
 import com.coclear.entitys.ExerciseStimulusMap;

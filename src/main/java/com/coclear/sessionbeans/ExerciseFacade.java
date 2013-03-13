@@ -16,6 +16,7 @@ import javax.persistence.Query;
  * 0 identificacion
  * 1 discriminacion
  * 2 identificacion entonacion
+ * 3 Memo
  * @author Pencerval
  */
 @Stateless
@@ -31,6 +32,7 @@ public class ExerciseFacade extends AbstractFacade<Exercise> {
     public ExerciseFacade() {
         super(Exercise.class);
     }
+    
     
     public List<Exercise> findAllByType(int type){
         Query query = em.createNamedQuery("Exercise.findByType");

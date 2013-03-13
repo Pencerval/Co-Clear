@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+
+            <ui:define name="body">
+                <h1 class="title ui-widget-header ui-corner-all">Edición de formantes</h1>
+
+                <h:form id="form">  
+                    <p:panel id="panel" header="Edición de formantes" style="margin-bottom:10px;"> 
+                        <p:messages id="message"/>
+                        <h:panelGrid id="namegrid" columns="2" > 
+                            <h:outputText value="Grupo de estimulos " />  
+                            <p:selectOneMenu id="Grupo"  label="Grupo">  
+                                <f:selectItem itemLabel="Grupo1" itemValue="1" />  
+                                <f:selectItem itemLabel="Grupo2" itemValue="2" />
+                                <f:selectItem itemLabel="Grupo3" itemValue="0" />
+                            </p:selectOneMenu>
+                            <h:outputText value="Estimulo: " />  
+                            <p:selectOneMenu id="Estimulo" label="Estimulo">  
+                                <f:selectItem itemLabel="Estimulo1" itemValue="1" />  
+                                <f:selectItem itemLabel="Estimulo2" itemValue="2" />
+                                <f:selectItem itemLabel="Estimulo3" itemValue="0" />
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                        <h:panelGroup>
+                            <h:panelGrid id="namegrid2" columns="2" > 
+                                <h:outputLabel value="F1:"/>
+                                <h:panelGrid columns="1" style="margin-bottom:10px">  
+                                    <p:inputText id="txt1" value="${formantEditController.f1}"/>  
+                                    <p:slider for="txt1" minValue="-1000" maxValue="1000"/>  
+                                </h:panelGrid>  
+                                  <h:outputLabel value="F2:"/>
+                                <h:panelGrid columns="1" style="margin-bottom:10px">  
+                                    <p:inputText id="txt2" value="${formantEditController.f1}"/>  
+                                    <p:slider for="txt2" minValue="-1000" maxValue="1000"/>  
+                                </h:panelGrid>  
+                                <h:outputLabel value="Nuevo nombre:"/>
+                                <p:inputText label="Nuevo nombre" size="50" maxlength="100"/>
+                                <p:commandButton icon="ui-icon-play" title="Play" actionListener="${formantEditController.editStimulusByScript}"/> 
+                            </h:panelGrid> 
+                        </h:panelGroup>
+                    </p:panel>
+                    <p:commandButton value="Volver" ajax="false" immediate="true" style="margin-top:10px;" icon="ui-icon-arrowreturnthick-1-w"/>
+                    <p:commandButton value="Guardar y crear otro" ajax="true" style="margin-top:10px;float: right;" update="messages panel" icon="ui-icon-plusthick"/>
+                    <p:commandButton value="Guardar" ajax="true" style="margin-top:10px;float: right;" update="@form" icon="ui-icon-disk" />
+                    
+                    <p:growl id="messages" showDetail="true"/>
+                </h:form>  
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

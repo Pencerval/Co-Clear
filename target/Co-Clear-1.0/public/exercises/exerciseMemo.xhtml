@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>Tarea de identificacion</title>
+
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="head" >
+                <script src="#{request.contextPath}/resources/js/jquery-css-transform.js" type="text/javascript" />
+                <script src="#{request.contextPath}/resources/js/rotate3Di.js" type="text/javascript" />
+
+            </ui:define>
+            <ui:define name="body" >
+
+
+                <h:form id="form">
+
+                    <p:panel id="exercise" style="margin-top: 4px;margin-bottom: 5px;" header="Ejer 1">
+                        <p:growl id="growlexercise" showDetail="true"/>
+                        <h:panelGrid columns="2"  id="grid" style="width: 100%" styleClass="tablegridMemo" >
+                            <p:panel id="panelanswer" style="" >
+                                <f:facet name="header">
+                                    <h:outputText value="Descubre y realiza parejas" style="text-align: center;display: block;"/>
+                                </f:facet>
+                                <div align="center"  >
+                                    <p:remoteCommand name="updateForm" update="@form" oncomplete="#{playExerciseMemoController.done()}" />
+                                    <h:panelGrid columns="4">
+                                        <c:forEach items="#{playExerciseMemoController.cardList}" var="card">
+                                            <h:panelGroup>
+                                                <div id="card#{card.id}container" >
+                                                    <p:remoteCommand name="validate#{card.id}" actionListener="#{playExerciseMemoController.cardClicked(card.id)}" />
+                                                    <c:if test="#{card.visible}">
+                                                        <p:commandButton disabled="#{card.paired}" id="card#{card.id}" styleClass="card" style="background-image: url(#{request.contextPath}/stimulusimage?id=#{card.stimulusId})" value="" onclick="$('button').attr('disabled','true');$('#card#{card.id}container').rotate3Di('toggle', 1000,{sideChange: function(front){if(!front){$('#card#{card.id}container button').css('background-image', 'url(#{request.contextPath}/resources/images/background.jpg)')}else{$('#card#{card.id}container button').css('background-image', 'url(#{request.contextPath}/stimulusimage?id=#{card.stimulusId})')}},complete:function(){validate#{card.id}();}});"/>
+                                                    </c:if>
+                                                    <c:if test="#{!card.visible}">
+                                                        <p:commandButton disabled="#{card.paired}" id="card#{card.id}" styleClass="card" style="background-image: url(#{request.contextPath}/resources/images/background.jpg)" value="" onclick="$('button').attr('disabled','true');$('#card#{card.id}container').rotate3Di('toggle', 1000,{sideChange: function(front){if(!front){$('#card#{card.id}container button').css('background-image', 'url(#{request.contextPath}/stimulusimage?id=#{card.stimulusId})')}else{$('#card#{card.id}container button').css('background-image', 'url(#{request.contextPath}/resources/images/background.jpg)')}},complete:function(){validate#{card.id}();}});"/>
+                                                    </c:if>
+                                                </div>
+                                            </h:panelGroup>
+                                        </c:forEach>
+                                        <!--<h:panelGroup>
+                                            <div id="card2container" >
+                                                <p:commandButton action="true" id="card2" styleClass="card" style="background-image: url(../resources/images/background.jpg)" value="" oncomplete="jQuery('#feedback').effect('pulsate', {times:3}, 1500)" onclick="$('#card2container').rotate3Di('toggle', 1000,{sideChange: function(front){;if(!front){$('#form\\:card2').css('background-image', 'url(../resources/images/banana.jpg)')}else{$('#form\\:card2').css('background-image', 'url(../resources/images/background.jpg)')}}});"/>
+                                            </div>
+                                        </h:panelGroup>-->
+                                    </h:panelGrid>
+                                </div>
+                            </p:panel>
+                            <p:panel id="panelplay" style="">
+                                <f:facet name="header">
+                                    <h:outputText value="Pulsa para saltar el ejercicio" style="text-align: center;display: block;"/>
+                                </f:facet>
+                                <div id="playbutton" align="center" style="vertical-align: botton;">
+                                    <p:commandButton action="/public/index.xhtml" ajax="false" icon="play" alt="play" style="width: 70px;height: 68px;" />
+                                </div>
+                            </p:panel>
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:dialog id="completedialog" modal="true"  header="Tarea completada" widgetVar="completedialog" showEffect="explode" style="left: 40% !important;top: 40% !important;">  
+                        <h:outputText value="¡Buen trabajo!" />  
+                        <p:commandButton value="Volver" action="/public/index.xhtml" ajax="false" />
+                    </p:dialog> 
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -166,12 +166,16 @@ public class Task implements Serializable {
     }
 
     public String getTypeName() {
-        if(type==1){
+        if(type==0){
+            return "Identificación";
+        }else if(type==1){
             return "Discriminación";
         }else if(type==2){
             return "Identificación de entonación";
+        }else if(type==3){
+            return "Memo";
         }else{
-            return "Identificación";
+            return "";
         }
         
     }
