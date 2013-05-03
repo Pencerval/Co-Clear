@@ -48,7 +48,7 @@ public class LoginController implements Serializable {
             JsfUtil.addErrorMessage("Login Failed");
             return "";
         }
-        if(!user.getPassword().equals(pass)){
+        if(user==null || !user.getPassword().equals(pass)){
             JsfUtil.addErrorMessage("Login Failed");
             return "";
         }

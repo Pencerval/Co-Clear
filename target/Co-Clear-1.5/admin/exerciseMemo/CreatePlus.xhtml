@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body">
+                <h1 class="title ui-widget-header ui-corner-all">Alta de ejercicio de memorización</h1>
+
+                <h:form id="form">  
+                    <p:panel id="panel" header="Crear ejercicio" > 
+                        <h:panelGrid columns="1" > 
+                            <h:outputLabel value="Nombre del ejercicio: " />
+                            <p:inputText id="titulo" value="#{exerciseMemoControllerPlus.exercise.name}" required="false" label="Nombre" >  
+                            </p:inputText> 
+                            <p:tooltip for="titulo" showEvent="focus" hideEvent="blur" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" style="margin-top:10px;"> 
+                            <h:outputLabel value="Selecciona las imagenes: " />
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="3" width="100%" class="tablegridShort">
+                            <p:dataTable widgetVar="tableavalibles" id="tableavalibles" var="image" value="#{exerciseMemoControllerPlus.imagesAvalibles}" rowKey="#{image.idStimulus}" paginator="true" rows="10" 
+                                         selection="#{exerciseMemoControllerPlus.imagesAvaliblesSelected}" selectionMode="multiple" >  
+                                <f:facet name="header">  
+                                    Lista de imagenes disponibles 
+                                </f:facet>  
+                                <p:ajax event="rowSelect"/>  
+                                <p:ajax event="rowUnselect"/>
+                                <p:column headerText="ID" sortBy="#{image.idStimulus}" filterBy="#{image.idStimulus}" id="ID1">  
+                                    <div style="text-align: center;">
+                                        #{image.idStimulus} 
+                                    </div>
+                                </p:column>
+
+                                <p:column headerText="Nombre" sortBy="#{image.name}" filterBy="#{image.name}" id="name1">  
+                                    <div style="text-align: center;">
+                                        #{image.name}  
+                                    </div>
+                                </p:column>  
+                                <p:column headerText="Acciones" id="actions" > 
+                                    <div style="text-align: center;">
+                                        <p:commandButton title="Añadir" icon="ui-icon-circle-plus" actionListener="#{exerciseMemoControllerPlus.addSelected(image)}" update="@form" oncomplete="tableavalibles.filter();tableadded.filter();">
+                                        </p:commandButton>
+                                    </div>
+                                </p:column>  
+                                <f:facet name="footer">
+                                    <div style="float: right;">
+                                        <p:commandButton value="Añadir seleccionados" icon="ui-icon-circle-plus" actionListener="#{exerciseMemoControllerPlus.addAllSelected}" update="@form" oncomplete="tableavalibles.filter();tableadded.filter();">
+                                        </p:commandButton>
+                                    </div>
+                                </f:facet>  
+                            </p:dataTable> 
+
+                            <p:spacer width="5" height="5" />
+
+                            <p:dataTable widgetVar="tableadded" id="tableadded" var="image" value="#{exerciseMemoControllerPlus.imagesAdded}" rowKey="#{image.idStimulus}" paginator="true" rows="10"
+                                         selection="#{exerciseMemoControllerPlus.imagesAddedSelected}" selectionMode="multiple" >  
+                                <f:facet name="header">  
+                                    Lista de imagenes añadidas 
+                                </f:facet>  
+                                <p:column headerText="ID" sortBy="#{image.idStimulus}" filterBy="#{image.idStimulus}" id="ID2">  
+                                    <div style="text-align: center;">
+                                        #{image.idStimulus} 
+                                    </div>
+                                </p:column>  
+                                <p:ajax event="rowSelect"/>  
+                                <p:ajax event="rowUnselect"/>  
+                                <p:column headerText="Nombre" sortBy="#{image.name}" filterBy="#{image.name}" id="name2">  
+                                    <div style="text-align: center;">
+                                        #{image.name}  
+                                    </div>
+                                </p:column>  
+                                <p:column headerText="Acciones" id="actions2" > 
+                                    <div style="text-align: center;">
+                                        <p:commandButton title="Quitar" icon="ui-icon-circle-minus" actionListener="#{exerciseMemoControllerPlus.removeSelected(image)}" update="@this" oncomplete="tableadded.filter();tableavalibles.filter();">
+                                        </p:commandButton>
+                                    </div>
+                                </p:column>  
+
+                                <f:facet name="footer">  
+                                    <div style="float: right;">
+                                        <p:commandButton ajax="false" value="Quitar seleccionados" icon="ui-icon-circle-minus" actionListener="#{exerciseMemoControllerPlus.removeAllSelected}" update="@this"  oncomplete="tableadded.filter();tableavalibles.filter();">
+                                        </p:commandButton>
+                                    </div>
+                                </f:facet>  
+                            </p:dataTable> 
+                        </h:panelGrid>
+                        <p:commandButton value="Volver" ajax="false" action="#{exerciseMemoControllerPlus.back}" style="margin-top:10px;" icon="ui-icon-arrowreturnthick-1-w"/>
+
+                        <p:commandButton value="Guardar y crear otro" ajax="true" actionListener="#{exerciseMemoControllerPlus.save}" action="#{exerciseMemoControllerPlus.preEdit(null)}" style="margin-top:10px;float: right;" update="@form" icon="ui-icon-plusthick"/>
+
+                        <p:commandButton value="Guardar" ajax="true" actionListener="#{exerciseMemoControllerPlus.save}"  style="margin-top:10px;float: right;" update="@form" icon="ui-icon-disk"/>
+
+                        <p:growl id="messages" showDetail="true"/>
+                    </p:panel>
+                </h:form>  
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

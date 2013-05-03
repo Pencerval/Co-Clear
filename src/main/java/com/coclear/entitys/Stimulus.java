@@ -46,6 +46,10 @@ public class Stimulus implements Serializable {
     @JoinColumn(name = "id_stimulus_group", referencedColumnName = "id_stimulus_group")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private StimulusGroup stimulusGroup;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idStimulus")
+    private List<TagGroupStimulusMap> tagGroupStimulusMapList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idStimulus")
+    private List<TagStimulusMap> tagStimulusMapList;
 
     public Stimulus() {
     }
@@ -106,6 +110,25 @@ public class Stimulus implements Serializable {
     public void setStimulusGroup(StimulusGroup stimulusGroup) {
         this.stimulusGroup = stimulusGroup;
     }
+    
+    @XmlTransient
+    public List<TagGroupStimulusMap> getTagGroupStimulusMapList() {
+        return tagGroupStimulusMapList;
+    }
+
+    public void setTagGroupStimulusMapList(List<TagGroupStimulusMap> tagGroupStimulusMapList) {
+        this.tagGroupStimulusMapList = tagGroupStimulusMapList;
+    }
+
+    @XmlTransient
+    public List<TagStimulusMap> getTagStimulusMapList() {
+        return tagStimulusMapList;
+    }
+
+    public void setTagStimulusMapList(List<TagStimulusMap> tagStimulusMapList) {
+        this.tagStimulusMapList = tagStimulusMapList;
+    }
+    
 
     @Override
     public int hashCode() {

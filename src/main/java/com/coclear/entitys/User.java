@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByHearingLossDate", query = "SELECT u FROM User u WHERE u.hearingLossDate = :hearingLossDate"),
     @NamedQuery(name = "User.findByCauseDeafnes", query = "SELECT u FROM User u WHERE u.causeDeafnes = :causeDeafnes"),
     @NamedQuery(name = "User.findByDegreeDeafness", query = "SELECT u FROM User u WHERE u.degreeDeafness = :degreeDeafness"),
+    @NamedQuery(name = "User.findByOriginDeafnes", query = "SELECT u FROM User u WHERE u.originDeafnes = :originDeafnes"),
     @NamedQuery(name = "User.findByDurationHearingLoss", query = "SELECT u FROM User u WHERE u.durationHearingLoss = :durationHearingLoss"),
     @NamedQuery(name = "User.findByImplantationDate", query = "SELECT u FROM User u WHERE u.implantationDate = :implantationDate"),
     @NamedQuery(name = "User.findByCochlearImplantType", query = "SELECT u FROM User u WHERE u.cochlearImplantType = :cochlearImplantType"),
@@ -100,6 +101,9 @@ public class User implements Serializable {
     @Size(max = 255)
     @Column(name = "degree_deafness")
     private String degreeDeafness;
+    @Size(max = 255)
+    @Column(name = "origin_deafnes")
+    private String originDeafnes;
     @Size(max = 255)
     @Column(name = "duration_hearing_loss")
     private String durationHearingLoss;
@@ -269,6 +273,14 @@ public class User implements Serializable {
 
     public void setDegreeDeafness(String degreeDeafness) {
         this.degreeDeafness = degreeDeafness;
+    }
+    
+    public String getOriginDeafnes() {
+        return originDeafnes;
+    }
+
+    public void setOriginDeafnes(String originDeafness) {
+        this.originDeafnes = originDeafness;
     }
 
     public String getDurationHearingLoss() {

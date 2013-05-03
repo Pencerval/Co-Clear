@@ -403,15 +403,16 @@ img.right {
 /* Footer */
 
 #footer {
-    width: 960px;
-    height: 70px;
-    margin: 0 auto;
-    padding: 0 20px;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    height: 60px;
+    width: 100%;
 }
 
 #footer p {
     margin: 0;
-    padding: 25px 0 0 0;
+    padding: 25px 0 25px 25px;
     text-align: center;
     font-size: smaller;
 }
@@ -501,7 +502,7 @@ img.right {
     border: 1px solid #79b7e7 !important;
     color: #2e6e9e !important;
     background: #D0E5F5 url("/co-clear/javax.faces.resource/images/ui-bg_glass_85_d0e5f5_1x400.png.xhtml?ln=primefaces-redmond") 50% 50% repeat-x !important;
-    
+
 }
 
 
@@ -543,7 +544,7 @@ img.right {
 }
 
 .ui-growl {
-     top: 87% !important;
+    top: 87% !important;
     left: 40% !important;
 }
 
@@ -584,7 +585,7 @@ img.right {
 }
 .tablegridShort {
     width: 100%;
-    
+
 }
 .tablegridShort tbody tr td {
     vertical-align: top;
@@ -598,4 +599,13 @@ img.right {
     border-image: url(../images/border.jpg) 30 30 stretch !important; 
     background-size:contain !important;
     background-repeat:no-repeat !important; 
+}
+
+
+.col1 {
+    width: 50%;
+    vertical-align: top;
+}
+.col2 {
+    width: 50%;
 }

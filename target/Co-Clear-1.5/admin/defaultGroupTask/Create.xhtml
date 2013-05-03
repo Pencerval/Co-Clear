@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateDefaultGroupTaskTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <!-- 
+                    <h:outputLabel value="#{bundle.CreateDefaultGroupTaskLabel_idDefaultGroupTask}" for="idDefaultGroupTask" />
+                    <h:inputText id="idDefaultGroupTask" value="#{defaultGroupTaskController.selected.idDefaultGroupTask}" title="#{bundle.CreateDefaultGroupTaskTitle_idDefaultGroupTask}" required="true" requiredMessage="#{bundle.CreateDefaultGroupTaskRequiredMessage_idDefaultGroupTask}"/>
+                    -->
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateDefaultGroupTaskLabel_userGroup}" for="userGroup" />
+                    <h:selectOneMenu id="userGroup" value="#{defaultGroupTaskController.selected.userGroup}" title="#{bundle.CreateDefaultGroupTaskTitle_userGroup}" required="true" requiredMessage="#{bundle.CreateDefaultGroupTaskRequiredMessage_userGroup}">
+                        <f:selectItems value="#{userGroupController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateDefaultGroupTaskLabel_task}" for="task" />
+                    <h:selectOneMenu id="task" value="#{defaultGroupTaskController.selected.task}" title="#{bundle.CreateDefaultGroupTaskTitle_task}" required="true" requiredMessage="#{bundle.CreateDefaultGroupTaskRequiredMessage_task}">
+                        <f:selectItems value="#{taskController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{defaultGroupTaskController.create}" value="#{bundle.CreateDefaultGroupTaskSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{defaultGroupTaskController.prepareList}" value="#{bundle.CreateDefaultGroupTaskShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreateDefaultGroupTaskIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

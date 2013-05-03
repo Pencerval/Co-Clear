@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body" >
+                <h1 class="title ui-widget-header ui-corner-all"></h1>
+                <!--<div class="logincontainersize">-->
+
+                <h:panelGrid columns="2" width="100%" columnClasses="col1,col2">
+                    <h:panelGroup >
+                        <p:panel header="¿Qué es co-clear?" footer="Contacto/Contact: Dr. Teresa Lopez-Soto (Principal Investigator) &lt;a href='mailto:teresals@us.es'&gt;teresals@us.es&lt;/a&gt;" style="margin: auto;width: 467px " >  
+                            <div style="text-align: justify;margin: 6px auto 6px auto;line-height: 2;">Co-Clear es una plataforma para la gestión de experimentos auditivos que incorpora herramientas orientadas al análisis, diagnóstico y rehabilitación de pacientes con discapacidades auditivas (implantes cocleares).</div> 
+                        </p:panel>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <p:panel header="Iniciar sesión" style="margin: auto;width: 50% ">
+                            <h:form>
+                                <h:panelGrid columns="1" style="margin: auto;">
+                                    <p:messages id="msgs"/> 
+                                    <h:panelGroup>
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <h:outputLabel>Usuario:</h:outputLabel>
+                                            <p:inputText value="#{loginController.user}" required="true" label="user">
+                                                <f:validateLength minimum="2" />
+                                            </p:inputText>
+                                            <h:outputLabel>Password:</h:outputLabel>
+                                            <p:password value="#{loginController.pass}" required="true"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    <h:panelGroup style="text-align: center;" layout="block">
+                                        <p:commandButton value="Entrar" ajax="false" action="#{loginController.login}" update="msgs" style="width: 50%"/> 
+                                    </h:panelGroup>
+                                </h:panelGrid>
+                            </h:form>
+                        </p:panel>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <p:panel footer="&quot;PERCEPCIÓN DE LOS SONIDOS ESPAÑOLES E INGLESES POR ESTUDIANTES DE SEGUNDAS LENGUAS&quot; FFI2010-18205" style="margin: 120px auto auto 4px; width: 300px;float: left;" >  
+                            <p align="center" style="margin-top: 0px; zoom: 35%"><img src="#{request.contextPath}/resources/images/logofinancia.jpg"/></p>
+                        </p:panel>  
+                    </h:panelGroup>
+                </h:panelGrid>
+
+            </ui:define>
+        </ui:composition>
+        <h:form>
+            <h:commandLink action="/answerStimulusMap/List" value="Show All AnswerStimulusMap Items"/>
+        </h:form>
+    </h:body>
+
+</html>
+

@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body">
+                <h1 class="title ui-widget-header ui-corner-all">Resultados</h1>
+                <h:form id="form">  
+                    <p:panel id="panel1" header="Obtener resultados por usuario" style="margin-bottom:10px;"> 
+                        <p:dataTable var="user" value="#{briefingsController.users}" rowKey="#{user.idUser}" paginator="true" rows="10"  
+                                     selection="#{briefingsController.selectedUser}" selectionMode="single" id="usersTable">  
+
+                            <p:ajax event="rowSelect" update=":form:userTaskTable" />  
+                            <p:ajax event="rowUnselect" update=":form:userTaskTable"/>  
+
+
+                            <f:facet name="header">  
+                                Selecciona el usuario:
+                            </f:facet>  
+                            <p:column headerText="ID" sortBy="#{user.idUser}" filterBy="#{user.idUser}" id="ID">  
+                                #{user.idUser} 
+                            </p:column>  
+                            <p:column headerText="Login" sortBy="#{user.login}" filterBy="#{user.login}" id="login">  
+                                #{user.login}
+                            </p:column>  
+                            <p:column headerText="Nombre" sortBy="#{user.name}" filterBy="#{user.name}" id="name">  
+                                #{user.name}  
+                            </p:column>  
+                        </p:dataTable> 
+                        <p:dataTable var="usertask" value="#{briefingsController.userTasks}" rowKey="#{usertask.resultList.get(0).end}" paginator="true" rows="10"  
+                                     id="userTaskTable">  
+
+                            <f:facet name="header">  
+                                Selecciona la tarea:
+                            </f:facet>  
+                            <p:column headerText="ID" sortBy="#{usertask.idUserTask}" filterBy="#{usertask.idUserTask}" id="ID">  
+                                #{usertask.idUserTask} 
+                            </p:column>  
+                            <p:column headerText="Tarea" sortBy="#{usertask.task.name}" filterBy="#{usertask.task.name}" id="name">  
+                                #{usertask.task.name}
+                            </p:column>
+                            <p:column headerText="Fecha" sortBy="#{usertask.resultList.get(0).end}" id="date">  
+                                <h:outputText value="#{usertask.resultList.get(0).end}" >
+                                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+                                </h:outputText>
+                            </p:column> 
+                            <p:column headerText="Generar" id="actions" > 
+                                <div style="text-align: center;">
+                                    <p:commandButton title="Generar" icon="ui-icon-gear" ajax="false" actionListener="#{briefingsController.getCsvFromUserTask(usertask)}">
+                                        <p:fileDownload value="#{briefingsController.csv}" />
+                                    </p:commandButton>
+                                </div>
+                            </p:column>  
+
+                        </p:dataTable> 
+                    </p:panel>
+                    <p:panel id="panel2" header="Obtener resultados por tarea" style="margin-bottom:10px;"> 
+                        <p:dataTable var="task" value="#{briefingsController.tasks}" rowKey="#{task.idTask}" paginator="true" rows="10"  
+                                     id="taskTable">  
+
+                            <f:facet name="header">  
+                                Selecciona la tarea:
+                            </f:facet>  
+                            <p:column headerText="ID" sortBy="#{task.idTask}" filterBy="#{task.idTask}" id="ID2">  
+                                #{task.idTask} 
+                            </p:column>  
+                            <p:column headerText="Nombre" sortBy="#{task.name}" filterBy="#{task.name}" id="name2">  
+                                #{task.name}
+                            </p:column>
+                            <p:column headerText="Descripción" sortBy="#{task.description}" filterBy="#{task.description}" id="description">  
+                                #{task.description}
+                            </p:column>  
+                            <p:column headerText="Generar" id="actions2" > 
+                                <div style="text-align: center;">
+                                    <p:commandButton title="Generar" icon="ui-icon-gear" ajax="false" actionListener="#{briefingsController.getCsvFromTask(task)}">
+                                        <p:fileDownload value="#{briefingsController.csv}" />
+                                    </p:commandButton>
+                                </div>
+                            </p:column>  
+
+                        </p:dataTable> 
+                    </p:panel>
+                    <p:growl id="messages" showDetail="true"/>
+                </h:form>  
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

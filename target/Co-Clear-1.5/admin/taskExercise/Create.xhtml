@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTaskExerciseTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                                    <!-- 
+                    <h:outputLabel value="#{bundle.CreateTaskExerciseLabel_idTaskExercise}" for="idTaskExercise" />
+                    <h:inputText id="idTaskExercise" value="#{taskExerciseController.selected.idTaskExercise}" title="#{bundle.CreateTaskExerciseTitle_idTaskExercise}" required="true" requiredMessage="#{bundle.CreateTaskExerciseRequiredMessage_idTaskExercise}"/>
+                    -->
+                <h:panelGrid columns="2">
+
+                    <h:outputLabel value="#{bundle.CreateTaskExerciseLabel_order}" for="order" />
+                    <h:inputText id="order" value="#{taskExerciseController.selected.exerciseOrder}" title="#{bundle.CreateTaskExerciseTitle_order}" required="true" requiredMessage="#{bundle.CreateTaskExerciseRequiredMessage_order}"/>
+                    <h:outputLabel value="#{bundle.CreateTaskExerciseLabel_task}" for="task" />
+                    <h:selectOneMenu id="task" value="#{taskExerciseController.selected.task}" title="#{bundle.CreateTaskExerciseTitle_task}" required="true" requiredMessage="#{bundle.CreateTaskExerciseRequiredMessage_task}">
+                        <f:selectItems value="#{taskController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateTaskExerciseLabel_exercise}" for="exercise" />
+                    <h:selectOneMenu id="exercise" value="#{taskExerciseController.selected.exercise}" title="#{bundle.CreateTaskExerciseTitle_exercise}" required="true" requiredMessage="#{bundle.CreateTaskExerciseRequiredMessage_exercise}">
+                        <f:selectItems value="#{exerciseController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{taskExerciseController.create}" value="#{bundle.CreateTaskExerciseSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{taskExerciseController.prepareList}" value="#{bundle.CreateTaskExerciseShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreateTaskExerciseIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

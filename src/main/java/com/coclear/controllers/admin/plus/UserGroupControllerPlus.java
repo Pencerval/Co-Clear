@@ -22,6 +22,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 /**
  * <!-- <f:metadata> <f:event type="preRenderView"
@@ -42,6 +43,7 @@ public class UserGroupControllerPlus implements Serializable {
     private List<User> userList;
     private User user;
     private Boolean isImplanted;
+    private SelectItem[] rolOptions=null;
 
     public UserGroupControllerPlus() {
     }
@@ -139,6 +141,13 @@ public class UserGroupControllerPlus implements Serializable {
     public void setIsImplanted(Boolean isImplanted) {
         this.isImplanted = isImplanted;
     }
+    
+    public SelectItem[] getRolOptions() {  
+        if(rolOptions==null){
+            rolOptions=new SelectItem[]{new SelectItem("","Todos"),new SelectItem(0,"User"),new SelectItem(1,"Admin"),new SelectItem(2,"Manager")};
+        }
+        return rolOptions;  
+    }  
     
     public void back() {
         try {

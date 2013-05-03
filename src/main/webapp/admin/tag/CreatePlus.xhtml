@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body">
+                <h1 class="title ui-widget-header ui-corner-all">Alta de tags</h1>
+                <h:form id="form">  
+                    <p:panel id="panel" header="Crear tag" style="margin-bottom:10px;"> 
+                        <h:panelGrid id="namegrid" columns="2" cellpadding="5"> 
+                            <h:outputLabel value="Nombre: "/>
+                            <p:inputText id="name" value="#{tagControllerPlus.tag.name}" required="true" label="Nombre" size="40" widgetVar="nombre"/> 
+                            <h:outputLabel value="Descripción: "/>
+                            <p:inputText id="description" value="#{tagControllerPlus.tag.description}" required="true" label="Nombre" size="40" widgetVar="description"/> 
+                        </h:panelGrid>
+                        <p:messages id="message"/>
+                    </p:panel>
+                    <p:commandButton value="Volver" ajax="false" immediate="true" action="ListPlus.xhtml" style="margin-top:10px;" icon="ui-icon-arrowreturnthick-1-w"/>
+                    <p:commandButton value="Guardar y crear otro" ajax="true" actionListener="#{tagControllerPlus.saveTag}" action="#{tagControllerPlus.preEdit(null)}" style="margin-top:10px;float: right;" update="messages panel" icon="ui-icon-plusthick"/>
+                    <p:commandButton value="Guardar" ajax="true" actionListener="#{tagControllerPlus.saveTag}"  style="margin-top:10px;float: right;" update="@form" icon="ui-icon-disk"/>
+                    <p:growl id="messages" showDetail="true"/>
+                </h:form>  
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

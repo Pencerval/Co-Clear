@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditPossibleSolutionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditPossibleSolutionLabel_idPossibleSolution}" for="idPossibleSolution" />
+                    <h:inputText id="idPossibleSolution" value="#{possibleSolutionController.selected.idPossibleSolution}" title="#{bundle.EditPossibleSolutionTitle_idPossibleSolution}" required="true" requiredMessage="#{bundle.EditPossibleSolutionRequiredMessage_idPossibleSolution}"/>
+                    <h:outputLabel value="#{bundle.EditPossibleSolutionLabel_correct}" for="correct" />
+                    <h:inputText id="correct" value="#{possibleSolutionController.selected.correct}" title="#{bundle.EditPossibleSolutionTitle_correct}" required="true" requiredMessage="#{bundle.EditPossibleSolutionRequiredMessage_correct}"/>
+                    <h:outputLabel value="#{bundle.EditPossibleSolutionLabel_order}" for="order" />
+                    <h:inputText id="order" value="#{possibleSolutionController.selected.answerOrder}" title="#{bundle.EditPossibleSolutionTitle_order}" />
+                    <h:outputLabel value="#{bundle.EditPossibleSolutionLabel_exercise}" for="exercise" />
+                    <h:selectOneMenu id="exercise" value="#{possibleSolutionController.selected.exercise}" title="#{bundle.EditPossibleSolutionTitle_exercise}" required="true" requiredMessage="#{bundle.EditPossibleSolutionRequiredMessage_exercise}">
+                        <f:selectItems value="#{exerciseController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditPossibleSolutionLabel_answer}" for="answer" />
+                    <h:selectOneMenu id="answer" value="#{possibleSolutionController.selected.answer}" title="#{bundle.EditPossibleSolutionTitle_answer}" required="true" requiredMessage="#{bundle.EditPossibleSolutionRequiredMessage_answer}">
+                        <f:selectItems value="#{answerController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{possibleSolutionController.update}" value="#{bundle.EditPossibleSolutionSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditPossibleSolutionViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{possibleSolutionController.prepareList}" value="#{bundle.EditPossibleSolutionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditPossibleSolutionIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

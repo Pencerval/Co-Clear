@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body">
+                <h1 class="title ui-widget-header ui-corner-all">Alta de ejercicio de discriminación</h1>
+
+                <h:form id="form">  
+                    <p:panel id="panel" header="Crear ejercicio" > 
+                        <h:panelGrid columns="1" > 
+                            <h:outputLabel value="Nombre del ejercicio: " />
+                            <p:inputText id="titulo" value="#{exerciseDiscriminationControllerPlus.exercise.name}" required="false" label="Nombre" title="Puede dejar este campo en blanco para ser generado por el servidor.">  
+                            </p:inputText> 
+                            <p:tooltip for="titulo" showEvent="focus" hideEvent="blur" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" style="margin-top:10px;"> 
+                            <h:outputLabel value="Selecciona los estimulos: " />
+                        </h:panelGrid>
+
+                        <h:panelGrid id="tablegridsounds" columns="2" class="tablegrid" cellspacing="5">
+                            <p:dataTable id="tablesound1" var="stimulus" value="#{exerciseDiscriminationControllerPlus.stimulusAudioList}" rowKey="#{stimulus.idStimulus}" paginator="true" rows="10"  
+                                         selection="#{exerciseDiscriminationControllerPlus.stimulusSound1}" >  
+                                <f:facet name="header">  
+                                    Primer estimulo
+                                </f:facet>  
+                                <p:column selectionMode="single" style="width:18px" />
+                                <p:column headerText="ID" sortBy="#{stimulus.idStimulus}" filterBy="#{stimulus.idStimulus}" id="ID">  
+                                    <div style="text-align: center;">
+                                        #{stimulus.idStimulus}  
+                                    </div>
+                                </p:column>  
+                                <p:ajax event="rowSelect"/>  
+                                <p:ajax event="rowUnselect"/>  
+                                <p:column headerText="Grupo" sortBy="#{stimulus.stimulusGroup.name}" filterBy="#{stimulus.stimulusGroup.name}" id="group">  
+                                    <div style="text-align: center;"  filterOptions="#{stimulus.stimulusGroup.name}"  
+                                         filterMatchMode="exact">
+                                        #{stimulus.stimulusGroup.name}  
+                                    </div>
+                                </p:column>  
+                                <p:column headerText="Nombre" sortBy="#{stimulus.name}" filterBy="#{stimulus.name}" id="name">  
+                                    <div style="text-align: center;">
+                                        #{stimulus.name}  
+                                    </div>
+                                </p:column>  
+                            </p:dataTable> 
+
+                            <p:dataTable id="tablesound2" var="stimulus" value="#{exerciseDiscriminationControllerPlus.stimulusAudioList}" rowKey="#{stimulus.idStimulus}" paginator="true" rows="10"  
+                                         selection="#{exerciseDiscriminationControllerPlus.stimulusSound2}" >  
+                                <f:facet name="header">  
+                                    Segundo estimulo  
+                                </f:facet>  
+                                <p:column selectionMode="single" style="width:18px" />
+                                <p:column headerText="ID" sortBy="#{stimulus.idStimulus}" filterBy="#{stimulus.idStimulus}" id="ID">  
+                                    <div style="text-align: center;">
+                                        #{stimulus.idStimulus}  
+                                    </div>
+                                </p:column>  
+                                <p:ajax event="rowSelect"/>  
+                                <p:ajax event="rowUnselect"/>  
+                                <p:column headerText="Grupo" sortBy="#{stimulus.stimulusGroup.name}" filterBy="#{stimulus.stimulusGroup.name}" id="group">  
+                                    <div style="text-align: center;"  filterOptions="#{stimulus.stimulusGroup.name}"  
+                                         filterMatchMode="exact">
+                                        #{stimulus.stimulusGroup.name}  
+                                    </div>
+                                </p:column>  
+                                <p:column headerText="Nombre" sortBy="#{stimulus.name}" filterBy="#{stimulus.name}" id="name">  
+                                    <div style="text-align: center;">
+                                        #{stimulus.name}  
+                                    </div>
+                                </p:column>  
+                            </p:dataTable> 
+                        </h:panelGrid>
+                        
+                        <h:panelGrid columns="1" style="margin-top:10px;" > 
+                            <h:outputLabel value="Selecciona las imagenes: " />
+                        </h:panelGrid>
+
+                        <h:panelGrid id="tablegridimages" columns="2" class="tablegrid" style="width: 100%;" cellspacing="5">
+                            <p:dataTable id="tableimage1" var="stimulus" value="#{exerciseDiscriminationControllerPlus.stimulusImageList}" rowKey="#{stimulus.idStimulus}" paginator="true" rows="10"  
+                                         selection="#{exerciseDiscriminationControllerPlus.stimulusImage1}" >  
+                                <f:facet name="header">  
+                                    Imagen iguales
+                                </f:facet>  
+                                <p:column selectionMode="single" style="width:18px" />
+                                <p:column headerText="ID" sortBy="#{stimulus.idStimulus}" filterBy="#{stimulus.idStimulus}" id="ID">  
+                                    <div style="text-align: center;">
+                                        #{stimulus.idStimulus}  
+                                    </div>
+                                </p:column>  
+                                <p:ajax event="rowSelect"/>  
+                                <p:ajax event="rowUnselect"/>  
+                                <p:column headerText="Grupo" sortBy="#{stimulus.stimulusGroup.name}" filterBy="#{stimulus.stimulusGroup.name}" id="group">  
+                                    <div style="text-align: center;"  filterOptions="#{stimulus.stimulusGroup.name}"  
+                                         filterMatchMode="exact">
+                                        #{stimulus.stimulusGroup.name}  
+                                    </div>
+                                </p:column>  
+                                <p:column headerText="Nombre" sortBy="#{stimulus.name}" filterBy="#{stimulus.name}" id="name">  
+                                    <div style="text-align: center;">
+                                        #{stimulus.name}  
+                                    </div>
+                                </p:column>  
+                            </p:dataTable> 
+
+                            <p:dataTable id="tableimage2" var="stimulus" value="#{exerciseDiscriminationControllerPlus.stimulusImageList}" rowKey="#{stimulus.idStimulus}" paginator="true" rows="10"  
+                                         selection="#{exerciseDiscriminationControllerPlus.stimulusImage2}" >  
+                                <f:facet name="header">  
+                                    Imagen diferentes
+                                </f:facet>  
+                                <p:column selectionMode="single" style="width:18px" />
+                                <p:column headerText="ID" sortBy="#{stimulus.idStimulus}" filterBy="#{stimulus.idStimulus}" id="ID">  
+                                    <div style="text-align: center;">
+                                        #{stimulus.idStimulus}  
+                                    </div>
+                                </p:column>  
+                                <p:ajax event="rowSelect"/>  
+                                <p:ajax event="rowUnselect"/>  
+                                <p:column headerText="Grupo" sortBy="#{stimulus.stimulusGroup.name}" filterBy="#{stimulus.stimulusGroup.name}" id="group">  
+                                    <div style="text-align: center;"  filterOptions="#{stimulus.stimulusGroup.name}"  
+                                         filterMatchMode="exact">
+                                        #{stimulus.stimulusGroup.name}  
+                                    </div>
+                                </p:column>  
+                                <p:column headerText="Nombre" sortBy="#{stimulus.name}" filterBy="#{stimulus.name}" id="name">  
+                                    <div style="text-align: center;">
+                                        #{stimulus.name}  
+                                    </div>
+                                </p:column>  
+                            </p:dataTable> 
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">  
+                            <h:outputText value="Resultado: " />  
+                            <p:selectOneRadio id="options" value="#{exerciseDiscriminationControllerPlus.iguales}">  
+                                <f:selectItem itemLabel="Iguales" itemValue="true" />  
+                                <f:selectItem itemLabel="Diferentes" itemValue="false" />  
+                            </p:selectOneRadio>  
+                        </h:panelGrid>  
+                    </p:panel>
+                    <p:commandButton value="Volver" ajax="false" action="#{exerciseDiscriminationControllerPlus.back}" style="margin-top:10px;" icon="ui-icon-arrowreturnthick-1-w"/>
+                    
+                    <p:commandButton value="Guardar y crear otro" ajax="true" actionListener="#{exerciseDiscriminationControllerPlus.save}" action="#{exerciseDiscriminationControllerPlus.preEdit(null)}" style="margin-top:10px;float: right;" update="messages panel" icon="ui-icon-plusthick"/>
+                    
+                    <p:commandButton value="Guardar" ajax="true" actionListener="#{exerciseDiscriminationControllerPlus.save}"  style="margin-top:10px;float: right;" update="messages titulo" icon="ui-icon-disk"/>
+                    
+                    <p:growl id="messages" showDetail="true"/>
+                </h:form>  
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

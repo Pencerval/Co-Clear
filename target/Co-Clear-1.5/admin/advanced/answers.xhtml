@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+
+    </head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body">
+                <h1 class="title ui-widget-header ui-corner-all">Alta de respuestas</h1>
+                <h:form>  
+                    <p:panel id="panel" header="Selecciona un grupo de respuestas" style="margin-bottom:10px;"> 
+                        <h:panelGrid columns="2" > 
+                            <h:outputLabel value="Nombre del grupo de respuestas: "/>
+                            <p:selectOneMenu value="#{answersController.answerGroupSelected}" effect="fade">  
+                                <f:ajax listener="#{answersController.answerSelectedChanged}" />
+                                <f:selectItems value="#{answersController.answerGroupList}" var="answerGroupSelected" itemLabel="#{answerGroupSelected.name}" itemValue="#{answerGroupSelected}"/>  
+                            </p:selectOneMenu>  
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:panel id="panel2" header="Puedes añadir un grupo si fuera necesario" style="margin-bottom:10px;"> 
+                        <h:panelGrid columns="3">  
+                            <p:message for="nombre" id="msgs" showDetail="true"/> 
+                            <h:outputLabel for="nombre" value="Nombre: " style="margin-top:10px;"/>  
+                            <p:inputText id="nombre" value="#{answersController.answerGroupInput.name}" required="false" label="Nombre">  
+                            </p:inputText> 
+                        </h:panelGrid>
+                        <p:commandButton value="Crear grupo" update="panel" ajax="true" actionListener="#{answersController.saveAnswerGroup}" style="margin-top:10px;"/>
+                    </p:panel>
+                </h:form>  
+                <h:form>        
+                    <p:panel id="panel3" header="Añadir respuestas al grupo" style="margin-bottom:10px;"> 
+                        <p:message for="salvar"/>
+                        <h:panelGrid columns="3">  
+                            <p:message for="nombreNuevo" /> 
+                            <h:outputLabel for="nombreNuevo" value="Nombre: *" style="margin-top:10px;"/>  
+                            <p:inputText id="nombreNuevo" value="#{answersController.answer.name}" required="true" label="Nombre">  
+                                <f:validateLength minimum="1" />  
+                            </p:inputText>
+                            <p:message for="valor" /> 
+                            <h:outputLabel for="valor" value="Valor: *" style="margin-top:10px;"/>  
+                            <p:inputText id="valor" value="#{answersController.answer.valueName}" required="true" label="Valor">  
+                                <f:validateLength minimum="1" />  
+                            </p:inputText> 
+                            <p:message for="ejemplo" /> 
+                            <h:outputLabel for="ejemplo" value="Ejemplo: " style="margin-top:10px;"/>  
+                            <p:inputText id="ejemplo" value="#{answersController.answer.example}" required="false" label="Ejemplo">  
+                            </p:inputText> 
+                        </h:panelGrid>
+                        <p:commandButton id="salvar" update="messages" value="añadir respuesta al grupo" ajax="true" actionListener="#{answersController.saveAnswer}" style="margin-top:10px;"/>
+                        <p:growl id="messages" showDetail="true"/>  
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

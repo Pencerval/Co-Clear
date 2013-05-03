@@ -1,0 +1,19 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
+
+ALTER TABLE `coclear`.`result` DROP FOREIGN KEY `result_fk_id_user` ;
+
+ALTER TABLE `coclear`.`result` DROP COLUMN `id_user` , ADD COLUMN `id_user_task` INT(11) NOT NULL  AFTER `id_task_exercise` , 
+  ADD CONSTRAINT `fk_result_user_task1`
+  FOREIGN KEY (`id_user_task` )
+  REFERENCES `coclear`.`user_task` (`id_user_task` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION
+, ADD INDEX `fk_result_user_task1` (`id_user_task` ASC) 
+, DROP INDEX `result_fk_id_user` ;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

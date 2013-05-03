@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateStimulusGroupTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                                    <!-- 
+                    <h:outputLabel value="#{bundle.CreateStimulusGroupLabel_idStimulusGroup}" for="idStimulusGroup" />
+                    <h:inputText id="idStimulusGroup" value="#{stimulusGroupController.selected.idStimulusGroup}" title="#{bundle.CreateStimulusGroupTitle_idStimulusGroup}" required="true" requiredMessage="#{bundle.CreateStimulusGroupRequiredMessage_idStimulusGroup}"/>
+                    -->
+                <h:panelGrid columns="2">
+
+                    <h:outputLabel value="#{bundle.CreateStimulusGroupLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{stimulusGroupController.selected.name}" title="#{bundle.CreateStimulusGroupTitle_name}" required="true" requiredMessage="#{bundle.CreateStimulusGroupRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.CreateStimulusGroupLabel_description}" for="description" />
+                    <h:inputText id="description" value="#{stimulusGroupController.selected.description}" title="#{bundle.CreateStimulusGroupTitle_description}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{stimulusGroupController.create}" value="#{bundle.CreateStimulusGroupSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{stimulusGroupController.prepareList}" value="#{bundle.CreateStimulusGroupShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreateStimulusGroupIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

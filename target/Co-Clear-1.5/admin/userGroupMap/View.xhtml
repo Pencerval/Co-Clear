@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewUserGroupMapTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewUserGroupMapLabel_idUserGroupMap}"/>
+                    <h:outputText value="#{userGroupMapController.selected.idUserGroupMap}" title="#{bundle.ViewUserGroupMapTitle_idUserGroupMap}"/>
+                    <h:outputText value="#{bundle.ViewUserGroupMapLabel_userGroup}"/>
+                    <h:outputText value="#{userGroupMapController.selected.userGroup}" title="#{bundle.ViewUserGroupMapTitle_userGroup}"/>
+                    <h:outputText value="#{bundle.ViewUserGroupMapLabel_user}"/>
+                    <h:outputText value="#{userGroupMapController.selected.user}" title="#{bundle.ViewUserGroupMapTitle_user}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{userGroupMapController.destroyAndView}" value="#{bundle.ViewUserGroupMapDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewUserGroupMapEditLink}"/>
+                <br />
+                <h:commandLink action="#{userGroupMapController.prepareCreate}" value="#{bundle.ViewUserGroupMapCreateLink}" />
+                <br />
+                <h:commandLink action="#{userGroupMapController.prepareList}" value="#{bundle.ViewUserGroupMapShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewUserGroupMapIndexLink}" action="/admin/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

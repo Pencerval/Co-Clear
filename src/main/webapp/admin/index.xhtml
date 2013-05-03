@@ -15,11 +15,14 @@
                 <h1 class="title ui-widget-header ui-corner-all">Administración</h1>
                 <p:accordionPanel rendered="#{sessionScope['user'].isAdmin == 1}">
                     <p:tab title="Administración normal">
-                            <!-- 
-                            <h:form>
-                                <p:commandButton value="Prueba de sesion" ajax="false" action="advanced/test"/> 
-                            </h:form>
-                            -->
+                        <!-- 
+                        <h:form>
+                            <p:commandButton value="Prueba de sesion" ajax="false" action="advanced/test"/> 
+                        </h:form>
+                        <h:form>
+                            <p:commandButton value="Edicion de formantes" ajax="false" action="advanced/formantedit"/> 
+                        </h:form>
+                        -->
                         <h:panelGrid columns="6" cellpadding="10" >
                             <h:form>
                                 <p:commandButton value="Administrar usuarios" ajax="false" action="#{fastTestController.createNormalUser}" /> 
@@ -40,7 +43,6 @@
                                     <!-- <p:menuitem value="ABX" action="advanced/exerciseabx" ajax="false"/>  -->
                                 </p:menuButton> 
                             </h:form>
-
                             <h:form>
                                 <p:commandButton value="Administrar tareas" ajax="false" action="task/ListPlus"/> 
                             </h:form>
@@ -54,12 +56,12 @@
                                 <p:commandButton value="FastTest user launch" ajax="false" action="#{fastTestController.createFastUser}" actionListener="#{userGroupControllerPlus.preEdit(null)}" /> 
                             </h:form>
                             <h:form>
-                                <p:commandButton value="Edicion de formantes" ajax="false" action="advanced/formantedit"/> 
+                                <p:commandButton value="Administrar tags" ajax="false" action="tag/ListPlus" style="width: 128px;height: 40px;"/> 
                             </h:form>
-                        
                         </h:panelGrid>    
                     </p:tab>
                     <p:tab title="Administración avanzada">
+                        
                         <h:form>
                             <h:commandLink action="/admin/answer/List" value="Show All Answer Items"/>
                         </h:form>

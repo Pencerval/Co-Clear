@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateStimulusTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                                    <!-- <h:outputLabel value="#{bundle.CreateStimulusLabel_idStimulus}" for="idStimulus" />
+                    <h:inputText id="idStimulus" value="#{stimulusController.selected.idStimulus}" title="#{bundle.CreateStimulusTitle_idStimulus}" required="true" requiredMessage="#{bundle.CreateStimulusRequiredMessage_idStimulus}"/>
+                    <h:outputLabel value="#{bundle.CreateStimulusLabel_name}" for="name" />
+                    -->
+                <h:panelGrid columns="2">
+
+                    <h:inputText id="name" value="#{stimulusController.selected.name}" title="#{bundle.CreateStimulusTitle_name}" required="true" requiredMessage="#{bundle.CreateStimulusRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.CreateStimulusLabel_type}" for="type" />
+                    <h:inputText id="type" value="#{stimulusController.selected.type}" title="#{bundle.CreateStimulusTitle_type}" required="true" requiredMessage="#{bundle.CreateStimulusRequiredMessage_type}"/>
+                    <h:outputLabel value="#{bundle.CreateStimulusLabel_stimulusGroup}" for="stimulusGroup" />
+                    <h:selectOneMenu id="stimulusGroup" value="#{stimulusController.selected.stimulusGroup}" title="#{bundle.CreateStimulusTitle_stimulusGroup}" required="true" requiredMessage="#{bundle.CreateStimulusRequiredMessage_stimulusGroup}">
+                        <f:selectItems value="#{stimulusGroupController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{stimulusController.create}" value="#{bundle.CreateStimulusSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{stimulusController.prepareList}" value="#{bundle.CreateStimulusShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreateStimulusIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

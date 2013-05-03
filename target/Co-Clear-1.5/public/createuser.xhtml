@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body" >
+
+                <h:form>
+                    <p:growl id="growl" sticky="true" showDetail="true"/> 
+                    <p:wizard>
+                        <p:tab id="personal" title="Personal">
+                            <p:panel header="Personal Details">
+                                <p:messages/>
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="Login: *" />
+                                    <p:inputText required="true" label="Login"
+                                                 value="#{publicCreateUserController.user.login}" >
+                                    </p:inputText>
+                                    <h:outputText value="Password: *" />
+                                    <p:password feedback="feedback" minLength="4" required="true" label="Password"
+                                                value="#{publicCreateUserController.user.password}" />
+                                    <h:outputText value="Name: " />
+                                    <p:inputText value="#{publicCreateUserController.user.name}" required="false" label="Name">
+                                    </p:inputText>
+                                    <h:outputText value="Email: " />
+                                    <p:inputText value="#{publicCreateUserController.user.email}" required="false" label="Email">
+                                    </p:inputText>
+                                    <h:outputText value="Phone: " />
+                                    <p:inputText value="#{publicCreateUserController.user.phone}" required="false" label="Phone">
+                                    </p:inputText>
+                                    <h:outputText value="Birthdate: " />
+                                    <p:calendar value="#{publicCreateUserController.user.birthdate}" required="false" navigator="true" label="Birthdate" yearRange="c-150:c+0"/>   
+                                    <h:outputText value="Gender: " />
+                                    <h:selectOneRadio id="gender" value="#{publicCreateUserController.user.gender}">
+                                        <f:selectItem id="item1" itemLabel="Male" itemValue="true" />
+                                        <f:selectItem id="item2" itemLabel="Female" itemValue="false" />
+                                    </h:selectOneRadio>
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+                        <p:tab id="medical" title="Medical">
+                            <p:panel header="Medical history">
+                                <p:messages/>
+                                <h:panelGrid columns="2" columnClasses="label, value" >
+                                    <h:outputText value="Hearing loss date " />
+                                    <p:calendar value="#{publicCreateUserController.user.hearingLossDate}" required="false" navigator="true" label="hearingLossDate" yearRange="c-150:c+0"/>
+                                    <h:outputText value="Cause Deafness: " />
+                                    <p:inputText value="#{publicCreateUserController.user.causeDeafnes}" required="false" label="causeDeafnes">
+                                    </p:inputText>
+                                    <h:outputText value="Degree deafness (dB HL): " />
+                                    <h:selectOneMenu id="list1" value="#{publicCreateUserController.user.degreeDeafness}">
+                                        <f:selectItem itemLabel="Normal (–10 to 15)" itemValue="Normal"></f:selectItem>
+                                        <f:selectItem itemLabel="Slight (16 to 25)" itemValue="Slight"></f:selectItem>
+                                        <f:selectItem itemLabel="Mild (26 to 40)" itemValue="Mild"></f:selectItem>
+                                        <f:selectItem itemLabel="Moderate (41 to 55)" itemValue="Moderate"></f:selectItem>
+                                        <f:selectItem itemLabel="Moderately severe (56 to 70)" itemValue="Moderately"></f:selectItem>
+                                        <f:selectItem itemLabel="Severe (71 to 90)" itemValue="Severe"></f:selectItem>
+                                        <f:selectItem itemLabel="Profound (91+)" itemValue="Profound"></f:selectItem>
+                                    </h:selectOneMenu>
+                                    <h:outputText value="Cochlear implant model: " />
+                                    <h:selectOneMenu id="list2" value="#{publicCreateUserController.user.cochlearImplantModel}">
+                                        <f:selectItem itemLabel="MED-EL" itemValue="MED-EL"></f:selectItem>
+                                        <f:selectItem itemLabel="Neurelec" itemValue="Neurelec"></f:selectItem>
+                                        <f:selectItem itemLabel="Cochlear Limited" itemValue="Cochlear Limited"></f:selectItem>
+                                        <f:selectItem itemLabel="Advanced Bionics" itemValue="Advanced Bionics"></f:selectItem>
+                                    </h:selectOneMenu>
+                                    <h:outputText value="implantation date " />
+                                    <p:calendar value="#{publicCreateUserController.user.implantationDate}" required="false" navigator="true" label="implantationDate" yearRange="c-150:c+0"/>
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+                        <p:tab id="lenguage" title="Language">
+                            <p:panel header="Language Background">
+                                <p:messages/>
+                                <h:panelGrid columns="2" columnClasses="label, value">
+                                    <h:outputText value="Sign language: " />
+                                    <h:selectOneRadio id="sign_lenguage" value="#{publicCreateUserController.user.signLanguage}">
+                                        <f:selectItem id="item3" itemLabel="Yes" itemValue="true" />
+                                        <f:selectItem id="item4" itemLabel="No" itemValue="false" />
+                                    </h:selectOneRadio>
+                                    <h:outputText value="Speech reading: " />
+                                    <h:selectOneRadio id="speech_reading" value="#{publicCreateUserController.user.speechReading}">
+                                        <f:selectItem id="item5" itemLabel="Yes" itemValue="true" />
+                                        <f:selectItem id="item6" itemLabel="No" itemValue="false" />
+                                    </h:selectOneRadio>
+                                    <h:outputText value="Speech therapy: " />
+                                    <h:selectOneRadio id="speech_therapy" value="#{publicCreateUserController.user.speechTherapy}">
+                                        <f:selectItem id="item7" itemLabel="Yes" itemValue="true" />
+                                        <f:selectItem id="item8" itemLabel="No" itemValue="false" />
+                                    </h:selectOneRadio>
+                                    <h:outputText value="Educational orientation: " />
+                                    <h:selectOneRadio id="educational_orientation" value="#{publicCreateUserController.user.educationalOrientation}">
+                                        <f:selectItem id="item9" itemLabel="Yes" itemValue="true" />
+                                        <f:selectItem id="item10" itemLabel="No" itemValue="false" />
+                                    </h:selectOneRadio>
+                                    <h:outputText value="bilingual: " />
+                                    <h:selectOneRadio id="bilingual" value="#{publicCreateUserController.user.bilingual}">
+                                        <f:selectItem id="item11" itemLabel="Yes" itemValue="true"/>
+                                        <f:selectItem id="item12" itemLabel="No" itemValue="false" />
+                                    </h:selectOneRadio>
+                                    <h:outputText value="Comments: " />
+                                    <h:inputTextarea id="comments" value="#{publicCreateUserController.user.comments}" />
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+                        <p:tab id="confirm" title="Confirm">
+                            <p:panel header="Confirmation">
+                                <p:messages/>
+                                <h:panelGrid id="confirmation" columns="6" width="100%">
+                                    <h:outputText value="Login: " />
+                                    <h:outputText styleClass="outputLabel"
+                                                  value="#{publicCreateUserController.user.login}" />
+                                    <h:outputText value="Name: " />
+                                    <h:outputText styleClass="outputLabel"
+                                                  value="#{publicCreateUserController.user.name}" />
+                                    <h:outputText value="Email: " />
+                                    <h:outputText styleClass="outputLabel"
+                                                  value="#{publicCreateUserController.user.email}" />
+                                    <h:outputText value="Phone: " />
+                                    <h:outputText styleClass="outputLabel"
+                                                  value="#{publicCreateUserController.user.phone}" />
+                                    <h:outputText value="Birthdate: " />
+                                    <h:outputText styleClass="outputLabel"
+                                                  value="#{publicCreateUserController.user.birthdate}" />
+                                    <h:outputText value="Gender: " />
+                                    <h:outputText styleClass="outputLabel"
+                                                  value="#{publicCreateUserController.getBooleanGender(publicCreateUserController.user.gender)}" />
+                                    <h:outputText value="hearing loss date: " />
+                                    <h:outputText styleClass="outputLabel"
+                                                  value="#{publicCreateUserController.user.hearingLossDate}" />
+                                    <h:outputText value="Cause Deafness: " />
+                                    <h:outputText styleClass="outputLabel"
+                                                  value="#{publicCreateUserController.user.causeDeafnes}" />
+                                    <h:outputText value="Degree deafness: " />
+                                    <h:outputText styleClass="outputLabel"
+                                                  value="#{publicCreateUserController.user.degreeDeafness}" />
+
+                                    <h:outputText value="cochlear Implant model: " />
+                                    <h:outputText styleClass="outputLabel"
+                                                  value="#{publicCreateUserController.user.cochlearImplantModel}" />
+                                    <h:outputText value="implantation date: " />
+                                    <h:outputText styleClass="outputLabel"
+                                                  value="#{publicCreateUserController.user.implantationDate}" />
+                                    <h:outputText value="sign language: " />
+                                    <h:outputText styleClass="outputLabel"
+                                                  value="#{publicCreateUserController.getBoolean(publicCreateUserController.user.signLanguage)}" />
+                                    <h:outputText value="Speech reading: " />
+                                    <h:outputText styleClass="outputLabel"
+                                                  value="#{publicCreateUserController.getBoolean(publicCreateUserController.user.speechReading)}" />
+                                    <h:outputText value="Speech therapy: " />
+                                    <h:outputText styleClass="outputLabel"
+                                                  value="#{publicCreateUserController.getBoolean(publicCreateUserController.user.speechTherapy)}" />
+                                    <h:outputText value="Educational orientation: " />
+                                    <h:outputText styleClass="outputLabel"
+                                                  value="#{publicCreateUserController.getBoolean(publicCreateUserController.user.educationalOrientation)}" />
+                                    <h:outputText value="Bilingual: " />
+                                    <h:outputText styleClass="outputLabel"
+                                                  value="#{publicCreateUserController.getBoolean(publicCreateUserController.user.bilingual)}" />
+                                    <h:outputText value="Comments: " />
+                                    <h:outputText styleClass="outputLabel"
+                                                  value="#{publicCreateUserController.user.comments}" />
+
+
+                                </h:panelGrid>
+                                <p:commandButton value="Submit" update="growl" action="#{publicCreateUserController.create}" />
+                            </p:panel>
+                        </p:tab>
+                    </p:wizard>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

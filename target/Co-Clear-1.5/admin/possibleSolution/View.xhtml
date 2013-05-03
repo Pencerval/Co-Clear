@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewPossibleSolutionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewPossibleSolutionLabel_idPossibleSolution}"/>
+                    <h:outputText value="#{possibleSolutionController.selected.idPossibleSolution}" title="#{bundle.ViewPossibleSolutionTitle_idPossibleSolution}"/>
+                    <h:outputText value="#{bundle.ViewPossibleSolutionLabel_correct}"/>
+                    <h:outputText value="#{possibleSolutionController.selected.correct}" title="#{bundle.ViewPossibleSolutionTitle_correct}"/>
+                    <h:outputText value="#{bundle.ViewPossibleSolutionLabel_order}"/>
+                    <h:outputText value="#{possibleSolutionController.selected.answerOrder}" title="#{bundle.ViewPossibleSolutionTitle_order}"/>
+                    <h:outputText value="#{bundle.ViewPossibleSolutionLabel_exercise}"/>
+                    <h:outputText value="#{possibleSolutionController.selected.exercise}" title="#{bundle.ViewPossibleSolutionTitle_exercise}"/>
+                    <h:outputText value="#{bundle.ViewPossibleSolutionLabel_answer}"/>
+                    <h:outputText value="#{possibleSolutionController.selected.answer}" title="#{bundle.ViewPossibleSolutionTitle_answer}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{possibleSolutionController.destroyAndView}" value="#{bundle.ViewPossibleSolutionDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewPossibleSolutionEditLink}"/>
+                <br />
+                <h:commandLink action="#{possibleSolutionController.prepareCreate}" value="#{bundle.ViewPossibleSolutionCreateLink}" />
+                <br />
+                <h:commandLink action="#{possibleSolutionController.prepareList}" value="#{bundle.ViewPossibleSolutionShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewPossibleSolutionIndexLink}" action="/admin/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

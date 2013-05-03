@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTaskExerciseTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTaskExerciseLabel_idTaskExercise}"/>
+                    <h:outputText value="#{taskExerciseController.selected.idTaskExercise}" title="#{bundle.ViewTaskExerciseTitle_idTaskExercise}"/>
+                    <h:outputText value="#{bundle.ViewTaskExerciseLabel_order}"/>
+                    <h:outputText value="#{taskExerciseController.selected.exerciseOrder}" title="#{bundle.ViewTaskExerciseTitle_order}"/>
+                    <h:outputText value="#{bundle.ViewTaskExerciseLabel_task}"/>
+                    <h:outputText value="#{taskExerciseController.selected.task}" title="#{bundle.ViewTaskExerciseTitle_task}"/>
+                    <h:outputText value="#{bundle.ViewTaskExerciseLabel_exercise}"/>
+                    <h:outputText value="#{taskExerciseController.selected.exercise}" title="#{bundle.ViewTaskExerciseTitle_exercise}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{taskExerciseController.destroyAndView}" value="#{bundle.ViewTaskExerciseDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewTaskExerciseEditLink}"/>
+                <br />
+                <h:commandLink action="#{taskExerciseController.prepareCreate}" value="#{bundle.ViewTaskExerciseCreateLink}" />
+                <br />
+                <h:commandLink action="#{taskExerciseController.prepareList}" value="#{bundle.ViewTaskExerciseShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewTaskExerciseIndexLink}" action="/admin/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -33,6 +33,9 @@ public class UserFacade extends AbstractFacade<User> {
         Query query = em.createNamedQuery("User.findByLogin");
         query.setParameter("login", login);
         List resultList = query.getResultList();
+        if(resultList.isEmpty()){
+            return null;
+        }
         return (User) resultList.get(0);
     }
     

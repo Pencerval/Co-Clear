@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>Tarea de identificacion</title>
+
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body" >
+
+
+                <h:form id="form1">
+
+
+                    <audio id="sound1" autoplay="autoplay">
+                        <source src="../stimulussound?id=#{playExerciseDiscriminationOneStimulusController.currentStimulusSound.idStimulus}" type="audio/wav"/>
+                        Your browser does not support the audio tag.
+                    </audio>
+
+                    <p:panel id="exercise" style="margin-top: 4px;margin-bottom: 5px;" header="Ejer 1">
+                        <p:growl id="growlexercise" showDetail="true"/>
+                        <h:panelGrid columns="2"  id="grid" style="width: 100%" styleClass="tablegrid" >
+
+                            <p:panel id="panelanswer" >
+                                <f:facet name="header">
+                                    <h:outputText value="¿Empieza o termina fuerte?" style="text-align: center;display: block;"/>
+                                </f:facet>
+                                <div align="center">
+                                    <h:panelGrid columns="3"  id="grid2" style="text-align: center;">
+                                        <p:commandButton rendered="${playExerciseDiscriminationOneStimulusController.selectedIdStimulus == -1 or playExerciseDiscriminationOneStimulusController.selectedIdStimulus == playExerciseDiscriminationOneStimulusController.currentStimulusImage1.idStimulus}" actionListener="#{playExerciseDiscriminationOneStimulusController.setSelectedIdStimulus(playExerciseDiscriminationOneStimulusController.currentStimulusImage1.idStimulus)}" update="exercise" style="width: 200px;height: 200px;background-image: url(../stimulusimage?id=#{playExerciseDiscriminationOneStimulusController.currentStimulusImage1.idStimulus}) !important;background-size:contain;background-repeat:no-repeat; "  value="" oncomplete="jQuery('#feedback').effect('pulsate', {times:3}, 1500)"/>
+                                        <p:commandButton rendered="${playExerciseDiscriminationOneStimulusController.selectedIdStimulus != -1 and playExerciseDiscriminationOneStimulusController.selectedIdStimulus != playExerciseDiscriminationOneStimulusController.currentStimulusImage1.idStimulus}" disabled="true" actionListener="#{playExerciseDiscriminationOneStimulusController.setSelectedIdStimulus(playExerciseDiscriminationOneStimulusController.currentStimulusImage1.idStimulus)}" update="exercise" style="width: 200px;height: 200px;background-image: url(../stimulusimage?id=#{playExerciseDiscriminationOneStimulusController.currentStimulusImage1.idStimulus}) !important;background-size:contain;background-repeat:no-repeat; "  value=""/>
+                                        <p:spacer width="100"/>
+                                        <p:commandButton rendered="${playExerciseDiscriminationOneStimulusController.selectedIdStimulus == -1 or playExerciseDiscriminationOneStimulusController.selectedIdStimulus == playExerciseDiscriminationOneStimulusController.currentStimulusImage2.idStimulus}" actionListener="#{playExerciseDiscriminationOneStimulusController.setSelectedIdStimulus(playExerciseDiscriminationOneStimulusController.currentStimulusImage2.idStimulus)}" update="exercise" style="width: 200px;height: 200px;background-image: url(../stimulusimage?id=#{playExerciseDiscriminationOneStimulusController.currentStimulusImage2.idStimulus}) !important;background-size:contain;background-repeat:no-repeat;"  value="" oncomplete="jQuery('#feedback').effect('pulsate', {times:3}, 1500)"/>
+                                        <p:commandButton rendered="${playExerciseDiscriminationOneStimulusController.selectedIdStimulus != -1 and playExerciseDiscriminationOneStimulusController.selectedIdStimulus != playExerciseDiscriminationOneStimulusController.currentStimulusImage2.idStimulus}" disabled="true" actionListener="#{playExerciseDiscriminationOneStimulusController.setSelectedIdStimulus(playExerciseDiscriminationOneStimulusController.currentStimulusImage2.idStimulus)}" update="exercise" style="width: 200px;height: 200px;background-image: url(../stimulusimage?id=#{playExerciseDiscriminationOneStimulusController.currentStimulusImage2.idStimulus}) !important;background-size:contain;background-repeat:no-repeat;"  value=""/>
+                                        <h:outputText value="A&#62;a" style="font-size:150%;"/>
+                                        <p:spacer/>
+                                        <h:outputText value="a&#60;A" style="font-size:150%;"/>
+                                    </h:panelGrid>    
+                                </div>
+                            </p:panel>
+                            <h:panelGroup>
+                                <p:panel style="margin-bottom: 50px;">
+                                    <f:facet name="header">
+                                        <h:outputText value="Restantes" style="text-align: center;display: block;"/>
+                                    </f:facet>
+                                    <div align="center">
+                                        <h:outputText value="#{playExerciseDiscriminationOneStimulusController.position + 1} / #{playExerciseDiscriminationOneStimulusController.exercises.size()}" style="font-size:250%;"/>
+                                    </div>
+
+                                </p:panel>
+                                <div align="center" style="float: " id="feedback">
+                                    <h:panelGrid columns="1"> 
+                                        <p:graphicImage rendered="${playExerciseDiscriminationOneStimulusController.correct!=null and playExerciseDiscriminationOneStimulusController.correct}" value="../resources/images/check.png"/>
+                                        <!-- <h:outputText rendered="${playExerciseDiscriminationOneStimulusController.correct!=null and playExerciseDiscriminationOneStimulusController.correct}" value="Correcto!" style="font-size:150%;"/>-->
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="1"> 
+                                        <p:graphicImage rendered="${playExerciseDiscriminationOneStimulusController.correct!=null and not playExerciseDiscriminationOneStimulusController.correct}" value="../resources/images/fail.png"/>
+                                        <!--<h:outputText rendered="${playExerciseDiscriminationOneStimulusController.correct!=null and not playExerciseDiscriminationOneStimulusController.correct}" value="Incorrecto!" style="font-size:150%;"/>-->
+                                    </h:panelGrid>
+                                </div>
+                            </h:panelGroup>
+
+                            <p:panel id="panelplay" style="margin-top: 10px">
+                                <f:facet name="header">
+                                    <h:outputText value="Pulsa para avanzar a la siguiente prueba" style="text-align: center;display: block;"/>
+                                </f:facet>
+
+                                <div id="playbutton" align="center" style="vertical-align: botton;">
+                                    <p:commandButton disabled="#{playExerciseDiscriminationOneStimulusController.played}" actionListener="#{playExerciseDiscriminationOneStimulusController.doNext}" icon="play" alt="play" style="width: 70px;height: 68px;" />
+                                </div>
+                            </p:panel>
+
+                        </h:panelGrid>
+                    </p:panel>
+                <p:dialog id="completedialog" modal="true" header="Tarea completada" widgetVar="completedialog" showEffect="explode" style="left: 40% !important;top: 40% !important;">  
+                    <h:outputText value="¡Buen trabajo!" />  
+                    <p:commandButton value="Volver" action="/public/index.xhtml" ajax="false" />
+                </p:dialog> 
+
+
+                </h:form>
+               
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>
+

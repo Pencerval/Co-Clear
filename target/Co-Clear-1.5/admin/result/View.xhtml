@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewResultTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewResultLabel_idResult}"/>
+                    <h:outputText value="#{resultController.selected.idResult}" title="#{bundle.ViewResultTitle_idResult}"/>
+                    <h:outputText value="#{bundle.ViewResultLabel_start}"/>
+                    <h:outputText value="#{resultController.selected.start}" title="#{bundle.ViewResultTitle_start}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewResultLabel_end}"/>
+                    <h:outputText value="#{resultController.selected.end}" title="#{bundle.ViewResultTitle_end}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewResultLabel_user}"/>
+                    <h:outputText value="#{resultController.selected.user}" title="#{bundle.ViewResultTitle_user}"/>
+                    <h:outputText value="#{bundle.ViewResultLabel_taskExercise}"/>
+                    <h:outputText value="#{resultController.selected.taskExercise}" title="#{bundle.ViewResultTitle_taskExercise}"/>
+                    <h:outputText value="#{bundle.ViewResultLabel_answer}"/>
+                    <h:outputText value="#{resultController.selected.answer}" title="#{bundle.ViewResultTitle_answer}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{resultController.destroyAndView}" value="#{bundle.ViewResultDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewResultEditLink}"/>
+                <br />
+                <h:commandLink action="#{resultController.prepareCreate}" value="#{bundle.ViewResultCreateLink}" />
+                <br />
+                <h:commandLink action="#{resultController.prepareList}" value="#{bundle.ViewResultShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewResultIndexLink}" action="/admin/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

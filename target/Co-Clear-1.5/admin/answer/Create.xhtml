@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateAnswerTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <!-- <h:outputLabel value="#{bundle.CreateAnswerLabel_idAnswer}" for="idAnswer" />
+                    <h:inputText id="idAnswer" value="#{answerController.selected.idAnswer}" title="#{bundle.CreateAnswerTitle_idAnswer}" required="true" requiredMessage="#{bundle.CreateAnswerRequiredMessage_idAnswer}"/>
+                    -->
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateAnswerLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{answerController.selected.name}" title="#{bundle.CreateAnswerTitle_name}" required="true" requiredMessage="#{bundle.CreateAnswerRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.CreateAnswerLabel_valueName}" for="valueName" />
+                    <h:inputText id="valueName" value="#{answerController.selected.valueName}" title="#{bundle.CreateAnswerTitle_valueName}" required="true" requiredMessage="#{bundle.CreateAnswerRequiredMessage_valueName}"/>
+                    <h:outputLabel value="#{bundle.CreateAnswerLabel_example}" for="example" />
+                    <h:inputText id="example" value="#{answerController.selected.example}" title="#{bundle.CreateAnswerTitle_example}" />
+                    <h:outputLabel value="#{bundle.CreateAnswerLabel_answerGroup}" for="answerGroup" />
+                    <h:selectOneMenu id="answerGroup" value="#{answerController.selected.answerGroup}" title="#{bundle.CreateAnswerTitle_answerGroup}" required="true" requiredMessage="#{bundle.CreateAnswerRequiredMessage_answerGroup}">
+                        <f:selectItems value="#{answerGroupController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{answerController.create}" value="#{bundle.CreateAnswerSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{answerController.prepareList}" value="#{bundle.CreateAnswerShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreateAnswerIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

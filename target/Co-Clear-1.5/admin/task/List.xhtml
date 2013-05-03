@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTaskTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListTaskEmpty}" rendered="#{taskController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{taskController.items.rowCount > 0}">
+                    <h:outputText value="#{taskController.pagination.pageFirstItem + 1}..#{taskController.pagination.pageLastItem + 1}/#{taskController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{taskController.previous}" value="#{bundle.Previous} #{taskController.pagination.pageSize}" rendered="#{taskController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{taskController.next}" value="#{bundle.Next} #{taskController.pagination.pageSize}" rendered="#{taskController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{taskController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTaskTitle_idTask}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idTask}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTaskTitle_name}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTaskTitle_repeatable}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.repeatable}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTaskTitle_isUserDefault}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.isUserDefault}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTaskTitle_type}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.type}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTaskTitle_description}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.description}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTaskTitle_help}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.help}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{taskController.prepareView}" value="#{bundle.ListTaskViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{taskController.prepareEdit}" value="#{bundle.ListTaskEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{taskController.destroy}" value="#{bundle.ListTaskDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{taskController.prepareCreate}" value="#{bundle.ListTaskCreateLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ListTaskIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

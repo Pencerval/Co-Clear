@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditStimulusTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditStimulusLabel_idStimulus}" for="idStimulus" />
+                    <h:inputText id="idStimulus" value="#{stimulusController.selected.idStimulus}" title="#{bundle.EditStimulusTitle_idStimulus}" required="true" requiredMessage="#{bundle.EditStimulusRequiredMessage_idStimulus}"/>
+                    <h:outputLabel value="#{bundle.EditStimulusLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{stimulusController.selected.name}" title="#{bundle.EditStimulusTitle_name}" required="true" requiredMessage="#{bundle.EditStimulusRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.EditStimulusLabel_type}" for="type" />
+                    <h:inputText id="type" value="#{stimulusController.selected.type}" title="#{bundle.EditStimulusTitle_type}" required="true" requiredMessage="#{bundle.EditStimulusRequiredMessage_type}"/>
+                    <h:outputLabel value="#{bundle.EditStimulusLabel_stimulusGroup}" for="stimulusGroup" />
+                    <h:selectOneMenu id="stimulusGroup" value="#{stimulusController.selected.stimulusGroup}" title="#{bundle.EditStimulusTitle_stimulusGroup}" required="true" requiredMessage="#{bundle.EditStimulusRequiredMessage_stimulusGroup}">
+                        <f:selectItems value="#{stimulusGroupController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{stimulusController.update}" value="#{bundle.EditStimulusSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditStimulusViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{stimulusController.prepareList}" value="#{bundle.EditStimulusShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditStimulusIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

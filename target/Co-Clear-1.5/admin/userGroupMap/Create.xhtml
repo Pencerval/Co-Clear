@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateUserGroupMapTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                                    <!-- 
+                    <h:outputLabel value="#{bundle.CreateUserGroupMapLabel_idUserGroupMap}" for="idUserGroupMap" />
+                    <h:inputText id="idUserGroupMap" value="#{userGroupMapController.selected.idUserGroupMap}" title="#{bundle.CreateUserGroupMapTitle_idUserGroupMap}" required="true" requiredMessage="#{bundle.CreateUserGroupMapRequiredMessage_idUserGroupMap}"/>
+                    -->
+                <h:panelGrid columns="2">
+
+                    <h:outputLabel value="#{bundle.CreateUserGroupMapLabel_userGroup}" for="userGroup" />
+                    <h:selectOneMenu id="userGroup" value="#{userGroupMapController.selected.userGroup}" title="#{bundle.CreateUserGroupMapTitle_userGroup}" required="true" requiredMessage="#{bundle.CreateUserGroupMapRequiredMessage_userGroup}">
+                        <f:selectItems value="#{userGroupController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateUserGroupMapLabel_user}" for="user" />
+                    <h:selectOneMenu id="user" value="#{userGroupMapController.selected.user}" title="#{bundle.CreateUserGroupMapTitle_user}" required="true" requiredMessage="#{bundle.CreateUserGroupMapRequiredMessage_user}">
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{userGroupMapController.create}" value="#{bundle.CreateUserGroupMapSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{userGroupMapController.prepareList}" value="#{bundle.CreateUserGroupMapShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreateUserGroupMapIndexLink}" action="/admin/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

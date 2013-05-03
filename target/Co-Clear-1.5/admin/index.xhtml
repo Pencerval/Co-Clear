@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <!--<h:outputStylesheet name="css/jsfcrud.css"/>-->
+    </h:head>
+    <h:body>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="body" >
+                <h1 class="title ui-widget-header ui-corner-all">Administración</h1>
+                <p:accordionPanel rendered="#{sessionScope['user'].isAdmin == 1}">
+                    <p:tab title="Administración normal">
+                        <!-- 
+                        <h:form>
+                            <p:commandButton value="Prueba de sesion" ajax="false" action="advanced/test"/> 
+                        </h:form>
+                        <h:form>
+                            <p:commandButton value="Edicion de formantes" ajax="false" action="advanced/formantedit"/> 
+                        </h:form>
+                        -->
+                        <h:panelGrid columns="6" cellpadding="10" >
+                            <h:form>
+                                <p:commandButton value="Administrar usuarios" ajax="false" action="#{fastTestController.createNormalUser}" /> 
+                            </h:form>
+                            <h:form>
+                                <p:commandButton value="Administrar estímulos" ajax="false" action="stimulusGroup/ListPlus" /> 
+                            </h:form>
+                            <h:form>
+                                <p:commandButton value="Alta de respuestas" ajax="false" action="advanced/answers" /> 
+                            </h:form>
+                            <h:form>
+                                <p:menuButton value="Administrar ejercicios" >  
+                                    <p:menuitem value="Identificación" action="advanced/exerciseidentification" ajax="false"/>  
+                                    <p:menuitem value="Identificación de entonación" action="exerciseDiscriminationOneStimulus/ListPlus" ajax="false"/>  
+                                    <p:menuitem value="Discriminación" action="exerciseDiscrimination/ListPlus" ajax="false"/>
+                                    <p:menuitem value="Memoria" action="exerciseMemo/ListPlus" ajax="false"/>
+                                    <!--<p:menuitem value="Display" action="exerciseGameDisplay/ListPlus" ajax="false"/>-->
+                                    <!-- <p:menuitem value="ABX" action="advanced/exerciseabx" ajax="false"/>  -->
+                                </p:menuButton> 
+                            </h:form>
+                            <h:form>
+                                <p:commandButton value="Administrar tareas" ajax="false" action="task/ListPlus"/> 
+                            </h:form>
+                            <h:form>
+                                <p:commandButton value="Asignación de tareas" ajax="false" action="advanced/taskgroupuser" actionListener="#{userTaskControllerPlus.preEdit}"/> 
+                            </h:form>
+                            <h:form>
+                                <p:commandButton value="Salida de resultados" ajax="false" action="advanced/briefings"/> 
+                            </h:form>
+                            <h:form>
+                                <p:commandButton value="FastTest user launch" ajax="false" action="#{fastTestController.createFastUser}" actionListener="#{userGroupControllerPlus.preEdit(null)}" /> 
+                            </h:form>
+                            <h:form>
+                                <p:commandButton value="Administrar tags" ajax="false" action="tag/ListPlus" style="width: 128px;height: 40px;"/> 
+                            </h:form>
+                        </h:panelGrid>    
+                    </p:tab>
+                    <p:tab title="Administración avanzada">
+                        
+                        <h:form>
+                            <h:commandLink action="/admin/answer/List" value="Show All Answer Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/answerGroup/List" value="Show All AnswerGroup Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/defaultGroupTask/List" value="Show All DefaultGroupTask Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/excersice/List" value="Show All Exersice Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/exerciseStimulusMap/List" value="Show All ExerciseStimulusMap Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/possibleSolution/List" value="Show All PossibleSolution Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/result/List" value="Show All Result Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/stimulus/List" value="Show All Stimulus Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/stimulusGroup/List" value="Show All StimulusGroup Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/task/List" value="Show All Task Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/taskExercise/List" value="Show All TaskExercise Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/user/List" value="Show All User Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/userGroup/List" value="Show All UserGroup Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/userGroupMap/List" value="Show All UserGroupMap Items"/>
+                        </h:form>
+                        <h:form>
+                            <h:commandLink action="/admin/userTask/List" value="Show All UserTask Items"/>
+                        </h:form>
+                    </p:tab>
+                </p:accordionPanel>
+                <p:panel header="Administración" rendered="#{sessionScope['user'].isAdmin == 2}">
+                    <h:panelGrid columns="4" cellpadding="10" >
+                        <h:form>
+                            <p:commandButton value="Administrar usuarios" ajax="false" action="#{fastTestController.createNormalUser}"/> 
+                        </h:form>
+                        <h:form>
+                            <p:commandButton value="Asignación de tareas" ajax="false" action="advanced/taskgroupuser" actionListener="#{userTaskControllerPlus.preEdit}"/> 
+                        </h:form>
+                        <h:form>
+                            <p:commandButton value="Salida de resultados" ajax="false" action="advanced/briefings" /> 
+                        </h:form>
+                        <h:form>
+                            <p:commandButton value="Crear usuario y comezar test" ajax="false" action="#{fastTestController.createFastUser}" actionListener="#{userGroupControllerPlus.preEdit(null)}" /> 
+                        </h:form>
+                    </h:panelGrid>    
+                </p:panel>
+                <!--<h:form><p:commandButton value="Hello from PrimeFaces" onclick="dlg1.show();" type="button" /><p:dialog header="PrimeFaces Dialog" widgetVar="dlg1" width="500">For more information visit <a href="http://primefaces.org">http://primefaces.org</a>.</p:dialog></h:form>-->
+                <!--
+                                            <h:form>
+                                <p:commandButton value="Alta de ejercicios ABX" ajax="false" action="advanced/exerciseabx" /> 
+                            </h:form>
+                            <h:form>
+                                <p:commandButton value="Alta de ejercicios Identificación" ajax="false" action="advanced/exerciseidentification" /> 
+                            </h:form>
+                -->
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

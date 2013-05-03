@@ -1,0 +1,611 @@
+html {
+    zoom: 125%;
+}
+
+
+.logincontainer {
+    /*display: inline-block;*/
+    position: relative;
+    margin: 0 auto 0 auto;
+    width: 515px;
+    /*text-align: center;*/
+    /*display:block;*/
+}
+
+.loginitem{
+    height: 154px;
+}
+
+/*.loginitem2{
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    right: 5px;
+}*/
+
+.logincontainer TR TD {
+    width: 50%;
+    position: relative;
+}
+
+.logincontainer button {
+    width: 80%;
+    margin-left: 10%;
+}
+
+
+
+.logincontainer table {
+    width: 100%;
+
+}
+
+#logo h1 {
+    padding: 0 0 0 0;
+    letter-spacing: -1px;
+    font-weight: normal;
+    font-size: 3em;
+}
+
+#logo {
+    width: 960px;
+    height: 75px;
+    margin: 0 auto;
+    padding: 25px 10px 0 10px;
+}
+
+body {
+    margin: 0px;
+    padding: 0;
+    font-size: 12px;
+    color: #616161;
+}
+
+h1, h2, h3 {
+    margin-top: 0;
+}
+
+h1 {
+    font-size: 1.6em;
+    font-weight: normal;
+}
+
+h2 {
+    font-size: 1.6em;
+}
+
+h3 {
+    font-size: 1em;
+    margin-top:20px;
+}
+
+ul {
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a img {
+    border: none;
+}
+
+img.left {
+    float: left;
+    margin: 0 20px 0 0;
+}
+
+img.right {
+    float: right;
+    margin: 0 0 0 20px;
+}
+
+/* Header */
+#logo {
+    width: 960px;
+    height: 75px;
+    margin: 0 auto;
+    padding: 25px 10px 0 10px;
+}
+
+#logo h1, #logo p {
+    float: left;
+    margin: 0;
+}
+
+#logo h1 {
+    padding: 0 0 0 0;
+    letter-spacing: -1px;
+    font-weight: normal;
+    font-size: 3em;
+}
+
+#logo p {
+    text-transform: uppercase;
+    padding: 47px 0 0 3px;
+    font-size: 10px;
+    color: #FFFFFF;
+}
+
+#logo a {
+    border: none;
+    text-decoration: none;
+    color: #DC8700;
+}
+
+/* Menu */
+#menu {
+    width: 960px;
+    margin: 0 auto;
+    padding: 0;
+    height: 59px;
+}
+
+#menu ul {
+    margin: 0;
+    padding-left: 270px;
+    list-style: none;
+}
+
+#menu li {
+    display: inline;
+}
+
+#menu li a {
+    display: block;
+    float: left;
+    height: 42px;
+    margin: 0;
+    padding: 18px 40px 0 40px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+#menu li a:hover {
+    text-decoration: underline;
+}
+
+
+/* Wrapper */
+
+#wrapper {
+}
+
+/* Page */
+
+#page {
+    width: 960px;
+    margin: 0 auto;
+    padding: 20px 5px;
+    background: #FFFFFF;
+}
+
+#page-bg {
+}
+
+/* Latest Post */
+
+#latest-post {
+    padding: 20px;
+    border: 1px solid #E7E7E7;
+}
+
+/* Content */
+
+#content {
+    /* float: left;
+     width: 700px;
+    */
+    padding-top: 20px;
+    padding-bottom: 20%;
+}
+
+.post {
+    padding-bottom: 15px;
+}
+
+.post h1 {
+    font-weight: normal;
+}
+
+.title {
+    height: 30px;
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    padding: 8px 0 0 20px;
+}
+
+.title a {
+    border-bottom: none;
+    color: #FFFFFF;
+}
+
+.title a:hover {
+    border-bottom: 1px dotted #000000;
+}
+
+.byline {
+    margin: -60px 20px 20px 20px;
+}
+
+.byline a {
+    color: #DC8700;
+}
+
+.tag {
+    padding: 0 15px;
+}
+
+.entry {
+    padding: 0 20px;
+}
+
+.entry p {
+    line-height: 200%;
+}
+
+.links {
+    padding: 4px 0px;
+    text-align: right;
+    font-weight: bold;
+}
+
+.links a {
+    border: none;
+}
+
+.links a:hover {
+}
+
+/* Sidebars */
+
+#sidebar1 {
+    float: left;
+    margin-top: -81px;
+    margin-left: -1px;
+}
+
+#sidebar2 {
+    float: right;
+}
+
+.sidebar {
+    float: left;
+    width: 240px;
+    padding: 0;
+    font-size: 12px;
+}
+
+.sidebar ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar li {
+    padding: 0 0 20px 0;
+}
+
+.sidebar span {
+    cursor: pointer;
+}
+
+.sidebar li ul {
+}
+
+.sidebar li li {
+    margin: 0 10px 0 10px;
+    padding: 3px 0px;
+}
+
+
+.sidebar li h2 {
+    height: 40px;
+    margin: 0 0 0 0;
+    padding: 20px 15px 0px 65px;
+    background: url(../images/img04.jpg) no-repeat left top;
+    letter-spacing: -1px;
+    font-size: 16px;
+    font-weight: normal;
+    color: #FFFFFF;
+}
+
+.sidebar a {
+}
+
+.sidebar a:hover {
+    text-decoration: underline;
+}
+
+/* Search */
+
+#searchform {
+    margin: 0;
+    padding: 0 0 0 0;
+}
+
+#searchform br {
+    display: none;
+}
+
+#searchform h2 {
+}
+
+#s {
+    margin: 10px 0px 0 15px;
+    padding: 2px 2px;
+    width: 180px;
+    height: 18px;
+    border: 1px solid #6F6E6E;
+    background: #FFFFFF;
+    font-size: 10px;
+    color: #000000;
+}
+
+#x {
+    margin: 0;
+    padding: 2px 5px;
+    height: 25px;
+    background: #CA8186;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #CCCCCC;
+}
+/* Calendar */
+
+#calendar_wrap {
+    padding: 0 15px;
+    text-align: center;
+}
+
+#calendar_wrap table {
+    width: 100%;
+}
+
+#calendar_wrap th {
+}
+
+#calendar_wrap td {
+}
+
+#calendar_wrap tfoot td {
+    border: none;
+}
+
+#calendar_wrap tfoot td#prev {
+    text-align: left;
+    font-weight: bold;
+    border: none;
+}
+
+#calendar_wrap tfoot td#prev a {
+    border: none;
+}
+
+#calendar_wrap tfoot td#next {
+    text-align: right;
+    font-weight: bold;
+    border: none;
+}
+
+#calendar_wrap tfoot td#next a {
+    border: none;
+}
+
+/* Footer */
+
+#footer {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    height: 60px;
+    width: 100%;
+}
+
+#footer p {
+    margin: 0;
+    padding: 25px 0 25px 25px;
+    text-align: center;
+    font-size: smaller;
+}
+
+#footer a {
+}
+
+#footer .link {
+    float: right;
+}
+
+#footer .copyright {
+    float: left;
+}
+
+.homeText {
+    line-height: 175%;
+}
+
+.homeMenu {
+    width:200px;
+    float:left;
+    margin-right:10px
+}
+
+.new {
+    background: url(../images/new-ico.gif) no-repeat 1%;
+}
+
+.ui-widget {
+    font-size: 98% !important;
+}
+
+/*.ui-growl {
+    top:115px;
+}*/
+
+.themeMenu {
+    overflow: auto;
+    height:300px;
+    width:200px;
+}
+
+.sidebar .wijmo-wijmenu a {
+    text-decoration: none !important;
+}
+
+.outputLabel {
+    font-weight: bold;
+}
+
+.ui-state-default .ui-icon-exerciseok {
+    background-image: url("../images/ok.png");
+}
+
+#btnOk1{
+    background-image: url("../images/button-check.png");
+    height:68px;
+    width:68px;
+}
+#btnOk2{
+    background-image: url("../images/button-check.png");
+    height:68px;
+    width:68px;
+}
+
+.identificationanswertable {
+    width: 100%;
+}
+
+.identificationanswertable {
+    width: 100%;
+}
+
+.identificationanswertable tr{
+    height: 50px;
+}
+
+.answerbutton span{
+    font-size: 15px;
+}
+.answerbuttonClicked span{
+    font-size: 15px;
+}
+
+.answerbuttonClicked{
+    border: 1px solid #79b7e7 !important;
+    color: #2e6e9e !important;
+    background: #D0E5F5 url("/co-clear/javax.faces.resource/images/ui-bg_glass_85_d0e5f5_1x400.png.xhtml?ln=primefaces-redmond") 50% 50% repeat-x !important;
+
+}
+
+
+.playPick {
+    width: 34px;
+    height: 34px;
+    background-image: url(../images/play.png) !important;
+    background-size:34px 34px;
+    position: static !important;
+    top: 0% !important;
+    left: 0% !important;
+    margin-left: 3.5px !important;
+    margin-bottom: 2px !important;
+    float: none;
+} 
+
+.play {
+    width: 64px;
+    height: 64px;
+    background-image: url(../images/play.png) !important;
+    position: static !important;
+    top: 0% !important;
+    left: 0% !important;
+    margin-left: 3.5px !important;
+    margin-bottom: 3px !important;
+    float: none;
+}  
+
+.image-same {
+    background-image: url(../images/perros.png) !important;
+    background-size:contain;
+    background-repeat:no-repeat;
+}
+
+.image-different{
+    background-image: url(../images/gatos.png) !important;
+    background-size:contain;
+    background-repeat:no-repeat;
+}
+
+.ui-growl {
+    top: 87% !important;
+    left: 40% !important;
+}
+
+#logo a:link:visited{
+    color:white;
+}
+
+#logo a{
+    color:white;
+}
+
+#form1:growlexercise_container{
+    top: 91% !important;
+    left: 40% !important;
+}
+#growlexercise_container{
+    top: 91% !important;
+    left: 40% !important;
+}
+
+.tablegrid tbody tr td {
+    vertical-align: top;
+    width: 50%;
+}
+
+.tablegridMemo tbody tr td {
+    vertical-align: top;
+    /*width: 80%;*/
+}
+
+.tablecards tbody tr td {
+    vertical-align: top;
+    width: 50%;
+}
+
+.tablegrid {
+    width: 100%;
+}
+.tablegridShort {
+    width: 100%;
+
+}
+.tablegridShort tbody tr td {
+    vertical-align: top;
+}
+
+.card {
+    width: 166px;
+    height: 200px;
+    background-image: url(../images/background.jpg);
+    border-width: 20px !important;
+    border-image: url(../images/border.jpg) 30 30 stretch !important; 
+    background-size:contain !important;
+    background-repeat:no-repeat !important; 
+}
+
+
+.col1 {
+    width: 50%;
+    vertical-align: top;
+}
+.col2 {
+    width: 50%;
+}
