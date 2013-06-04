@@ -36,9 +36,6 @@ AUTO_INCREMENT = 56
 DEFAULT CHARACTER SET = latin1
 COLLATE = latin1_spanish_ci;
 
-CREATE INDEX `answer_fk_id_answer_group` ON `coclear`.`answer` (`id_answer_group` ASC) ;
-
-
 -- -----------------------------------------------------
 -- Table `coclear`.`stimulus_group`
 -- -----------------------------------------------------
@@ -70,9 +67,6 @@ AUTO_INCREMENT = 1265
 DEFAULT CHARACTER SET = latin1
 COLLATE = latin1_spanish_ci;
 
-CREATE INDEX `stimulus_fk_id_stimulus_group` ON `coclear`.`stimulus` (`id_stimulus_group` ASC) ;
-
-
 -- -----------------------------------------------------
 -- Table `coclear`.`answer_stimulus_map`
 -- -----------------------------------------------------
@@ -93,11 +87,6 @@ CREATE  TABLE IF NOT EXISTS `coclear`.`answer_stimulus_map` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
-
-CREATE INDEX `answer_stimulus_map_fk_answer` ON `coclear`.`answer_stimulus_map` (`id_answer` ASC) ;
-
-CREATE INDEX `answer_stimulus_map_fk_stimulus` ON `coclear`.`answer_stimulus_map` (`id_stimulus` ASC) ;
-
 
 -- -----------------------------------------------------
 -- Table `coclear`.`task`
@@ -148,11 +137,6 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1
 COLLATE = latin1_spanish_ci;
 
-CREATE INDEX `default_group_task_fk_id_task` ON `coclear`.`default_group_task` (`id_task` ASC) ;
-
-CREATE INDEX `default_group_task_fk_id_user_group` ON `coclear`.`default_group_task` (`id_user_group` ASC) ;
-
-
 -- -----------------------------------------------------
 -- Table `coclear`.`exercise`
 -- -----------------------------------------------------
@@ -186,11 +170,6 @@ AUTO_INCREMENT = 1082
 DEFAULT CHARACTER SET = latin1
 COLLATE = latin1_spanish_ci;
 
-CREATE INDEX `exercise_stimulus_map_fk_id_excersice` ON `coclear`.`exercise_stimulus_map` (`id_excersice` ASC) ;
-
-CREATE INDEX `exercise_stimulus_map_fk_id_stimulus` ON `coclear`.`exercise_stimulus_map` (`id_stimulus` ASC) ;
-
-
 -- -----------------------------------------------------
 -- Table `coclear`.`possible_solution`
 -- -----------------------------------------------------
@@ -211,11 +190,6 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 15836
 DEFAULT CHARACTER SET = latin1
 COLLATE = latin1_spanish_ci;
-
-CREATE INDEX `possible_solution_fk_id_excersice` ON `coclear`.`possible_solution` (`id_excersice` ASC) ;
-
-CREATE INDEX `possible_solution_fk_id_answer` ON `coclear`.`possible_solution` (`id_answer` ASC) ;
-
 
 -- -----------------------------------------------------
 -- Table `coclear`.`user`
@@ -283,11 +257,6 @@ AUTO_INCREMENT = 69
 DEFAULT CHARACTER SET = latin1
 COLLATE = latin1_spanish_ci;
 
-CREATE INDEX `user_task_fk_id_user` ON `coclear`.`user_task` (`id_user` ASC) ;
-
-CREATE INDEX `user_task_fk_id_task` ON `coclear`.`user_task` (`id_task` ASC) ;
-
-
 -- -----------------------------------------------------
 -- Table `coclear`.`task_exercise`
 -- -----------------------------------------------------
@@ -307,11 +276,6 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 852
 DEFAULT CHARACTER SET = latin1
 COLLATE = latin1_spanish_ci;
-
-CREATE INDEX `task_exercise_fk_id_task` ON `coclear`.`task_exercise` (`id_task` ASC) ;
-
-CREATE INDEX `task_exercise_fk_id_excersice` ON `coclear`.`task_exercise` (`id_excersice` ASC) ;
-
 
 -- -----------------------------------------------------
 -- Table `coclear`.`result`
@@ -340,13 +304,6 @@ AUTO_INCREMENT = 51
 DEFAULT CHARACTER SET = latin1
 COLLATE = latin1_spanish_ci;
 
-CREATE INDEX `result_fk_id_answer` ON `coclear`.`result` (`id_answer` ASC) ;
-
-CREATE INDEX `result_fk_id_task_exercise` ON `coclear`.`result` (`id_task_exercise` ASC) ;
-
-CREATE INDEX `fk_result_user_task1` ON `coclear`.`result` (`id_user_task` ASC) ;
-
-
 -- -----------------------------------------------------
 -- Table `coclear`.`user_group_map`
 -- -----------------------------------------------------
@@ -364,11 +321,6 @@ CREATE  TABLE IF NOT EXISTS `coclear`.`user_group_map` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1
 COLLATE = latin1_spanish_ci;
-
-CREATE INDEX `user_group_map_fk_id_user` ON `coclear`.`user_group_map` (`id_user` ASC) ;
-
-CREATE INDEX `user_group_map_fk_id_user_group` ON `coclear`.`user_group_map` (`id_user_group` ASC) ;
-
 
 -- -----------------------------------------------------
 -- Table `coclear`.`tag`
@@ -412,11 +364,6 @@ CREATE  TABLE IF NOT EXISTS `coclear`.`tag_group_map` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_tag_group_map_tag1_idx` ON `coclear`.`tag_group_map` (`id_tag` ASC) ;
-
-CREATE INDEX `fk_tag_group_map_tag_group1_idx` ON `coclear`.`tag_group_map` (`id_tag_group` ASC) ;
-
-
 -- -----------------------------------------------------
 -- Table `coclear`.`tag_stimulus_map`
 -- -----------------------------------------------------
@@ -437,11 +384,6 @@ CREATE  TABLE IF NOT EXISTS `coclear`.`tag_stimulus_map` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_tag_stimulus_map_tag1_idx` ON `coclear`.`tag_stimulus_map` (`id_tag` ASC) ;
-
-CREATE INDEX `fk_tag_stimulus_map_stimulus1_idx` ON `coclear`.`tag_stimulus_map` (`id_stimulus` ASC) ;
-
-
 -- -----------------------------------------------------
 -- Table `coclear`.`tag_group_stimulus_map`
 -- -----------------------------------------------------
@@ -461,10 +403,6 @@ CREATE  TABLE IF NOT EXISTS `coclear`.`tag_group_stimulus_map` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
-CREATE INDEX `fk_tag_group_stimulus_map_tag_group1_idx` ON `coclear`.`tag_group_stimulus_map` (`id_tag_group` ASC) ;
-
-CREATE INDEX `fk_tag_group_stimulus_map_stimulus1_idx` ON `coclear`.`tag_group_stimulus_map` (`id_stimulus` ASC) ;
 
 USE `coclear` ;
 

@@ -8,7 +8,7 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.2.0.v20110202-r8913", date="2013-04-24T22:24:57")
+@Generated(value="EclipseLink-2.3.2.v20111125-r10461", date="2013-05-23T10:13:31")
 @StaticMetamodel(User.class)
 public class User_ { 
 
@@ -34,9 +34,9 @@ public class User_ {
     public static volatile SingularAttribute<User, Integer> educationalOrientationYears;
     public static volatile SingularAttribute<User, String> originDeafnes;
     public static volatile SingularAttribute<User, String> durationHearingLoss;
+    public static volatile SingularAttribute<User, String> cochlearImplantType;
     public static volatile ListAttribute<User, UserTask> userTaskList;
     public static volatile SingularAttribute<User, String> homeLanguages;
-    public static volatile SingularAttribute<User, String> cochlearImplantType;
     public static volatile SingularAttribute<User, Boolean> speechReading;
     public static volatile SingularAttribute<User, Date> implantationDate;
     public static volatile SingularAttribute<User, String> adminComments;

@@ -10,9 +10,13 @@ import java.io.BufferedWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -106,7 +110,7 @@ public class BriefingsController implements Serializable {
         if (userTasks == null) {
             userTasks = new ArrayList<UserTask>();
         }
-        for(UserTask userTask:userTasks){
+        for (UserTask userTask : userTasks) {
             userTask.getResultList();
         }
         return userTasks;
@@ -136,7 +140,7 @@ public class BriefingsController implements Serializable {
             //}
 
             StringWriter stringWriter = new StringWriter();
-            CSVWriter cSVWriter = new CSVWriter(new BufferedWriter(stringWriter),';');
+            CSVWriter cSVWriter = new CSVWriter(new BufferedWriter(stringWriter), ';');
             List<String[]> filas = new LinkedList<String[]>();
             if (userTask.getTask().getType() == 0) {
                 filas.add(new String[]{"Resultados"});
@@ -278,9 +282,11 @@ public class BriefingsController implements Serializable {
                 Result resultSelected = null;
                 Stimulus stimulus1 = null;
                 Stimulus stimulus2 = null;
+                List<TagBriefing> tagBriefings = new LinkedList<TagBriefing>();
+                filas.add(new String[]{"ID Ejercicio", "Nombre Ejercicio", "Primer estimulo", "Grupo primer estimulo", "Segundo estimulo", "Grupo segundo estimulo", "Respuesta selecionada", "Respuesta correcta"});
                 for (TaskExercise taskExercise : userTask.getTask().getTaskExerciseList()) {
+                    boolean fail=false;
                     exercise = taskExercise.getExercise();
-                    filas.add(new String[]{"ID Ejercicio", "Nombre Ejercicio", "Primer estimulo", "Grupo primer estimulo", "Segundo estimulo", "Grupo segundo estimulo", "Respuesta selecionada", "Respuesta correcta"});
                     for (PossibleSolution possibleSolution : exercise.getPossibleSolutionList()) {
                         if (possibleSolution.getCorrect()) {
                             possibleSolutionCorrect = possibleSolution;
@@ -293,11 +299,96 @@ public class BriefingsController implements Serializable {
                             break;
                         }
                     }
+                    
+                    if(resultSelected.getAnswer().getIdAnswer()!=possibleSolutionCorrect.getAnswer().getIdAnswer()){
+                        fail=true;
+                    }
+                    
                     stimulus1 = exercise.getExerciseStimulusMapList().get(0).getStimulus();
+                    for (TagStimulusMap tagStimulusMap : stimulus1.getTagStimulusMapList()) {
+                        TagBriefing tb=null;
+                        if(fail){
+                            for(TagBriefing tagBriefing:tagBriefings){
+                                if(tagBriefing.getTag()==tagStimulusMap.getIdTag()){
+                                    tb=tagBriefing;
+                                    tagBriefing.addError();
+                                    tagBriefing.addPresent();
+                                    break;
+                                }
+                            }
+                            if(tb==null){
+                                tagBriefings.add(new TagBriefing(tagStimulusMap.getIdTag(),1,1));
+                            }
+                        }else{
+                            for(TagBriefing tagBriefing:tagBriefings){
+                                if(tagBriefing.getTag()==tagStimulusMap.getIdTag()){
+                                    tb=tagBriefing;
+                                    tagBriefing.addPresent();
+                                    break;
+                                }
+                            }
+                            if(tb==null){
+                                tagBriefings.add(new TagBriefing(tagStimulusMap.getIdTag(),0,1));
+                            }
+                        }
+                        tb=null;
+                    }
                     stimulus2 = exercise.getExerciseStimulusMapList().get(1).getStimulus();
+                    for (TagStimulusMap tagStimulusMap : stimulus2.getTagStimulusMapList()) {
+                        TagBriefing tb=null;
+                        if(fail){
+                            for(TagBriefing tagBriefing:tagBriefings){
+                                if(tagBriefing.getTag()==tagStimulusMap.getIdTag()){
+                                    tb=tagBriefing;
+                                    tagBriefing.addError();
+                                    tagBriefing.addPresent();
+                                    break;
+                                }
+                            }
+                            if(tb==null){
+                                tagBriefings.add(new TagBriefing(tagStimulusMap.getIdTag(),1,1));
+                            }
+                        }else{
+                            for(TagBriefing tagBriefing:tagBriefings){
+                                if(tagBriefing.getTag()==tagStimulusMap.getIdTag()){
+                                    tb=tagBriefing;
+                                    tagBriefing.addPresent();
+                                    break;
+                                }
+                            }
+                            if(tb==null){
+                                tagBriefings.add(new TagBriefing(tagStimulusMap.getIdTag(),0,1));
+                            }
+                        }
+                        tb=null;
+                    }
                     filas.add(new String[]{"" + exercise.getIdExercise(), exercise.getName(), stimulus1.getName(), stimulus1.getStimulusGroup().getName(), stimulus2.getName(), stimulus2.getStimulusGroup().getName(), resultSelected.getAnswer().getName(), possibleSolutionCorrect.getAnswer().getName()});
                     //filas.add(new String[]{"", "Estimulo:", "" + stimulus.getIdStimulus(), stimulus.getName()});
                 }
+                
+                filas.add(new String[]{"Tags"});
+                filas.add(new String[]{""});
+                filas.add(new String[]{"Nombre","Aparece","Errores","% Error"});
+                Collections.sort(tagBriefings, new Comparator<TagBriefing>() {
+                    @Override
+                    public int compare(TagBriefing o1, TagBriefing o2) {
+                        return o1.getTag().getName().compareToIgnoreCase(o2.getTag().getName());
+                    }
+                });
+                for(TagBriefing tagBriefing:tagBriefings){
+                    filas.add(new String[]{tagBriefing.getTag().getName(),""+tagBriefing.getPresent(),""+tagBriefing.getErrors(),""+((tagBriefing.getErrors()*100)/tagBriefing.getPresent())+"%"});
+                }
+                //Tags
+                /*
+                 filas.add(new String[]{""});
+                 for(TaskExercise taskExercise:userTask.getTask().getTaskExerciseList()){
+                 for(ExerciseStimulusMap exerciseStimulusMap:taskExercise.getExercise().getExerciseStimulusMapList()){
+                 for(TagStimulusMap tagStimulusMap:exerciseStimulusMap.getStimulus().getTagStimulusMapList()){
+                            
+                 }
+                 }
+                 }
+                 */
 
 
 
@@ -327,15 +418,15 @@ public class BriefingsController implements Serializable {
                 filas.add(new String[]{"Matriz de confusión"});
                 filas.add(new String[]{"", "Respuesta seleccionada", "Mayor>Menor", "Menor<Mayor"});
                 filas.add(new String[]{"Respuesta Correcta"});
-                filas.add(new String[]{"Mayor>Menor", "", getBigBig(true,true,userTask), getBigBig(false,true,userTask)});
-                filas.add(new String[]{"Menor<Mayor", "", getBigBig(true,false,userTask), getBigBig(false,false,userTask)});
+                filas.add(new String[]{"Mayor>Menor", "", getBigBig(true, true, userTask), getBigBig(false, true, userTask)});
+                filas.add(new String[]{"Menor<Mayor", "", getBigBig(true, false, userTask), getBigBig(false, false, userTask)});
 
                 filas.add(new String[]{""});
                 filas.add(new String[]{"Matriz de confusión porcentaje"});
                 filas.add(new String[]{"", "Respuesta seleccionada", "Mayor>Menor", "Menor<Mayor"});
                 filas.add(new String[]{"Respuesta Correcta"});
-                filas.add(new String[]{"Mayor>Menor", "", getBigBigAsPercentage(true,true,userTask), getBigBigAsPercentage(false,true,userTask)});
-                filas.add(new String[]{"Menor<Mayor", "", getBigBigAsPercentage(true,false,userTask), getBigBigAsPercentage(false,false,userTask)});
+                filas.add(new String[]{"Mayor>Menor", "", getBigBigAsPercentage(true, true, userTask), getBigBigAsPercentage(false, true, userTask)});
+                filas.add(new String[]{"Menor<Mayor", "", getBigBigAsPercentage(true, false, userTask), getBigBigAsPercentage(false, false, userTask)});
 
                 filas.add(new String[]{""});
                 filas.add(new String[]{"Ejercicios:"});
@@ -344,9 +435,9 @@ public class BriefingsController implements Serializable {
                 PossibleSolution possibleSolutionCorrect = null;
                 Result resultSelected = null;
                 Stimulus stimulus1 = null;
+                filas.add(new String[]{"ID Ejercicio", "Nombre Ejercicio", "Primer estimulo", "Grupo primer estimulo", "Respuesta selecionada", "Respuesta correcta"});
                 for (TaskExercise taskExercise : userTask.getTask().getTaskExerciseList()) {
                     exercise = taskExercise.getExercise();
-                    filas.add(new String[]{"ID Ejercicio", "Nombre Ejercicio", "Primer estimulo", "Grupo primer estimulo", "Respuesta selecionada", "Respuesta correcta"});
                     for (PossibleSolution possibleSolution : exercise.getPossibleSolutionList()) {
                         if (possibleSolution.getCorrect()) {
                             possibleSolutionCorrect = possibleSolution;
@@ -560,7 +651,7 @@ public class BriefingsController implements Serializable {
     public void getCsvFromTask(Task task) {
         try {
             StringWriter stringWriter = new StringWriter();
-            CSVWriter cSVWriter = new CSVWriter(new BufferedWriter(stringWriter),';');
+            CSVWriter cSVWriter = new CSVWriter(new BufferedWriter(stringWriter), ';');
             List<String[]> filas = new LinkedList<String[]>();
             filas.add(new String[]{"Resultados"});
 
@@ -694,4 +785,53 @@ public class BriefingsController implements Serializable {
     private String getSmallBig(UserTask userTask) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
+}
+
+class TagBriefing {
+
+    private Tag tag;
+    private int errors = 0;
+    private int present = 0;
+
+    public TagBriefing(Tag tag,int errors,int present) {
+        this.tag = tag;
+        this.errors = errors;
+        this.present = present;
+    }
+    
+
+    
+    public Tag getTag() {
+        return tag;
+    }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
+    }
+
+    public int getErrors() {
+        return errors;
+    }
+
+    public void setErrors(int errors) {
+        this.errors = errors;
+    }
+
+    public int getPresent() {
+        return present;
+    }
+
+    public void setPresent(int present) {
+        this.present = present;
+    }
+    
+    public void addError() {
+        errors = errors + 1;
+    }
+
+    public void addPresent() {
+        present = present + 1;
+    }
+
+    
 }

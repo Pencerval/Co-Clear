@@ -124,7 +124,7 @@ public class PublicHomeController implements Serializable {
                 pieTotalDiscrimination.set("% Acierto", percent);
                 pieTotalDiscrimination.set("% Error", 100 - percent);
             }else{
-                pieTotalDiscrimination.set("No realizado", 100);
+                pieTotalDiscrimination.set("No realizado", 0);
             }
 
         }
@@ -144,7 +144,7 @@ public class PublicHomeController implements Serializable {
                 pieTotalEntonation.set("% Acierto", percent);
                 pieTotalEntonation.set("% Error", 100 - percent);
             }else{
-                pieTotalEntonation.set("No realizado", 100);
+                pieTotalEntonation.set("No realizado", 0);
             }
         }
         return pieTotalEntonation;
@@ -163,7 +163,7 @@ public class PublicHomeController implements Serializable {
                 pieTotalIdentification.set("% Acierto", percent);
                 pieTotalIdentification.set("% Error", 100 - percent);
             }else{
-                pieTotalIdentification.set("No realizado", 100);
+                pieTotalIdentification.set("No realizado", 0);
             }
         }
         return pieTotalIdentification;
